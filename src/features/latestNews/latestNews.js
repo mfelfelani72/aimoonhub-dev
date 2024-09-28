@@ -61,7 +61,8 @@ const latestNews = () => {
     }
   };
 
-  const handleScroll = async () => {
+  const handleGetNews = async () => {
+
     setLoading(true);
 
     if (newsPage !== 1) lodashGetNews();
@@ -88,7 +89,7 @@ const latestNews = () => {
           ))}
 
           <Button
-            onClick={() => handleScroll()}
+            onClick={() => handleGetNews()}
             className="m-3 bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme"
           >
             {t("more_ln")}
