@@ -99,7 +99,7 @@ const App = () => {
     const location = useLocation();
     const { pathname } = location;
 
-    const guestRoutes = ["/", "/news"];
+    const guestRoutes = ["/"];
 
     // const AdminRoutes = ["/dashboard"];
 
@@ -130,7 +130,7 @@ const App = () => {
                             <GuestRoutes />
                         </div>
 
-                        <Footer />
+                        {/* <Footer /> */}
                     </>
 
                     // load app for guest users }

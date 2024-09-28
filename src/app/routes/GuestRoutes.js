@@ -1,8 +1,9 @@
 import React, { useEffect, lazy, Suspense } from 'react'
 import { Routes, Route } from "react-router-dom";
 
-import AllNewsSkeleton from '../../features/news/AllNewsSkeleton';
-const LazyAllNews = lazy(() => import("../../features/news/allNews"))
+import LandingSkeleton from '../../features/core/LandingSkeleton';
+const LazyLanding = lazy(() => import("../../features/core/Landing.js"))
+
 
 const GuestRoutes = () => {
 
@@ -21,8 +22,7 @@ const GuestRoutes = () => {
     return (
 
         <Routes>
-            <Route path="/" element={<Suspense fallback={<AllNewsSkeleton />}><LazyAllNews /> </Suspense>}></Route>
-            <Route path="/news" element={<Suspense fallback={<AllNewsSkeleton />}><LazyAllNews /> </Suspense>}></Route>
+            <Route path="/" element={<Suspense fallback={<LandingSkeleton />}><LazyLanding /> </Suspense>}></Route>
         </Routes>
 
     )

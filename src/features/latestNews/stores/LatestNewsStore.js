@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 
-const useNewsStore = create((set) => ({
+const LatestNewsStore = create((set) => ({
 
     // News
 
@@ -11,4 +11,4 @@ const useNewsStore = create((set) => ({
     // News
 }))
 
-export default useNewsStore;
+export default LatestNewsStore;
