@@ -49,6 +49,7 @@ const en = {
   aimoonHub: "AimoonHub",
 
   more_ln: "More latest news",
+  l_cryptocurrency_n: "Last Cryptocurrency News",
 
   // CardRow
 };

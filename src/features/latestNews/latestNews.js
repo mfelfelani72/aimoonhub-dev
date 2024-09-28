@@ -83,7 +83,8 @@ const latestNews = () => {
   return (
     <>
       <div className="flex flex-row bg-B-V-bright dark:bg-DB-dim text-T-bright dark:text-DT-bright">
-        <div className="w-full">
+        <div className="w-full bg-slate-50 dark:bg-DB-dim">
+          <h2 className="p-2">{t("l_cryptocurrency_n")}</h2>
           {news.map((row, index) => (
             <CardRow row={row} key={index} />
           ))}

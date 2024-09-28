@@ -48,7 +48,7 @@ const fa = {
   relatedPair: "جفت‌ارزهای مرتبط",
   aimoonHub: "آیمون هاب",
   more_ln: "اخبار بیشتر",
-
+  l_cryptocurrency_n: "آخرین اخبار کریپتو",
   // CardRow
 
 };
