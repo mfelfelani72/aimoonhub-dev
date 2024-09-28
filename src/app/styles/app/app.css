@@ -1,0 +1,25 @@
+html {
+  @apply h-screen;
+  @apply w-screen;
+}
+
+body {
+  @apply h-full;
+  @apply w-full;
+  @apply overflow-x-hidden;
+
+  @apply overflow-y-scroll;
+}
+
+#root {
+  @apply h-full;
+  @apply w-full;  
+}
+
+.testi {
+
+  @apply h-full;
+  @apply w-full;
+
+
+}
