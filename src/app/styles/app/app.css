@@ -21,5 +21,13 @@ body {
   @apply h-full;
   @apply w-full;
 
-
 }
+
+.swiper-pagination {
+  top: 143px !important;
+
+  }
+
+  .swiper-pagination-bullet{
+    border-radius: 0% !important;
+  }
