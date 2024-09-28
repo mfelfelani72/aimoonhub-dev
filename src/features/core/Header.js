@@ -60,7 +60,7 @@ export function Header(...props) {
                             {/* language */}
 
                             {/* dark - light */}
-                            <div className="flex items-center ltr:border-l rtl:border-r border-slate-200 ltr:ml-3 ltr:pl-3 rtl:mr-3 rtl:pr-3 hover:cursor-pointer hover:text-color-theme dark:hover:text-D-color-theme" onClick={() => handleSwitchTheme()}>
+                            <div className="flex items-center ltr:pl-2 rtl:pr-2 hover:cursor-pointer hover:text-color-theme dark:hover:text-D-color-theme" onClick={() => handleSwitchTheme()}>
                                 <span className="hidden dark:block">
                                     <IoSunny />
                                 </span>
@@ -71,7 +71,7 @@ export function Header(...props) {
                             {/* dark - light */}
 
                             {/* login - register */}
-                            <ul className="flex items-center space-x-1 text-sm ">
+                            {/* <ul className="flex items-center space-x-1 text-sm ltr:ml-3 rtl:mr-3 ltr:border-r rtl:border-l border-slate-200">
                                 <li>
                                     <NavLink className="text-DT-bright hover:text-color-theme dark:hover:text-D-color-theme px-2" to="/login">
                                         {t('login')}
@@ -82,7 +82,7 @@ export function Header(...props) {
                                         {t('register')}
                                     </NavLink>
                                 </li>
-                            </ul>
+                            </ul> */}
                             {/* login - register */}
 
                         </div>
