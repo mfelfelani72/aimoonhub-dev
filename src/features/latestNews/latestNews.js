@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../../../utils/services/news/api.js";
 
 import Loader from "../core/components/Loader.jsx";
+import { useTranslation } from "react-i18next";
 
 import useAppStore from "../../app/stores/AppStore.js";
 
@@ -13,6 +14,9 @@ const lodash = require("lodash");
 const PAGE_NUMBER = 1;
 
 const latestNews = () => {
+
+  const { t } = useTranslation();
+
   const { setSidebarLink } = useAppStore((state) => ({
     setSidebarLink: state.setSidebarLink,
   }));
@@ -87,7 +91,7 @@ const latestNews = () => {
             onClick={() => handleScroll()}
             className="m-3 bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme"
           >
-            more latest news
+            {t("more_ln")}
           </Button>
           {loading && <Loader />}
         </div>

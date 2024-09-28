@@ -48,6 +48,8 @@ const en = {
   relatedPair: "Related pairs",
   aimoonHub: "AimoonHub",
 
+  more_ln: "More latest news",
+
   // CardRow
 };
 

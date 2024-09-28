@@ -47,6 +47,7 @@ const fa = {
   newScore: "رتبه خبر",
   relatedPair: "جفت‌ارزهای مرتبط",
   aimoonHub: "آیمون هاب",
+  more_ln: "اخبار بیشتر",
 
   // CardRow
 
