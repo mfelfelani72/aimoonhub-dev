@@ -32,7 +32,7 @@ export function Header(...props) {
 
     return (
         <>
-            <div className="fixed top-0 left-0 right-0 shadow-md dark:shadow-slate-500 z-10">
+            <div className="fixed top-0 left-0 right-0 shadow-md dark:shadow-slate-500 z-50">
 
                 {/* header */}
                 <header className="p-2 bg-gradient-to-b from-gray-600 to-black w-full">

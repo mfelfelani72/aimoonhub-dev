@@ -1,68 +1,73 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../../utils/services/news/api.js";
 
 import Loader from "../core/components/Loader.jsx";
 import { useTranslation } from "react-i18next";
 
 import useAppStore from "../../app/stores/AppStore.js";
+import useLatestNewsStore from "../../features/latestNews/stores/LatestNewsStore";
 
 import CardRow from "../core/components/CardRow.jsx";
 import Button from "../core/components/Button.jsx";
+
+import { getData } from "../../../utils/helpers/getData";
+import { LATEST_NEWS } from "../../app/constant/EndPoints";
 
 const lodash = require("lodash");
 
 const PAGE_NUMBER = 1;
 
 const latestNews = () => {
-
   const { t } = useTranslation();
 
   const { setSidebarLink } = useAppStore((state) => ({
     setSidebarLink: state.setSidebarLink,
   }));
 
-  const [news, setNews] = useState([]);
+  const { setLatestNewsData } = useLatestNewsStore((state) => ({
+    setLatestNewsData: state.setLatestNewsData,
+  }));
+
+  const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState();
 
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsSymbols, setNewsSymbols] = useState("all");
   const [newsFrom, setNewsFrom] = useState("1716373411");
   const [newsTo, setNewsTo] = useState("1725633001");
-  const [newsPageLimit, setNewsPageLimit] = useState(10);
+  const [newsPageLimit, setNewsPageLimit] = useState(20);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 
-  const data = {
-    category: newsCategory,
-    symbols: newsSymbols,
-    startDate: newsFrom,
-    // "endDate": newsTo,
-    page: newsPage,
-    pageLimit: newsPageLimit,
-  };
-
   const getNews = async () => {
-    try {
-      const result = await axios
-        .post(`/News/GetPaginatedData/`, data)
-        .then((response) => {
-          if (response.data.data.result) {
-            console.log(newsPage);
-            console.log("Fetch data done.");
+    const parameter = {
+      category: newsCategory,
+      symbols: newsSymbols,
+      startDate: newsFrom,
+      // "endDate": newsTo,
+      page: newsPage,
+      pageLimit: newsPageLimit,
+    };
 
-            setNews((prev) => {
-              return [...prev, ...response.data.data.result];
-            });
-            setNewsPage((prev) => prev + 1);
-            setLoading(false);
-          }
-        });
+    try {
+      getData(LATEST_NEWS, parameter).then((response) => {
+        if (response.data.data.result) {
+          console.log("Fetch data done.");
+
+          setLatestNewsData(response.data.data.result)
+
+          setNewsData((prev) => {
+            return [...prev, ...response.data.data.result];
+          });
+
+          setNewsPage((prev) => prev + 1);
+          setLoading(false);
+        }
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleGetNews = async () => {
-
     setLoading(true);
 
     if (newsPage !== 1) lodashGetNews();
@@ -73,19 +78,22 @@ const latestNews = () => {
   }, 100);
 
   useEffect(() => {
-    if (news.length == 0) getNews();
+    if (newsData.length == 0) {
+      getNews();
+      setNewsPage(2);
+      setNewsPageLimit(10);
+    }
 
     setSidebarLink("news");
 
-    // console.log(news);
-  }, [news, newsPage]);
+  }, [newsData, newsPage]);
 
   return (
     <>
-      <div className="flex flex-row bg-B-V-bright dark:bg-DB-dim text-T-bright dark:text-DT-bright">
+      <div className="flex flex-row bg-B-V-bright dark:bg-DB-dim text-T-bright dark:text-DT-bright relative z-10">
         <div className="w-full bg-slate-50 dark:bg-DB-dim">
           <h2 className="p-2">{t("l_cryptocurrency_n")}</h2>
-          {news.map((row, index) => (
+          {newsData.map((row, index) => (
             <CardRow row={row} key={index} />
           ))}
 
