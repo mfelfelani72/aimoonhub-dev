@@ -11,6 +11,7 @@ import avatar from "../../../assets/images/avatar.png";
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
 import { dateHelper } from "../../../utils/helpers/dateHelper.js";
+import ChartDoughnut from "./ChartDoughnut.js";
 
 const LatestAimoonNew = () => {
   const [newsData, setNewsData] = useState([]);
@@ -56,8 +57,8 @@ const LatestAimoonNew = () => {
   return (
     <>
       <div className="relative">
-        <div className="">
-          <img src={firstNew?.thImage} />
+        <div className="h-[16rem]">
+          <img className="h-full w-full" src={firstNew?.thImage} />
         </div>
         <div className="absolute top-0 left-0">
           <div className="relative border-b-[200rem] border-b-transparent border-l-[20rem] border-l-slate-500/90">
@@ -66,21 +67,30 @@ const LatestAimoonNew = () => {
             </div>
           </div>
         </div>
-        <div className="absolute right-0 bottom-0 m-4 h-[3.3rem] w-[22rem] border-D-color-theme rounded bg-white border-l-4 border-t-4">
-          <div className="flex flex-col">
-            <div className="flex flex-row pt-1 pl-1">
-              <img src={avatar} className="h-5 w-5 rounded-[30px]" />
-              <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
-            </div>
+        <div className="absolute right-0 bottom-0 m-2 h-[5rem] w-[22rem] border-D-color-theme rounded bg-white/70 border-l-4 border-t-4">
+          <div className="flex flex-row">
+            <div className="basis-1/2 flex flex-col">
+              <div className="flex flex-row pt-1 pl-1 ">
+                <img src={avatar} className="h-5 w-5 rounded-[30px]" />
+                <span className="px-1 text-[0.7rem]">{firstNew?.provider}</span>
+              </div>
 
-            <div className="flex flex-row pt-1 pl-1 items-center">
-              <div className="flex basis-1/2">
+              <div className="flex flex-row pt-1 pl-1 items-center ">
                 <img src={avatar} className="h-5 w-5 rounded-[30px]" />
                 <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
               </div>
 
-              <div className="basis-1/2 text-end">
-                <div className="pr-2 text-[0.7rem] text-slate-500">{dateHelper(firstNew?.pubDate)}</div>
+              <div className="pl-2 pt-2 text-[0.7rem] text-slate-500">
+                {dateHelper(firstNew?.pubDate)}
+              </div>
+            </div>
+
+            <div className="basis-1/2 flex flex-row">
+              <div className="basis-3/4 p-1">sadsad</div>
+              <div className="basis-1/4">
+                <div className="h-[4rem] w-[4rem]">
+                  <ChartDoughnut />
+                </div>
               </div>
             </div>
           </div>
