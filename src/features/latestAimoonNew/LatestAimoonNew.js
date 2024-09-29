@@ -10,6 +10,7 @@ import avatar from "../../../assets/images/avatar.png";
 
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
+import { dateHelper } from "../../../utils/helpers/dateHelper.js";
 
 const LatestAimoonNew = () => {
   const [newsData, setNewsData] = useState([]);
@@ -33,7 +34,7 @@ const LatestAimoonNew = () => {
           console.log("Fetch dataLlm done.");
           console.log(response.data.data.result);
           setNewsData(response.data.data.result);
-          setFirstNew(response.data.data.result[1]);
+          setFirstNew(response.data.data.result[0]);
           setOtherNews([
             response.data.data.result[1],
             response.data.data.result[2],
@@ -58,14 +59,20 @@ const LatestAimoonNew = () => {
         <div className="">
           <img src={firstNew?.thImage} />
         </div>
-        <div className="absolute top-0 left-0 h-[4rem] ">
+        <div className="absolute top-0 left-0">
           <div className="relative border-b-[200rem] border-b-transparent border-l-[20rem] border-l-slate-500/90">
-            <div className="absolute top-0 -left-[20rem] text-slate-50 text-[0.8rem] p-2 pr-5 font-bold text-justify">{firstNew?.summaryEn}</div>
+            <div className="absolute top-0 -left-[20rem] text-slate-50 text-[0.8rem] p-2 pr-5 font-bold text-justify">
+              {firstNew?.summaryEn}
+            </div>
           </div>
-          
         </div>
-        <div className="absolute right-0 bottom-0 m-1 h-[4rem] w-[22rem] border-D-color-theme rounded bg-white border-l-4 border-t-4">
+        <div className="absolute right-0 bottom-0 m-4 h-[3.3rem] w-[22rem] border-D-color-theme rounded bg-white border-l-4 border-t-4">
           <div className="flex flex-col">
+            <div className="flex flex-row pt-1 pl-1">
+              <img src={avatar} className="h-5 w-5 rounded-[30px]" />
+              <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
+            </div>
+
             <div className="flex flex-row pt-1 pl-1 items-center">
               <div className="flex basis-1/2">
                 <img src={avatar} className="h-5 w-5 rounded-[30px]" />
@@ -73,7 +80,7 @@ const LatestAimoonNew = () => {
               </div>
 
               <div className="basis-1/2 text-end">
-                <div className="pr-2 text-[0.8rem]">2 days ago</div>
+                <div className="pr-2 text-[0.7rem] text-slate-500">{dateHelper(firstNew?.pubDate)}</div>
               </div>
             </div>
           </div>
