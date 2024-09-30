@@ -18,6 +18,9 @@ const LatestAimoonNew = () => {
   const [firstNew, setFirstNew] = useState();
   const [otherNews, setOtherNews] = useState([]);
 
+  const [percentNewScore, setPercentNewScore] = useState();
+  const [classNameNewScore, setClassNameNewScore] = useState();
+
   const getNews = async () => {
     const parameter = {
       category: "cryptocurrencies",
@@ -49,15 +52,36 @@ const LatestAimoonNew = () => {
     }
   };
 
+  const setDetailsProgressBar = () => {
+    setPercentNewScore(
+      Math.max(firstNew?.Negative, firstNew?.Neutral, firstNew?.Positive)
+    );
+
+    if (
+      Math.max(firstNew?.Negative, firstNew?.Neutral, firstNew?.Positive) ===
+      firstNew?.Negative
+    )
+      setClassNameNewScore("text-rose-500 text-[0.8rem] text-center");
+    else if (
+      Math.max(firstNew?.Negative, firstNew?.Neutral, firstNew?.Positive) ===
+      firstNew?.Neutral
+    )
+      setClassNameNewScore("text-slate-500 text-[0.8rem] text-center");
+    else setClassNameNewScore("text-lime-500 text-[0.8rem] text-center");
+  };
+
   useEffect(() => {
     if (newsData.length == 0) getNews();
-  }, [newsData, firstNew, otherNews]);
 
-  let defaultImage = "https://flowbite.com/docs/images/blog/image-1.jpg";
+    setDetailsProgressBar();
+  }, [newsData, firstNew, otherNews, percentNewScore, classNameNewScore]);
+
+  let defaultImage =
+    "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
   return (
     <>
       <div className="relative">
-        <div className="h-[16rem]">
+        <div className="h-[10rem]">
           <img className="h-full w-full" src={firstNew?.thImage} />
         </div>
         <div className="absolute top-0 left-0">
@@ -67,7 +91,7 @@ const LatestAimoonNew = () => {
             </div>
           </div>
         </div>
-        <div className="absolute right-0 bottom-0 m-2 h-[5rem] w-[22rem] border-D-color-theme rounded bg-white/70 border-l-4 border-t-4">
+        {/* <div className="absolute right-0 bottom-0 m-2 h-[5rem] w-[22rem] border-D-color-theme rounded bg-white border-l-4 border-t-4">
           <div className="flex flex-row">
             <div className="basis-1/2 flex flex-col">
               <div className="flex flex-row pt-1 pl-1 ">
@@ -94,9 +118,75 @@ const LatestAimoonNew = () => {
               </div>
             </div>
           </div>
+        </div> */}
+      </div>
+      <div className="relative bg-slate-50 right-0 bottom-0 h-[5rem] w-full border-D-color-theme border-2 z-10">
+        <div className="flex flex-row">
+          <div className="basis-1/2 flex flex-col">
+            <div className="flex flex-row pt-1 pl-1 items-center">
+              <img src={avatar} className="h-5 w-5 rounded-[30px]" />
+              <span className="px-1 text-[0.7rem]">{firstNew?.provider}</span>
+              <span className="px-1 text-[0.7rem]">
+                {"( " +
+                  firstNew?.author_info["last_week_count"] +
+                  " | " +
+                  firstNew?.author_info["AvgNewsPERweek"] +
+                  " )"}
+              </span>
+            </div>
+
+            <div className="flex flex-row pt-1 pl-1 items-center">
+              <img src={avatar} className="h-5 w-5 rounded-[30px]" />
+              <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
+              <span className="px-1 text-[0.7rem]">
+                {"( " +
+                  firstNew?.provider_info["last_week_count"] +
+                  " | " +
+                  firstNew?.provider_info["AvgNewsPERweek"] +
+                  " )"}
+              </span>
+            </div>
+            {firstNew?.symbols && firstNew?.symbols[0] ? (
+              <div className="flex flex-row pl-1 items-center">
+                <div className="">
+                  <img className="h-[1.6rem] w-[1.6rem]" src={defaultImage} />
+                </div>
+                <div className="">
+                  <img className="h-[1.6rem] w-[1.6rem]" src={defaultImage} />
+                </div>
+                <div className="">
+                  <img className="h-[1.6rem] w-[1.6rem]" src={defaultImage} />
+                </div>
+                <div className="flex flex-row text-slate-700 items-center pt-1">
+                  {firstNew?.symbols.map((row, index) => (
+                    <div className="px-1 text-[0.7rem]" key={index} >{row}</div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div className="basis-1/2 flex flex-row-reverse">
+            <div className="basis-3/4 p-1 ">
+              <div className="flex flex-col">
+                <div>das</div>
+                <div>das</div>
+                <div className="pl-2 pt-2 text-[0.7rem] text-slate-500 text-end">
+                  {dateHelper(firstNew?.pubDate)}
+                </div>
+              </div>
+            </div>
+            <div className="basis-1/4 -mt-2">
+              <div className="h-[4rem] w-[4rem]">
+                <ChartDoughnut />
+              </div>
+              <div className={classNameNewScore}>{percentNewScore * 100}%</div>
+            </div>
+          </div>
         </div>
       </div>
-
       <div className="bg-slate-50 p-4 pb-0 relative z-10">
         <Swiper
           slidesPerView={"auto"}

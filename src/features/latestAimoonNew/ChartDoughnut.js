@@ -14,7 +14,7 @@ const ChartDoughnut = () => {
         datasets: [
           {
             label: "Traffic",
-            data: [20, 11, 5],
+            data: [0.1, 0.8, 0.1],
             backgroundColor: [
               "rgba(255, 0, 0, 0.5)",
               "rgba(0, 255, 0, 0.5)",
