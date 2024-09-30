@@ -159,7 +159,9 @@ const LatestAimoonNew = () => {
                 </div>
                 <div className="flex flex-row text-slate-700 items-center pt-1">
                   {firstNew?.symbols.map((row, index) => (
-                    <div className="px-1 text-[0.7rem]" key={index} >{row}</div>
+                    <div className="px-1 text-[0.7rem]" key={index}>
+                      {row}
+                    </div>
                   ))}
                 </div>
               </div>
@@ -168,22 +170,39 @@ const LatestAimoonNew = () => {
             )}
           </div>
 
-          <div className="basis-1/2 flex flex-row-reverse">
-            <div className="basis-3/4 p-1 ">
-              <div className="flex flex-col">
-                <div>das</div>
-                <div>das</div>
-                <div className="pl-2 pt-2 text-[0.7rem] text-slate-500 text-end">
-                  {dateHelper(firstNew?.pubDate)}
-                </div>
-              </div>
-            </div>
-            <div className="basis-1/4 -mt-2">
+          <div className="basis-1/2 flex flex-row">
+          <div className="basis-1/4 -mt-2">
               <div className="h-[4rem] w-[4rem]">
                 <ChartDoughnut />
               </div>
               <div className={classNameNewScore}>{percentNewScore * 100}%</div>
             </div>
+
+            <div className="basis-3/4 p-1 ">
+              <div className="flex flex-col my-2">
+                <div className="flex flex-row">
+                  <div className="bg-[#FF0000]/50 w-[2rem] h-[1rem] mx-2 px-1 rounded-sm"></div>
+                  <div className="bg-[#404040]/50 w-[2rem] mx-2 px-1  rounded-sm"></div>
+                  <div className="bg-[#00ff00]/50 w-[2rem] mx-2 px-1  rounded-sm"></div>
+                </div>
+                <div className="flex flex-row pt-1">
+                  <div className="text-[#FF0000]/50 text-[0.7rem] w-[2rem] mx-2 px-1">
+                    0.20
+                  </div>
+                  <div className="text-[#404040]/50 text-[0.7rem] w-[2rem] mx-2 px-1">
+                    0.45
+                  </div>
+                  <div className="text-lime-500 text-[0.7rem] w-[2rem] mx-2 px-1">
+                    0.35
+                  </div>
+                </div>
+
+                <div className="pl-2 pt-3 text-[0.7rem] text-slate-500 text-end">
+                  {dateHelper(firstNew?.pubDate)}
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
