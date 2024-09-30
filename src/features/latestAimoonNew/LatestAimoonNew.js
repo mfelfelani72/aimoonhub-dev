@@ -10,17 +10,13 @@ import avatar from "../../../assets/images/avatar.png";
 
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
-import { dateHelper } from "../../../utils/helpers/dateHelper.js";
-import ChartDoughnut from "./ChartDoughnut.js";
-import BarChart from "./BarChart.js";
+
+import DetailsBox from "./components/DetailsBox.jsx";
 
 const LatestAimoonNew = () => {
   const [newsData, setNewsData] = useState([]);
   const [firstNew, setFirstNew] = useState();
   const [otherNews, setOtherNews] = useState([]);
-
-  const [percentNewScore, setPercentNewScore] = useState();
-  const [classNameNewScore, setClassNameNewScore] = useState();
 
   const getNews = async () => {
     const parameter = {
@@ -53,34 +49,14 @@ const LatestAimoonNew = () => {
     }
   };
 
-  const setDetailsProgressBar = () => {
-    setPercentNewScore(
-      Math.max(firstNew?.Negative, firstNew?.Neutral, firstNew?.Positive)
-    );
-
-    if (
-      Math.max(firstNew?.Negative, firstNew?.Neutral, firstNew?.Positive) ===
-      firstNew?.Negative
-    )
-      setClassNameNewScore("text-rose-500 text-[0.8rem] text-center");
-    else if (
-      Math.max(firstNew?.Negative, firstNew?.Neutral, firstNew?.Positive) ===
-      firstNew?.Neutral
-    )
-      setClassNameNewScore("text-slate-500 text-[0.8rem] text-center");
-    else setClassNameNewScore("text-lime-500 text-[0.8rem] text-center");
-  };
-
   useEffect(() => {
     if (newsData.length == 0) getNews();
+  }, [newsData, firstNew, otherNews]);
 
-    setDetailsProgressBar();
-  }, [newsData, firstNew, otherNews, percentNewScore, classNameNewScore]);
-
-  let defaultImage =
-    "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
   return (
     <>
+      {/* summary */}
+
       <div className="relative">
         <div className="h-[10rem]">
           <img className="h-full w-full" src={firstNew?.thImage} />
@@ -92,136 +68,15 @@ const LatestAimoonNew = () => {
             </div>
           </div>
         </div>
-        {/* <div className="absolute right-0 bottom-0 m-2 h-[5rem] w-[22rem] border-D-color-theme rounded bg-white border-l-4 border-t-4">
-          <div className="flex flex-row">
-            <div className="basis-1/2 flex flex-col">
-              <div className="flex flex-row pt-1 pl-1 ">
-                <img src={avatar} className="h-5 w-5 rounded-[30px]" />
-                <span className="px-1 text-[0.7rem]">{firstNew?.provider}</span>
-              </div>
-
-              <div className="flex flex-row pt-1 pl-1 items-center ">
-                <img src={avatar} className="h-5 w-5 rounded-[30px]" />
-                <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
-              </div>
-
-              <div className="pl-2 pt-2 text-[0.7rem] text-slate-500">
-                {dateHelper(firstNew?.pubDate)}
-              </div>
-            </div>
-
-            <div className="basis-1/2 flex flex-row">
-              <div className="basis-3/4 p-1">sadsad</div>
-              <div className="basis-1/4">
-                <div className="h-[4rem] w-[4rem]">
-                  <ChartDoughnut />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
-      <div className="relative bg-slate-50 right-0 bottom-0 h-[6rem] border-b-2 z-10">
-        <div className="flex flex-col">
-          <div className="basis-2/3">
-            <div className="flex flex-row items-center">
-              <div className="basis-4/5 px-2">
-                <div className="flex flex-row pl-1 items-center">
-                  <img src={avatar} className="h-5 w-5 rounded-[30px]" />
-                  <span className="px-1 text-[0.7rem]">
-                    {firstNew?.provider}
-                  </span>
-                  <span className="px-1 text-[0.7rem]">
-                    {"( " +
-                      firstNew?.author_info["last_week_count"] +
-                      " / " +
-                      firstNew?.author_info["AvgNewsPERweek"] +
-                      " )"}
-                  </span>
-                  <div className="flex flex-col my-1 mx-2">
-                    <div
-                      style={{
-                        width: `${
-                          (firstNew?.author_info["last_week_count"] /
-                            firstNew?.author_info["AvgNewsPERweek"]) *
-                          100
-                        }%`,
-                      }}
-                      className="bg-teal-200 h-[0.5rem]"
-                    ></div>
-                    <div className="bg-teal-500 h-[0.5rem] w-[8rem]"></div>
-                  </div>
-                </div>
 
-                <div className="flex flex-row pt-1 pl-1 items-center">
-                  <img src={avatar} className="h-5 w-5 rounded-[30px]" />
-                  <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
-                  <span className="px-1 text-[0.7rem]">
-                    {"( " +
-                      firstNew?.provider_info["last_week_count"] +
-                      " / " +
-                      firstNew?.provider_info["AvgNewsPERweek"] +
-                      " )"}
-                  </span>
-                  <div className="flex flex-col my-1 mx-2">
-                    <div
-                      style={{
-                        width: `${
-                          (firstNew?.provider_info["last_week_count"] /
-                            firstNew?.provider_info["AvgNewsPERweek"]) *
-                          100
-                        }%`,
-                      }}
-                      className="bg-fuchsia-200 h-[0.5rem]"
-                    ></div>
-                    <div className="bg-fuchsia-500 h-[0.5rem] w-[8rem]"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="basis-1/5 -mt-1">
-                <div className="h-[3.6rem] w-[3.6rem] mx-auto">
-                  <ChartDoughnut />
-                </div>
-                <div className={classNameNewScore}>
-                  {percentNewScore * 100}%
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="basis-1/3">
-          <div className="flex flex-row px-2">
-            <div className="basis-2/3">
-              {firstNew?.symbols && firstNew?.symbols[0] ? (
-                <div className="flex flex-row items-center">
-                  {firstNew?.symbols.map((row, index) => (
-                    <div className="" key={index}>
-                      <img
-                        className="h-[1.25rem] w-[1.25rem]"
-                        src={defaultImage}
-                      />
-                    </div>
-                  ))}
-                  <div className="flex flex-row text-slate-700 items-center pt-1">
-                    {firstNew?.symbols.map((row, index) => (
-                      <div className="px-1 text-[0.7rem]" key={index}>
-                        {row}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className="basis-1/3 ">
-              <div className="pt-1 text-[0.7rem] text-slate-500 text-end">
-                {dateHelper(firstNew?.pubDate)}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* summary */}
+
+      {/* details box */}
+
+      {firstNew && <DetailsBox data={firstNew} />}
+
+      {/* details box */}
 
       <div className="bg-slate-50 p-4 pb-0 relative z-10">
         <Swiper
@@ -251,26 +106,7 @@ const LatestAimoonNew = () => {
                     </div>
                   </div>
                   <div className="absolute right-0 bottom-2 m-2 mb-6 h-[5rem] w-[20rem] border-D-color-theme rounded bg-white border-l-4 border-t-4">
-                    <div className="flex flex-col pb-1">
-                      <h2 className="pt-2 px-2 font-bold text-[0.5rem]">
-                        {row.summaryEn}
-                      </h2>
-                      <div className="flex flex-row pt-1 pl-2 items-center">
-                        <div className="flex basis-1/2">
-                          <img
-                            src={avatar}
-                            className="h-5 w-5 rounded-[30px]"
-                          />
-                          <span className="px-1 text-[0.7rem]">
-                            {row.author}
-                          </span>
-                        </div>
-
-                        <div className="basis-1/2 text-end">
-                          <div className="pr-2 text-[0.8rem]">2 days ago</div>
-                        </div>
-                      </div>
-                    </div>
+                    <DetailsBox data={row} />
                   </div>
                 </div>
               </div>
