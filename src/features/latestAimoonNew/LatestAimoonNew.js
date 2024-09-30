@@ -197,7 +197,7 @@ const LatestAimoonNew = () => {
                   {firstNew?.symbols.map((row, index) => (
                     <div className="" key={index}>
                       <img
-                        className="h-[1.3rem] w-[1.3rem]"
+                        className="h-[1.25rem] w-[1.25rem]"
                         src={defaultImage}
                       />
                     </div>
