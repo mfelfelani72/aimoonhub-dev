@@ -12,6 +12,7 @@ import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
 import { dateHelper } from "../../../utils/helpers/dateHelper.js";
 import ChartDoughnut from "./ChartDoughnut.js";
+import BarChart from "./BarChart.js";
 
 const LatestAimoonNew = () => {
   const [newsData, setNewsData] = useState([]);
@@ -137,9 +138,13 @@ const LatestAimoonNew = () => {
                       firstNew?.author_info["AvgNewsPERweek"] +
                       " )"}
                   </span>
+                  <div className="flex flex-col my-1">
+                    <div className="bg-rose-300 h-[0.5rem] w-[2rem]"></div>
+                    <div className="bg-lime-300 h-[0.5rem] w-[4rem]"></div>
+                  </div>
                 </div>
 
-                <div className="flex flex-row pt-1 pl-1 items-center mt-2">
+                <div className="flex flex-row pt-1 pl-1 items-center mt-1">
                   <img src={avatar} className="h-5 w-5 rounded-[30px]" />
                   <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
                   <span className="px-1 text-[0.7rem]">
@@ -149,6 +154,10 @@ const LatestAimoonNew = () => {
                       firstNew?.provider_info["AvgNewsPERweek"] +
                       " )"}
                   </span>
+                  <div className="flex flex-col my-1">
+                    <div className="bg-rose-300 h-[0.5rem] w-[3rem]"></div>
+                    <div className="bg-lime-300 h-[0.5rem] w-[7rem]"></div>
+                  </div>
                 </div>
               </div>
               <div className="basis-1/5 -mt-1">
