@@ -134,29 +134,47 @@ const LatestAimoonNew = () => {
                   <span className="px-1 text-[0.7rem]">
                     {"( " +
                       firstNew?.author_info["last_week_count"] +
-                      " | " +
+                      " / " +
                       firstNew?.author_info["AvgNewsPERweek"] +
                       " )"}
                   </span>
-                  <div className="flex flex-col my-1">
-                    <div className="bg-rose-300 h-[0.5rem] w-[2rem]"></div>
-                    <div className="bg-lime-300 h-[0.5rem] w-[4rem]"></div>
+                  <div className="flex flex-col my-1 mx-2">
+                    <div
+                      style={{
+                        width: `${
+                          (firstNew?.author_info["last_week_count"] /
+                            firstNew?.author_info["AvgNewsPERweek"]) *
+                          100
+                        }%`,
+                      }}
+                      className="bg-teal-200 h-[0.5rem]"
+                    ></div>
+                    <div className="bg-teal-500 h-[0.5rem] w-[7rem]"></div>
                   </div>
                 </div>
 
-                <div className="flex flex-row pt-1 pl-1 items-center mt-1">
+                <div className="flex flex-row pt-1 pl-1 items-center">
                   <img src={avatar} className="h-5 w-5 rounded-[30px]" />
                   <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
                   <span className="px-1 text-[0.7rem]">
                     {"( " +
                       firstNew?.provider_info["last_week_count"] +
-                      " | " +
+                      " / " +
                       firstNew?.provider_info["AvgNewsPERweek"] +
                       " )"}
                   </span>
-                  <div className="flex flex-col my-1">
-                    <div className="bg-rose-300 h-[0.5rem] w-[3rem]"></div>
-                    <div className="bg-lime-300 h-[0.5rem] w-[7rem]"></div>
+                  <div className="flex flex-col my-1 mx-2">
+                    <div
+                      style={{
+                        width: `${
+                          (firstNew?.provider_info["last_week_count"] /
+                            firstNew?.provider_info["AvgNewsPERweek"]) *
+                          100
+                        }%`,
+                      }}
+                      className="bg-fuchsia-200 h-[0.5rem]"
+                    ></div>
+                    <div className="bg-fuchsia-500 h-[0.5rem] w-[7rem]"></div>
                   </div>
                 </div>
               </div>
