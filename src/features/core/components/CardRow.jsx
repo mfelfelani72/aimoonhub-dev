@@ -58,28 +58,12 @@ const CardRow = (props) => {
               {" "}
               {props.row.provider}
             </span>
-            <span className="text-sm">
-              {" "}
-              {"( " +
-                props.row.provider_info["last_week_count"] +
-                " | " +
-                props.row.provider_info["AvgNewsPERweek"] +
-                " )"}
-            </span>
           </div>
 
           {/* author */}
           <div>
             <span className="text-sm">{t("author")}</span>
             <span className="px-1 text-sm font-bold"> {props.row.author}</span>
-            <span className="text-sm font-bold">
-              {" "}
-              {"( " +
-                props.row.author_info["last_week_count"] +
-                " | " +
-                props.row.author_info["AvgNewsPERweek"] +
-                " )"}
-            </span>
           </div>
         </div>
       </div>
