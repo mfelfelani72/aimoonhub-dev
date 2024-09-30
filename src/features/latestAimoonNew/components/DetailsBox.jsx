@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import avatar from "../../../../assets/images/avatar.png";
 
-import ChartDoughnut from "../ChartDoughnut.js";
+import ChartDoughnut from "../../core/components/ChartDoughnut.jsx";
 import { dateHelper } from "../../../../utils/helpers/dateHelper.js";
 import { cn } from "../../../../utils/lib/cn.js";
 
@@ -114,7 +114,14 @@ function DetailsBox(props) {
               </div>
               <div className="basis-1/5 -mt-1">
                 <div className="h-[3.6rem] w-[3.6rem] mx-auto">
-                  <ChartDoughnut />
+                  <ChartDoughnut
+                    data={[props.data?.Negative, props.data?.Positive, props.data?.Neutral]}
+                    colors={[
+                      "rgba(255, 0, 0, 0.5)",
+                      "rgba(0, 255, 0, 0.5)",
+                      "rgba(64, 64, 64, 0.5)",
+                    ]}
+                  />
                 </div>
                 <div className={classNameNewScore}>
                   {percentNewScore * 100}%
