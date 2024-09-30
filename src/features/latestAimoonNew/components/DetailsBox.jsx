@@ -1,28 +1,34 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import avatar from "../../../../assets/images/avatar.png";
 
 import ChartDoughnut from "../ChartDoughnut.js";
 import { dateHelper } from "../../../../utils/helpers/dateHelper.js";
+import { cn } from "../../../../utils/lib/cn.js";
 
 function DetailsBox(props) {
   const [percentNewScore, setPercentNewScore] = useState();
   const [classNameNewScore, setClassNameNewScore] = useState();
 
   const setDetailsProgressBar = () => {
-    
     setPercentNewScore(
       Math.max(props.data?.Negative, props.data?.Neutral, props.data?.Positive)
     );
 
     if (
-      Math.max(props.data?.Negative, props.data?.Neutral, props.data?.Positive) ===
-      props.data?.Negative
+      Math.max(
+        props.data?.Negative,
+        props.data?.Neutral,
+        props.data?.Positive
+      ) === props.data?.Negative
     )
       setClassNameNewScore("text-rose-500 text-[0.8rem] text-center");
     else if (
-      Math.max(props.data?.Negative, props.data?.Neutral, props.data?.Positive) ===
-      props.data?.Neutral
+      Math.max(
+        props.data?.Negative,
+        props.data?.Neutral,
+        props.data?.Positive
+      ) === props.data?.Neutral
     )
       setClassNameNewScore("text-slate-500 text-[0.8rem] text-center");
     else setClassNameNewScore("text-lime-500 text-[0.8rem] text-center");
@@ -30,7 +36,6 @@ function DetailsBox(props) {
 
   useEffect(() => {
     setDetailsProgressBar();
-    console.log(props);
   }, [percentNewScore, classNameNewScore]);
 
   let defaultImage =
@@ -38,7 +43,7 @@ function DetailsBox(props) {
 
   return (
     <>
-      <div className="relative bg-slate-50 right-0 bottom-0 h-[6rem] border-b-2 z-10">
+      <div className="relative bg-slate-50 right-0 bottom-0 h-[6rem] z-10">
         <div className="flex flex-col">
           <div className="basis-2/3">
             <div className="flex flex-row items-center">
@@ -66,7 +71,12 @@ function DetailsBox(props) {
                       }}
                       className="bg-teal-200 h-[0.5rem]"
                     ></div>
-                    <div className="bg-teal-500 h-[0.5rem] w-[7rem]"></div>
+                    <div
+                      className={cn(
+                        "bg-teal-500 h-[0.5rem]",
+                        props.lineChartWidth
+                      )}
+                    ></div>
                   </div>
                 </div>
 
@@ -93,7 +103,12 @@ function DetailsBox(props) {
                       }}
                       className="bg-fuchsia-200 h-[0.5rem]"
                     ></div>
-                    <div className="bg-fuchsia-500 h-[0.5rem] w-[7rem]"></div>
+                    <div
+                      className={cn(
+                        "bg-fuchsia-500 h-[0.5rem]",
+                        props.lineChartWidth
+                      )}
+                    ></div>
                   </div>
                 </div>
               </div>

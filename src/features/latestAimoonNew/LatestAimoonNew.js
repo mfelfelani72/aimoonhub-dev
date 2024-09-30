@@ -74,11 +74,11 @@ const LatestAimoonNew = () => {
 
       {/* details box */}
 
-      {firstNew && <DetailsBox data={firstNew} />}
+      {firstNew && <DetailsBox data={firstNew} lineChartWidth="w-[7rem]" />}
 
       {/* details box */}
 
-      <div className="bg-slate-50 p-4 pb-0 relative z-10">
+      <div className="bg-slate-50 p-4 pb-0 relative border-t-2 z-10">
         <Swiper
           slidesPerView={"auto"}
           spaceBetween={30}
@@ -96,18 +96,21 @@ const LatestAimoonNew = () => {
         >
           {otherNews.map((row, index) => (
             <SwiperSlide row={row} key={index}>
-              <div className="relative h-[10rem]">
-                <div className="h-[8.5rem]">
-                  <img className="h-[8.5rem] w-full" src={row.thImage} />
-
+              <div className="relative h-[18rem] border rounded-lg">
+                <div className="h-[12rem]">
+                  <img
+                    className="h-[12rem] w-full border border-transparent rounded-lg"
+                    src={row.thImage}
+                  />
+                  <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">{firstNew?.summaryEn}</div>
                   <div className="absolute right-0 top-0 m-2 bg-D-color-theme">
                     <div className="p-[0.2rem] text-[0.8rem] font-bold text-white">
                       News
                     </div>
                   </div>
-                  <div className="absolute right-0 bottom-2 m-2 mb-6 h-[5rem] w-[20rem] border-D-color-theme rounded bg-white border-l-4 border-t-4">
-                    <DetailsBox data={row} />
-                  </div>
+                </div>
+                <div className="absolute top-[9rem] w-full">
+                  <DetailsBox data={row} lineChartWidth="w-[5rem]" />
                 </div>
               </div>
             </SwiperSlide>
