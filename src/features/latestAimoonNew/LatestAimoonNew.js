@@ -149,7 +149,7 @@ const LatestAimoonNew = () => {
                       }}
                       className="bg-teal-200 h-[0.5rem]"
                     ></div>
-                    <div className="bg-teal-500 h-[0.5rem] w-[7rem]"></div>
+                    <div className="bg-teal-500 h-[0.5rem] w-[8rem]"></div>
                   </div>
                 </div>
 
@@ -174,12 +174,12 @@ const LatestAimoonNew = () => {
                       }}
                       className="bg-fuchsia-200 h-[0.5rem]"
                     ></div>
-                    <div className="bg-fuchsia-500 h-[0.5rem] w-[7rem]"></div>
+                    <div className="bg-fuchsia-500 h-[0.5rem] w-[8rem]"></div>
                   </div>
                 </div>
               </div>
               <div className="basis-1/5 -mt-1">
-                <div className="h-[3rem] w-[3rem] mx-auto">
+                <div className="h-[3.6rem] w-[3.6rem] mx-auto">
                   <ChartDoughnut />
                 </div>
                 <div className={classNameNewScore}>
@@ -197,7 +197,7 @@ const LatestAimoonNew = () => {
                   {firstNew?.symbols.map((row, index) => (
                     <div className="" key={index}>
                       <img
-                        className="h-[1.6rem] w-[1.6rem]"
+                        className="h-[1.3rem] w-[1.3rem]"
                         src={defaultImage}
                       />
                     </div>
@@ -215,7 +215,7 @@ const LatestAimoonNew = () => {
               )}
             </div>
             <div className="basis-1/3 ">
-              <div className="pt-3 text-[0.7rem] text-slate-500 text-end">
+              <div className="pt-1 text-[0.7rem] text-slate-500 text-end">
                 {dateHelper(firstNew?.pubDate)}
               </div>
             </div>
