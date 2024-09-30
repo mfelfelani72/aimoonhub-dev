@@ -52,7 +52,7 @@ const latestNews = () => {
         if (response.data.data.result) {
           console.log("Fetch data done.");
 
-          setLatestNewsData(response.data.data.result)
+          setLatestNewsData(response.data.data.result);
 
           setNewsData((prev) => {
             return [...prev, ...response.data.data.result];
@@ -85,7 +85,6 @@ const latestNews = () => {
     }
 
     setSidebarLink("news");
-
   }, [newsData, newsPage]);
 
   return (
@@ -96,13 +95,15 @@ const latestNews = () => {
           {newsData.map((row, index) => (
             <CardRow row={row} key={index} />
           ))}
+          <div className="text-right">
+            <Button
+              onClick={() => handleGetNews()}
+              className="m-3 bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme"
+            >
+              {t("more_ln")}
+            </Button>
+          </div>
 
-          <Button
-            onClick={() => handleGetNews()}
-            className="m-3 bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme"
-          >
-            {t("more_ln")}
-          </Button>
           {loading && <Loader />}
         </div>
       </div>

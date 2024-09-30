@@ -120,82 +120,92 @@ const LatestAimoonNew = () => {
           </div>
         </div> */}
       </div>
-      <div className="relative bg-slate-50 right-0 bottom-0 h-[6rem] border-b-2 z-10">
-        <div className="flex flex-col">
-          <div className="basis-2/3">
-            <div className="flex flex-row items-center">
-              <div className="basis-4/5 px-2">
-                <div className="flex flex-row pl-1 items-center">
-                  <img src={avatar} className="h-5 w-5 rounded-[30px]" />
-                  <span className="px-1 text-[0.7rem]">
-                    {firstNew?.provider}
-                  </span>
-                  <span className="px-1 text-[0.7rem]">
-                    {"( " +
-                      firstNew?.author_info["last_week_count"] +
-                      " | " +
-                      firstNew?.author_info["AvgNewsPERweek"] +
-                      " )"}
-                  </span>
-                </div>
-
-                <div className="flex flex-row pt-1 pl-1 items-center mt-2">
-                  <img src={avatar} className="h-5 w-5 rounded-[30px]" />
-                  <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
-                  <span className="px-1 text-[0.7rem]">
-                    {"( " +
-                      firstNew?.provider_info["last_week_count"] +
-                      " | " +
-                      firstNew?.provider_info["AvgNewsPERweek"] +
-                      " )"}
-                  </span>
-                </div>
-              </div>
-              <div className="basis-1/5 -mt-1">
-                <div className="h-[3rem] w-[3rem] mx-auto">
-                  <ChartDoughnut />
-                </div>
-                <div className={classNameNewScore}>
-                  {percentNewScore * 100}%
-                </div>
-              </div>
+      <div className="relative bg-slate-50 right-0 bottom-0 h-[5rem] w-full border-b-2 !shadow-2xl z-10">
+        <div className="flex flex-row">
+          <div className="basis-1/2 flex flex-col">
+            <div className="flex flex-row pt-1 pl-1 items-center">
+              <img src={avatar} className="h-5 w-5 rounded-[30px]" />
+              <span className="px-1 text-[0.7rem]">{firstNew?.provider}</span>
+              <span className="px-1 text-[0.7rem]">
+                {"( " +
+                  firstNew?.author_info["last_week_count"] +
+                  " | " +
+                  firstNew?.author_info["AvgNewsPERweek"] +
+                  " )"}
+              </span>
             </div>
-          </div>
-        </div>
-        <div className="basis-1/3">
-          <div className="flex flex-row px-2">
-            <div className="basis-2/3">
-              {firstNew?.symbols && firstNew?.symbols[0] ? (
-                <div className="flex flex-row items-center">
+
+            <div className="flex flex-row pt-1 pl-1 items-center">
+              <img src={avatar} className="h-5 w-5 rounded-[30px]" />
+              <span className="px-1 text-[0.7rem]">{firstNew?.author}</span>
+              <span className="px-1 text-[0.7rem]">
+                {"( " +
+                  firstNew?.provider_info["last_week_count"] +
+                  " | " +
+                  firstNew?.provider_info["AvgNewsPERweek"] +
+                  " )"}
+              </span>
+            </div>
+            {firstNew?.symbols && firstNew?.symbols[0] ? (
+              <div className="flex flex-row pl-1 items-center">
+                <div className="">
+                  <img className="h-[1.6rem] w-[1.6rem]" src={defaultImage} />
+                </div>
+                <div className="">
+                  <img className="h-[1.6rem] w-[1.6rem]" src={defaultImage} />
+                </div>
+                <div className="">
+                  <img className="h-[1.6rem] w-[1.6rem]" src={defaultImage} />
+                </div>
+                <div className="flex flex-row text-slate-700 items-center pt-1">
                   {firstNew?.symbols.map((row, index) => (
-                    <div className="" key={index}>
-                      <img
-                        className="h-[1.6rem] w-[1.6rem]"
-                        src={defaultImage}
-                      />
+                    <div className="px-1 text-[0.7rem]" key={index}>
+                      {row}
                     </div>
                   ))}
-                  <div className="flex flex-row text-slate-700 items-center pt-1">
-                    {firstNew?.symbols.map((row, index) => (
-                      <div className="px-1 text-[0.7rem]" key={index}>
-                        {row}
-                      </div>
-                    ))}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div className="basis-1/2 flex flex-row">
+          <div className="basis-1/4 -mt-2">
+              <div className="h-[4rem] w-[4rem]">
+                <ChartDoughnut />
+              </div>
+              <div className={classNameNewScore}>{percentNewScore * 100}%</div>
+            </div>
+
+            <div className="basis-3/4 p-1 ">
+              <div className="flex flex-col my-2">
+                <div className="flex flex-row">
+                  <div className="bg-[#FF0000]/50 w-[2rem] h-[1rem] mx-2 px-1 rounded-sm"></div>
+                  <div className="bg-[#404040]/50 w-[2rem] mx-2 px-1  rounded-sm"></div>
+                  <div className="bg-[#00ff00]/50 w-[2rem] mx-2 px-1  rounded-sm"></div>
+                </div>
+                <div className="flex flex-row pt-1">
+                  <div className="text-[#FF0000]/50 text-[0.7rem] w-[2rem] mx-2 px-1">
+                    0.20
+                  </div>
+                  <div className="text-[#404040]/50 text-[0.7rem] w-[2rem] mx-2 px-1">
+                    0.45
+                  </div>
+                  <div className="text-lime-500 text-[0.7rem] w-[2rem] mx-2 px-1">
+                    0.35
                   </div>
                 </div>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className="basis-1/3 ">
-              <div className="pt-3 text-[0.7rem] text-slate-500 text-end">
-                {dateHelper(firstNew?.pubDate)}
+
+                <div className="pl-2 pt-3 text-[0.7rem] text-slate-500 text-end">
+                  {dateHelper(firstNew?.pubDate)}
+                </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>
-
       <div className="bg-slate-50 p-4 pb-0 relative z-10">
         <Swiper
           slidesPerView={"auto"}
