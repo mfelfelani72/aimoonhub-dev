@@ -16,7 +16,6 @@ import DetailsBox from "./components/DetailsBox.jsx";
 const LatestAimoonNew = () => {
   const [newsData, setNewsData] = useState([]);
   const [firstNew, setFirstNew] = useState();
-  const [otherNews, setOtherNews] = useState([]);
 
   const getNews = async () => {
     const parameter = {
@@ -25,7 +24,7 @@ const LatestAimoonNew = () => {
       startDate: "1716373411",
       // "endDate": newsTo,
       page: 1,
-      pageLimit: 5,
+      pageLimit: 10,
       llmOnly: true,
     };
 
@@ -34,14 +33,9 @@ const LatestAimoonNew = () => {
         if (response.data.data.result) {
           console.log("Fetch dataLlm done.");
           console.log(response.data.data.result);
-          setNewsData(response.data.data.result);
           setFirstNew(response.data.data.result[0]);
-          setOtherNews([
-            response.data.data.result[1],
-            response.data.data.result[2],
-            response.data.data.result[3],
-            response.data.data.result[4], //here
-          ]);
+          response.data.data.result.shift();
+          setNewsData(response.data.data.result);
         }
       });
     } catch (error) {
@@ -51,7 +45,7 @@ const LatestAimoonNew = () => {
 
   useEffect(() => {
     if (newsData.length == 0) getNews();
-  }, [newsData, firstNew, otherNews]);
+  }, [newsData, firstNew]);
 
   return (
     <>
@@ -94,7 +88,7 @@ const LatestAimoonNew = () => {
           }}
           modules={[Pagination]}
         >
-          {otherNews.map((row, index) => (
+          {newsData.map((row, index) => (
             <SwiperSlide row={row} key={index}>
               <div className="relative h-[18rem] border rounded-lg">
                 <div className="h-[12rem]">
@@ -102,7 +96,9 @@ const LatestAimoonNew = () => {
                     className="h-[12rem] w-full border border-transparent rounded-lg"
                     src={row.thImage}
                   />
-                  <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">{firstNew?.summaryEn}</div>
+                  <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">
+                    {firstNew?.summaryEn}
+                  </div>
                   <div className="absolute right-0 top-0 m-2 bg-D-color-theme">
                     <div className="p-[0.2rem] text-[0.8rem] font-bold text-white">
                       News
@@ -110,7 +106,7 @@ const LatestAimoonNew = () => {
                   </div>
                 </div>
                 <div className="absolute top-[9rem] w-full">
-                  <DetailsBox data={row} lineChartWidth="w-[5rem]" />
+                  <DetailsBox data={row} lineChartWidth="w-[3rem]" />
                 </div>
               </div>
             </SwiperSlide>
