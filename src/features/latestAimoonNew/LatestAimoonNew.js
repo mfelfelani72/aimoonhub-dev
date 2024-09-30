@@ -74,7 +74,7 @@ const LatestAimoonNew = () => {
 
       {/* details box */}
 
-      {firstNew && <DetailsBox data={firstNew} lineChartWidth="w-[7rem]" />}
+      {firstNew && <DetailsBox data={firstNew} lineChartWidth="w-[5rem]" />}
 
       {/* details box */}
 
