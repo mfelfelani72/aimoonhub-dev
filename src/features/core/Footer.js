@@ -7,7 +7,7 @@ export function Footer() {
     const { t } = useTranslation();
 
     return (
-        <footer className="ltr:border-r rtl:border-l border-color-theme-light dark:border-D-color-theme-light">
+        <footer className="relative border-t border-color-theme-light dark:border-D-color-theme-light bg-B-bright dark:bg-DT-dim z-10">
             <div className="h-16 py-2">
                 <div className="text-sm/6  text-center flex-col ltr">
                     <p>

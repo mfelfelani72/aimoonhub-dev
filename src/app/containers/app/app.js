@@ -126,11 +126,11 @@ const App = () => {
                     <>
                         <Header />
 
-                        <div className="mt-12 bg-B-V-bright dark:bg-DB-dim h-screen">
+                        <div className="mt-12 bg-B-V-bright dark:bg-DB-dim">
                             <GuestRoutes />
                         </div>
 
-                        {/* <Footer /> */}
+                        <Footer />
                     </>
 
                     // load app for guest users }
