@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import Button from "../../features/core/components/Button.jsx"
+
 import { getData } from "../../../utils/helpers/getData";
 import { AUTHORS } from "../../app/constant/EndPoints";
 
@@ -44,9 +46,10 @@ function AuthorAnalysis() {
       <h2 className="p-2">{t("aimoon_author__analysis")}</h2>
       {/* title */}
 
-      <div className="container mx-auto pb-2">
+      <div className="container mx-auto">
         <div className="flex flex-row">
           <div className="author_images basis-3/5 self-center pl-3">
+          <div className="text-[0.8rem] font-bold pb-2">Top 10 Authors</div>
             <div className="flex flex-row relative h-10 w-full justify-center">
               {authors.map((row, index) => (
                 <div
@@ -60,10 +63,10 @@ function AuthorAnalysis() {
                 </div>
               ))}
             </div>
-            <div className="flex flex-row justify-center py-2">
+            <div className="flex flex-row justify-center py-1">
               <div className="text-sm text-T-bright">
-                <span>Top 10 Authors</span>
-                <span className="px-2">Author List</span>
+                <Button className="bg-color-theme hover:bg-color-theme-light text-[0.8rem] h-7 my-1 mt-3 cursor-pointer" >Author List</Button>
+                
               </div>
             </div>
           </div>
