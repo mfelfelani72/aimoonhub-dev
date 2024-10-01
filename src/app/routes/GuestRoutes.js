@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import LandingSkeleton from '../../features/core/LandingSkeleton';
 const LazyLanding = lazy(() => import("../../features/core/Landing.js"))
+const LazyAuthorList = lazy(() => import("../../features/authorAnalysis/AuthorsList.js"))
 
 
 const GuestRoutes = () => {
@@ -23,6 +24,7 @@ const GuestRoutes = () => {
 
         <Routes>
             <Route path="/" element={<Suspense fallback={<LandingSkeleton />}><LazyLanding /> </Suspense>}></Route>
+            <Route path="/authors-list" element={<Suspense fallback={<div>Loading...</div>}><LazyAuthorList /> </Suspense>}></Route>
         </Routes>
 
     )

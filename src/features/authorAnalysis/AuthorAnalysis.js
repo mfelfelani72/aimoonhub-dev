@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -64,14 +65,17 @@ function AuthorAnalysis() {
               ))}
             </div>
             <div className="basis-1/4 text-center">
-              <Button className="bg-color-theme hover:bg-color-theme-light text-[0.75rem] h-7 cursor-pointer">
+              <NavLink
+                to="/authors-list"
+                className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.75rem] h-7 cursor-pointer"
+              >
                 Authors List
-              </Button>
+              </NavLink>
             </div>
           </div>
         </div>
         {/* authors images */}
-        
+
         <div className="flex flex-row mt-4 p-2">
           <div className="basis-1/2 text-md content-center text-T-bright">
             <div className="h-[9rem] w-[9rem] mx-auto -mt-3 mb-2">

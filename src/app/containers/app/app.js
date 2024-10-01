@@ -18,6 +18,8 @@ import { Footer } from "../../../features/core/Footer.js";
 import Page404 from "../../../features/core/components/Page404.jsx"
 import SplashScreen from "../../../features/core/SplashScreen.js";
 
+import {GUESTS_ROUTES} from "../../constant/Routes.js"
+
 // This will be our Task
 class Task {
     constructor({ action }) {
@@ -99,7 +101,7 @@ const App = () => {
     const location = useLocation();
     const { pathname } = location;
 
-    const guestRoutes = ["/"];
+    
 
     // const AdminRoutes = ["/dashboard"];
 
@@ -107,8 +109,8 @@ const App = () => {
 
     // { guest routes
 
-    if (guestRoutes.includes(pathname)) {
-
+    if (GUESTS_ROUTES.includes(pathname)) {
+       
         return (
             <div className="font-main">
                 {splashScreen
