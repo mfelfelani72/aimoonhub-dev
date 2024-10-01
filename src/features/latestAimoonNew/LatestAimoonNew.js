@@ -8,8 +8,6 @@ import "swiper/css/pagination";
 
 import { Pagination } from "swiper/modules";
 
-import avatar from "../../../assets/images/avatar.png";
-
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
 
