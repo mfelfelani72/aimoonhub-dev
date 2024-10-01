@@ -43,7 +43,7 @@ function DetailsBox(props) {
 
   return (
     <>
-      <div className="relative bg-slate-50 right-0 bottom-0 h-[6rem] z-10">
+      <div className="relative bg-slate-50 dark:bg-DB-V-bright right-0 bottom-0 h-[6rem] z-10">
         <div className="flex flex-col">
           <div className="basis-2/3">
             <div className="flex flex-row items-center">

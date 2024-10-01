@@ -53,7 +53,7 @@ const LatestAimoonNew = () => {
 
   return (
     <>
-      <h2 className="p-2">{t("aimoon_news_analysis")}</h2>
+      <h2 className="p-2 dark:text-DT-bright">{t("aimoon_news_analysis")}</h2>
       {/* summary */}
 
       <div className="relative">
@@ -77,7 +77,7 @@ const LatestAimoonNew = () => {
 
       {/* details box */}
 
-      <div className="bg-slate-50 p-4 pb-0 relative border-t-2 z-10">
+      <div className="bg-slate-50 dark:bg-DB-dim p-4 pb-0 relative border-t-2 z-10">
         <Swiper
           slidesPerView={"auto"}
           spaceBetween={30}
