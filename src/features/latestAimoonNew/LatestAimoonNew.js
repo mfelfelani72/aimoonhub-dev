@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,6 +16,8 @@ import { LATEST_NEWS } from "../../app/constant/EndPoints";
 import DetailsBox from "./components/DetailsBox.jsx";
 
 const LatestAimoonNew = () => {
+  const { t } = useTranslation();
+
   const [newsData, setNewsData] = useState([]);
   const [firstNew, setFirstNew] = useState();
 
@@ -49,6 +53,7 @@ const LatestAimoonNew = () => {
 
   return (
     <>
+      <h2 className="p-2">{t("aimoon_news_analysis")}</h2>
       {/* summary */}
 
       <div className="relative">

@@ -39,6 +39,12 @@ const fa = {
 
   // 404
 
+   // aimoon_news_analysis
+
+   aimoon_news_analysis: "اخبار تحلیل شده آیمون‌هاب",
+
+   // aimoon_news_analysis
+
   // CardRow
 
   author: "نویسنده",
