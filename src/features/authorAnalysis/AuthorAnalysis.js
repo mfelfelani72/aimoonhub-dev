@@ -81,21 +81,49 @@ function AuthorAnalysis() {
           <div>+{totalStat?.forex_author_counts} Author in Forex</div>
           <div>+{totalStat?.commodity_author_counts} Author in Commodity</div> */}
           </div>
-          <div className="basis-3/5 content-center justify-center">
-            <div className="h-[12rem] w-[12rem] mx-auto">
-            <ChartPie
-              data={[
-                totalStat?.crypto_author_counts,
-                totalStat?.forex_author_counts,
-                totalStat?.commodity_author_counts,
-              ]}
-              colors={[
-                "#f97316",
-                "#06b6d4",
-                "#a855f7",
-              ]}
-              labels={[`+${totalStat?.crypto_author_counts} Cryptocurrencies`,`+${totalStat?.forex_author_counts} Forex`,`+${totalStat?.commodity_author_counts} Commodity`]}
-            />
+          <div className="basis-3/5">
+            <div className="flex flex-col content-center justify-center">
+              <div className="basis-1/2">
+                <div className="flex flex-row">
+                  <div className="basis-1/4">
+                    <div className="bg-[#fde047] w-[2rem] h-2 my-1 rounded-sm"></div>
+                    <div className="bg-[#06b6d4] w-[2rem] h-2 my-3 rounded-sm"></div>
+                    <div className="bg-[#a855f7] w-[2rem] h-2 my-1 rounded-sm"></div>
+                  </div>
+                  <div className="basis-3/4 text-[0.85rem] text-slate-800">
+                    <div>
+                      <span className="font-bold">
+                        {" "}
+                        +{totalStat?.crypto_author_counts}
+                      </span>{" "}
+                      Cryptocurrencies
+                    </div>
+                    <div>
+                      <span className="font-bold">
+                        +{totalStat?.forex_author_counts}
+                      </span>{" "}
+                      Forex
+                    </div>
+                    <div>
+                      <span className="font-bold">
+                        +{totalStat?.commodity_author_counts}
+                      </span>{" "}
+                      Commodity
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="basis-1/2 h-[9rem] w-[9rem] mx-auto">
+                <ChartPie
+                  data={[
+                    totalStat?.crypto_author_counts,
+                    totalStat?.forex_author_counts,
+                    totalStat?.commodity_author_counts,
+                  ]}
+                  colors={["#fde047", "#06b6d4", "#a855f7"]}
+                  //   labels={[`+${totalStat?.crypto_author_counts} Cryptocurrencies`,`+${totalStat?.forex_author_counts} Forex`,`+${totalStat?.commodity_author_counts} Commodity`]}
+                />
+              </div>
             </div>
           </div>
         </div>
