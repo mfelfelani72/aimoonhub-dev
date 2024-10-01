@@ -6,6 +6,7 @@ import Button from "../../features/core/components/Button.jsx";
 
 import { getData } from "../../../utils/helpers/getData";
 import { AUTHORS } from "../../app/constant/EndPoints";
+import ChartPie from "../core/components/ChartPie.jsx";
 
 function AuthorAnalysis() {
   const { t } = useTranslation();
@@ -45,37 +46,57 @@ function AuthorAnalysis() {
       {/* title */}
 
       <div className="container mx-auto">
-        <div className="flex flex-row">
-          <div className="author_images basis-3/5 self-center pl-3">
-            <div className="text-[0.8rem] font-bold pb-2">Top 10 Authors</div>
-            <div className="flex flex-row relative h-10 w-full justify-center">
+        <div className="self-center pl-2">
+          <div className="text-[0.8rem] font-bold pb-1">Top 10 Authors</div>
+          <div className="flex flex-row items-center">
+            <div className="basis-3/4 relative h-10 w-[17rem] justify-center">
               {authors.map((row, index) => (
                 <div
                   style={{
-                    left: `${index * 1.2}rem`,
+                    left: `${index * 1.5}rem`,
                   }}
                   className="absolute top-0"
                   key={index}
                 >
-                  <img className="h-10 w-10 rounded-full" src={row.picUrl} />
+                  <img className="h-12 w-12 rounded-full" src={row.picUrl} />
                 </div>
               ))}
             </div>
-            <div className="flex flex-row justify-center py-1">
-              <div className="text-sm text-T-bright">
-                <Button className="bg-color-theme hover:bg-color-theme-light text-[0.8rem] h-7 my-1 mt-3 cursor-pointer">
-                  Author List
-                </Button>
-              </div>
+            <div className="basis-1/4 text-center">
+              <Button className="bg-color-theme hover:bg-color-theme-light text-[0.8rem] h-7 cursor-pointer">
+                Author List
+              </Button>
             </div>
           </div>
-          <div className="author_info basis-2/5 px-2 content-center text-[0.8rem] text-T-bright">
-            <div>+{totalStat?.total_author} Total Author</div>
-            <div>
-              +{totalStat?.crypto_author_counts} Author in Cryptocurrencies
+        </div>
+        <div className="flex flex-row mt-4 p-2">
+          <div className="basis-2/5 text-md content-center text-T-bright">
+            <div className="text-lime-500 text-center">
+              <span className="font-bold">+{totalStat?.total_author}</span>{" "}
+              Total Author
             </div>
-            <div>+{totalStat?.forex_author_counts} Author in Forex</div>
-            <div>+{totalStat?.commodity_author_counts} Author in Commodity</div>
+            {/* <div>
+            +{totalStat?.crypto_author_counts} Author in Cryptocurrencies
+          </div>
+          <div>+{totalStat?.forex_author_counts} Author in Forex</div>
+          <div>+{totalStat?.commodity_author_counts} Author in Commodity</div> */}
+          </div>
+          <div className="basis-3/5 content-center justify-center">
+            <div className="h-[12rem] w-[12rem] mx-auto">
+            <ChartPie
+              data={[
+                totalStat?.crypto_author_counts,
+                totalStat?.forex_author_counts,
+                totalStat?.commodity_author_counts,
+              ]}
+              colors={[
+                "#f97316",
+                "#06b6d4",
+                "#a855f7",
+              ]}
+              labels={[`+${totalStat?.crypto_author_counts} Cryptocurrencies`,`+${totalStat?.forex_author_counts} Forex`,`+${totalStat?.commodity_author_counts} Commodity`]}
+            />
+            </div>
           </div>
         </div>
       </div>
