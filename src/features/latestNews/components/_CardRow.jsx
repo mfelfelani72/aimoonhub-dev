@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import logo from "../../../../assets/images/logo-shape.png";
 
-import ProgressBar from "./ProgressBar.jsx";
+import ProgressBar from "../../core/components/ProgressBar.jsx";
 
 const CardRow = (props) => {
   const [percentNewScore, setPercentNewScore] = useState();

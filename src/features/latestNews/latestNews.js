@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import useAppStore from "../../app/stores/AppStore.js";
 import useLatestNewsStore from "../../features/latestNews/stores/LatestNewsStore";
 
-import CardRow from "../core/components/CardRow.jsx";
+import CardRow from "./components/CardRow.jsx";
 import Button from "../core/components/Button.jsx";
 import Loader from "../core/components/Loader.jsx";
 
@@ -95,7 +95,7 @@ const latestNews = () => {
           {newsData.map((row, index) => (
             <CardRow row={row} key={index} />
           ))}
-          <div className="text-right">
+          <div className="ltr:text-right rtl:text-left">
             <Button
               onClick={() => handleGetNews()}
               className="m-3 bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme"
