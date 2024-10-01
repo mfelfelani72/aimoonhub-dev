@@ -45,6 +45,12 @@ const fa = {
 
    // aimoon_news_analysis
 
+   // aimoon_author_analysis
+
+  aimoon_authors_analysis : "نویسندگان آیمون‌هاب",
+
+  // aimoon_author_analysis
+
   // CardRow
 
   author: "نویسنده",

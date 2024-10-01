@@ -39,9 +39,15 @@ const en = {
 
   // aimoon_news_analysis
 
-  aimoon_news_analysis: "AimoonHub News Analysis",
+  aimoon_news_analysis: "AimoonHUB News Analysis",
 
   // aimoon_news_analysis
+
+  // aimoon_author_analysis
+
+  aimoon_authors_analysis : "AimoonHUB Authors Analysis",
+
+  // aimoon_author_analysis
 
   // CardRow
 
