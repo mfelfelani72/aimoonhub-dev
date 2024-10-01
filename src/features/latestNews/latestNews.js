@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import Loader from "../core/components/Loader.jsx";
 import { useTranslation } from "react-i18next";
 
 import useAppStore from "../../app/stores/AppStore.js";
@@ -8,6 +7,7 @@ import useLatestNewsStore from "../../features/latestNews/stores/LatestNewsStore
 
 import CardRow from "../core/components/CardRow.jsx";
 import Button from "../core/components/Button.jsx";
+import Loader from "../core/components/Loader.jsx";
 
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
@@ -70,7 +70,7 @@ const latestNews = () => {
   const handleGetNews = async () => {
     setLoading(true);
 
-    if (newsPage !== 1) lodashGetNews();
+    if (newsPage !== 1 || newsPage !==2) lodashGetNews();
   };
 
   const lodashGetNews = lodash.debounce(function () {
@@ -85,7 +85,7 @@ const latestNews = () => {
     }
 
     setSidebarLink("news");
-  }, [newsData, newsPage]);
+  }, [newsData]);
 
   return (
     <>
