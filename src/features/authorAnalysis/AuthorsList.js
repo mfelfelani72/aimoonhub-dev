@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import avatar from "../../../assets/images/avatar.png";
 
@@ -70,18 +70,12 @@ function AuthorsList() {
                       Journalist at{" "}
                       <span className="font-bold">{row?.worked}</span>
                     </div>
-                    <Link
-                      to={{
-                        pathname: "/authors-dashboard",
-                        state: { from: "ewerewrew" },
-                        
-                      }}
-                      // to="/authors-dashboard"
-                      // // state={{ from: "ewerewrew" }}
+                    <NavLink
+                      to="/authors-dashboard"
                       className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.7rem] h-5 cursor-pointer"
                     >
                       Dashboard
-                    </Link>
+                    </NavLink>
                   </div>
                 </div>
               </div>

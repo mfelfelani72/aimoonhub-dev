@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import avatar from "../../../assets/images/avatar.png";
 
 import { getData } from "../../../utils/helpers/getData";
 import { AUTHOR_INFO } from "../../app/constant/EndPoints";
+
+import BarChart from "../core/components/BarChart.jsx";
+import ChartDoughnut from "../core/components/ChartDoughnut.jsx";
+
 function AuthorDashboard() {
   const [author, setAuthor] = useState();
   const [category, setCategory] = useState("cryptocurrencies");
@@ -22,6 +26,7 @@ function AuthorDashboard() {
           console.log("Fetch dataAuthors done.");
           console.log(response.data.data[0]);
           setAuthor(response.data.data[0]);
+          //   console.log(state);
         }
       });
     } catch (error) {
@@ -112,8 +117,21 @@ function AuthorDashboard() {
           </div>
         </div>
         <div className="flex">
-          <div className="basis-2/3 bg-lime-400">asdasd</div>
-          <div className="basis-1/3 bg-purpule-400">asdasd</div>
+          <div className="w-full mx-2">
+            <BarChart></BarChart>
+          </div>
+        </div>
+
+        <div className="h-12 w-12">
+          <ChartDoughnut
+            data={[44, 342, 23]}
+            colors={[
+              "rgba(255, 0, 0, 0.5)",
+              "rgba(0, 255, 0, 0.5)",
+              "rgba(64, 64, 64, 0.5)",
+            ]}
+          ></ChartDoughnut>
+          <div>sadsa</div>
         </div>
       </div>
     </>
