@@ -14,6 +14,11 @@ function AuthorDashboard() {
   const [category, setCategory] = useState("cryptocurrencies");
   const [authorName, setAuthorName] = useState("newsbtc");
 
+  const location = useLocation();
+  const { par } = location.state || {};
+
+  console.log(location);
+
   const getAuthorInfo = async () => {
     const parameter = {
       category: category,
@@ -24,7 +29,7 @@ function AuthorDashboard() {
       getData(AUTHOR_INFO, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataAuthors done.");
-          console.log(response.data.data[0]);
+        //   console.log(response.data.data[0]);
           setAuthor(response.data.data[0]);
           //   console.log(state);
         }

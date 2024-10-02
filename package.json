@@ -28,6 +28,7 @@
     "react-router-dom": "^6.26.1",
     "swiper": "^11.1.14",
     "tailwind-merge": "^2.5.2",
+    "tw-elements-react": "^1.0.0-alpha-end",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
