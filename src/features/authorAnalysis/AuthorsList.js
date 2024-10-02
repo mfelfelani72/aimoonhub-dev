@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import avatar from "../../../assets/images/avatar.png";
 
@@ -40,7 +40,7 @@ function AuthorsList() {
       {/* title */}
       <h2 className="p-2">Authors List</h2>
       {/* title */}
-      <div className="container p-2">
+      <div className="container p-2 mx-auto">
         <div className="grid grid-cols-2 gap-2">
           {/* card */}
           {authorsList.map((row, index) => (
@@ -67,14 +67,21 @@ function AuthorsList() {
                       <span className="font-bold">+{row?.newsCount}</span> news
                     </div>
                     <div className="text-[0.7rem]">
-                      works for <span className="font-bold">{row?.worked}</span>
+                      Journalist at{" "}
+                      <span className="font-bold">{row?.worked}</span>
                     </div>
-                    <NavLink
-                      to="/authors-dashboard"
+                    <Link
+                      to={{
+                        pathname: "/authors-dashboard",
+                        state: { from: "ewerewrew" },
+                        
+                      }}
+                      // to="/authors-dashboard"
+                      // // state={{ from: "ewerewrew" }}
                       className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.7rem] h-5 cursor-pointer"
                     >
                       Dashboard
-                    </NavLink>
+                    </Link>
                   </div>
                 </div>
               </div>
