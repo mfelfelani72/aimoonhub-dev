@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
-import Button from "../../features/core/components/Button.jsx";
-
 import { getData } from "../../../utils/helpers/getData";
 import { AUTHORS } from "../../app/constant/EndPoints";
 import ChartPie from "../core/components/ChartPie.jsx";
