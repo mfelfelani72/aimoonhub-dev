@@ -10,11 +10,7 @@ function AuthorsList() {
   const [authorsList, setAuthorsList] = useState([]);
   const [category, setCategory] = useState("cryptocurrencies");
   const [priority, setPriority] = useState(2);
-
-  // const {vals} = this.state;
-
   const getAuthorsList = async () => {
-    // const { vals } = "";
     const parameter = {
       category: category,
       priority: priority,
@@ -53,13 +49,17 @@ function AuthorsList() {
                 <div className="flex flex-row">
                   <div className="basis-1/2">
                     <div className="">
-                      <img
-                        className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
-                        src={row?.picUrl ? row?.picUrl : avatar}
-                      />
+                      <a href={row?.biographyUrl} target="_blank">
+                        <img
+                          className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
+                          src={row?.picUrl ? row?.picUrl : avatar}
+                        />
+                      </a>
                     </div>
                     <div className="text-[0.8rem] text-slate-800 pt-1 text-center">
-                      {row?.name}
+                      <a href={row?.biographyUrl} target="_blank">
+                        {row?.name}
+                      </a>
                     </div>
                   </div>
                   <div className="basis-1/2 text-center self-center">
@@ -69,44 +69,34 @@ function AuthorsList() {
                     <div className="text-[0.7rem]">
                       works for <span className="font-bold">{row?.worked}</span>
                     </div>
+                    <NavLink
+                      to="/authors-dashboard"
+                      className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.7rem] h-5 cursor-pointer"
+                    >
+                      Dashboard
+                    </NavLink>
                   </div>
                 </div>
               </div>
 
               <div className="flex flex-row mt-2">
-                {/* {console.log(Object.keys(row?.symbols))} */}
-
-                <div className="flex flex-col">
-                  <div className="flex flex-row">
-                    {Object.keys(row?.symbols).map((element, index) => (
-                      <div key={index}>
-                        {index <= 3 ? (
-                          <div className="">
-                            <img
-                              className="h-[2rem] w-[2rem] rounded-full mx-auto"
-                              src={defaultImage}
-                            />
+                {row?.symbols.length
+                  ? row?.symbols.map((element, index) =>
+                      index <= 3 ? (
+                        <div key={index}>
+                          <img
+                            className="h-[2rem] w-[2rem] rounded-full mx-auto"
+                            src={defaultImage}
+                          />
+                          <div className="text-[0.65rem] text-center font-bold">
+                            +{element.news_count}
                           </div>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex flex-row">
-                    {Object.values(row?.symbols).map((element, index) => (
-                      <div key={index}>
-                        {index <= 3 ? (
-                          <div className="text-[0.6rem] font-bold text-center mx-[0.42rem]">
-                            +{element}
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                        </div>
+                      ) : (
+                        ""
+                      )
+                    )
+                  : ""}
               </div>
             </div>
           ))}
