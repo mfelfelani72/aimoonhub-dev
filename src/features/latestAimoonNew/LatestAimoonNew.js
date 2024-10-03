@@ -13,8 +13,18 @@ import { LATEST_NEWS } from "../../app/constant/EndPoints";
 
 import DetailsBox from "./components/DetailsBox.jsx";
 
+
 const LatestAimoonNew = () => {
+
+  // set country
+  // const location = useGeoLocation();
+  // const [country] = useState(location.country);
+  
+  // set country
+
   const { t } = useTranslation();
+
+  
 
   const [newsData, setNewsData] = useState([]);
   const [firstNew, setFirstNew] = useState();
@@ -46,6 +56,7 @@ const LatestAimoonNew = () => {
   };
 
   useEffect(() => {
+    // console.log(location.country);
     if (newsData.length == 0) getNews();
   }, [newsData, firstNew]);
 

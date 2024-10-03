@@ -3,167 +3,182 @@
   Wire up all the app
 
 */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 import useAppStore from "../../stores/AppStore.js";
 import i18n from "../../../../utils/services/i18n";
+// get Country
+import useGeoLocation from "react-ipgeolocation";
+// get Country
 
 import "../../styles/app/app.css";
 
 import GuestRoutes from "../../routes/GuestRoutes";
 import { Header } from "../../../features/core/Header";
 import { Footer } from "../../../features/core/Footer.js";
-import Page404 from "../../../features/core/components/Page404.jsx"
+import Page404 from "../../../features/core/components/Page404.jsx";
 import SplashScreen from "../../../features/core/SplashScreen.js";
 
-import {GUESTS_ROUTES} from "../../constant/Routes.js"
+import { GUESTS_ROUTES } from "../../constant/Routes.js";
 
 // This will be our Task
 class Task {
-    constructor({ action }) {
-        // This will be a closure function that will be executed
-        this.action = action;
-    }
+  constructor({ action }) {
+    // This will be a closure function that will be executed
+    this.action = action;
+  }
 }
 
 const App = () => {
+  // initial country
+  const Location = useGeoLocation();
+  // initial country
 
-    // { load Global States from zustand
-    const { splashScreen, setProgressBar } = useAppStore((state) => ({
-        progressBar: state.progressBar,
-        setProgressBar: state.setProgressBar,
-        splashScreen: state.splashScreen,
-    }))
-    // load Global States from zustand }
+  // { load Global States from zustand
+  const { splashScreen, setProgressBar, country, setCountry } = useAppStore(
+    (state) => ({
+      progressBar: state.progressBar,
+      setProgressBar: state.setProgressBar,
+      splashScreen: state.splashScreen,
+      country: state.country,
+      setCountry: state.setCountry,
+    })
+  );
+  // load Global States from zustand }
 
-    // { for calculate scroll page
-    const updateScrollCompletion = () => {
-        const currentProgress = window.scrollY;
-        const scrolHeight = document.body.scrollHeight - window.innerHeight;
+  // { for calculate scroll page
+  const updateScrollCompletion = () => {
+    const currentProgress = window.scrollY;
+    const scrolHeight = document.body.scrollHeight - window.innerHeight;
 
-        if (scrolHeight) {
-            setProgressBar(String(Number((currentProgress / scrolHeight).toFixed(2)) * 100) + '%');
-        }
+    if (scrolHeight) {
+      setProgressBar(
+        String(Number((currentProgress / scrolHeight).toFixed(2)) * 100) + "%"
+      );
     }
-    // for calculate scroll page }
+  };
+  // for calculate scroll page }
 
-    // { task for splashScreen
-    const tasks = [
-        new Task({
-            action: () => new Promise(resolve => setTimeout(resolve, 2000)),
-        }),
-        new Task({
-            action: () => new Promise(resolve => setTimeout(resolve, 3000)),
-        }),
+  // { task for splashScreen
+  const tasks = [
+    new Task({
+      action: () => new Promise((resolve) => setTimeout(resolve, 2000)),
+    }),
+    new Task({
+      action: () => new Promise((resolve) => setTimeout(resolve, 3000)),
+    }),
+  ];
+  // task for splashScreen }
 
-    ];
-    // task for splashScreen }
+  useEffect(() => {
 
-    useEffect(() => {
+    // { set Country
 
-        // { initial language
-
-        const rootHtml = document.getElementById("root-html");
-
-        if (rootHtml && localStorage.getItem("currentLngId") && localStorage.getItem("currentLngDir")) {
-
-            i18n.changeLanguage(localStorage.getItem("currentLngId"));
-            rootHtml.setAttribute("dir", localStorage.getItem("currentLngDir"));
-        }
-
-        // initial language }
-
-        // { initial theme mode (dark or light)
-
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ||
-            localStorage.getItem("theme") === 'dark') {
-            document.documentElement.classList.add("dark");
-        }
-        else {
-            document.documentElement.classList.remove("dark");
-        }
-
-        // initial theme mode }
-
-        // { call function to calculate scroll
-
-        window.addEventListener('scroll', updateScrollCompletion);
-
-        // call function to calculate scroll }
-
-
-    }, []);
-
-    // { define public or private routes (guest or admin)
-
-    const location = useLocation();
-    const { pathname } = location;
-
+    if (Location.country) if (country == " ") setCountry(Location.country);
     
+    //   set Country }
 
-    // const AdminRoutes = ["/dashboard"];
+    // { initial language
 
-    // define public or private routes }
+    const rootHtml = document.getElementById("root-html");
 
-    // { guest routes
-
-    if (GUESTS_ROUTES.includes(pathname)) {
-       
-        return (
-            <div className="font-main">
-                {splashScreen
-                    ?
-                    // { first splashScreen app
-
-                    <div className="h-screen w-screen flex items-center justify-center px-16 bg-B-V-bright dark:bg-DB-bright">
-                        <SplashScreen tasks={tasks} />
-                    </div>
-
-                    // first splashScreen app }
-                    :
-                    // { load app for guest users
-
-                    <>
-                        <Header />
-
-                        <div className="mt-12 bg-B-V-bright dark:bg-DB-dim">
-                            <GuestRoutes />
-                        </div>
-
-                        <Footer />
-                    </>
-
-                    // load app for guest users }
-                }
-            </div>
-        );
+    if (
+      rootHtml &&
+      localStorage.getItem("currentLngId") &&
+      localStorage.getItem("currentLngDir")
+    ) {
+      i18n.changeLanguage(localStorage.getItem("currentLngId"));
+      rootHtml.setAttribute("dir", localStorage.getItem("currentLngDir"));
     }
 
-    // guest routes }
+    // initial language }
 
-    // { admin routes
+    // { initial theme mode (dark or light)
 
-    // else if (adminRoutes.includes(pathname)) {
+    if (
+      (window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+      localStorage.getItem("theme") === "dark"
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
 
-    //     return (
-    //         <AdminRoutes />
-    //     );
-    // }
+    // initial theme mode }
 
-    // admin routes }
+    // { call function to calculate scroll
 
-    // { page 404
-    else
-        return (
-            <Routes>
-                <Route path="*" element={<Page404 />}></Route>
-            </Routes>
+    window.addEventListener("scroll", updateScrollCompletion);
 
-        );
-    // page 404 }
+    // call function to calculate scroll }
+  }, [Location]);
 
+  // { define public or private routes (guest or admin)
+
+  const location = useLocation();
+  const { pathname } = location;
+
+  // const AdminRoutes = ["/dashboard"];
+
+  // define public or private routes }
+
+  // { guest routes
+
+  if (GUESTS_ROUTES.includes(pathname)) {
+    return (
+      <div className="font-main">
+        {
+          splashScreen ? (
+            // { first splashScreen app
+
+            <div className="h-screen w-screen flex items-center justify-center px-16 bg-B-V-bright dark:bg-DB-bright">
+              <SplashScreen tasks={tasks} />
+            </div>
+          ) : (
+            // first splashScreen app }
+            // { load app for guest users
+
+            <>
+              <Header />
+
+              <div className="mt-12 bg-B-V-bright dark:bg-DB-dim">
+                <GuestRoutes />
+              </div>
+
+              <Footer />
+            </>
+          )
+
+          // load app for guest users }
+        }
+      </div>
+    );
+  }
+
+  // guest routes }
+
+  // { admin routes
+
+  // else if (adminRoutes.includes(pathname)) {
+
+  //     return (
+  //         <AdminRoutes />
+  //     );
+  // }
+
+  // admin routes }
+
+  // { page 404
+  else
+    return (
+      <Routes>
+        <Route path="*" element={<Page404 />}></Route>
+      </Routes>
+    );
+  // page 404 }
 };
 
 export default App;

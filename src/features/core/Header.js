@@ -23,11 +23,12 @@ export function Header(...props) {
 
     const { t } = useTranslation();
 
-    const { statusSidebar, setStatusSidebar, progressBar, setLanguageApp } = useAppStore((state) => ({
+    const { statusSidebar, setStatusSidebar, progressBar, setLanguageApp, country } = useAppStore((state) => ({
         statusSidebar: state.statusSidebar,
         setStatusSidebar: state.setStatusSidebar,
         progressBar: state.progressBar,
         setLanguageApp: state.setLanguageApp,
+        country: state.country,
     }))
 
     return (
@@ -67,8 +68,19 @@ export function Header(...props) {
                                 <span className="block dark:hidden">
                                     <IoMoon />
                                 </span>
+                                
                             </div>
                             {/* dark - light */}
+
+
+
+
+
+                            <div className="text-slate-50 mt-1">{country}</div> 
+
+
+
+
 
                             {/* login - register */}
                             {/* <ul className="flex items-center space-x-1 text-sm ltr:ml-3 rtl:mr-3 ltr:border-r rtl:border-l border-slate-200">

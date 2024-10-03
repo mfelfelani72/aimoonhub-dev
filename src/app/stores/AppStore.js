@@ -2,60 +2,65 @@ import { create } from "zustand";
 
 import i18n from "../../../utils/services/i18n";
 
-
 function configureLang(id, dir) {
+  i18n.changeLanguage(id);
 
-    i18n.changeLanguage(id);
+  const rootHtml = document.getElementById("root-html");
+  localStorage.setItem("currentLngId", [id]);
+  localStorage.setItem("currentLngDir", [dir]);
 
-    const rootHtml = document.getElementById("root-html");
-    localStorage.setItem("currentLngId", [id]);
-    localStorage.setItem("currentLngDir", [dir]);
+  if (rootHtml && dir == "rtl") rootHtml.setAttribute("dir", "rtl");
+  else rootHtml.setAttribute("dir", "ltr");
 
-    if (rootHtml && dir == 'rtl')
-        rootHtml.setAttribute("dir", 'rtl');
+  return id;
+}
 
-    else
-        rootHtml.setAttribute("dir", 'ltr');
-
-    return id;
-
+function getCountry() {
+  // const location = useGeoLocation();
+  // console.log(location)
 }
 
 const useAppStore = create((set) => ({
+  //    splashScreen
 
-    //    splashScreen
+  splashScreen: false,
+  setSplashScreen: (splashScreen) => set({ splashScreen: splashScreen }),
 
-    splashScreen: false,
-    setSplashScreen: (splashScreen) => set({ splashScreen: splashScreen }),
+  //    splashScreen
 
-    //    splashScreen
+  //    sidebar
 
-    //    sidebar 
+  sidebarLink: "news",
+  setSidebarLink: (sidebarLink) => set({ sidebarLink: sidebarLink }),
 
-    sidebarLink: "news",
-    setSidebarLink: (sidebarLink) => set({ sidebarLink: sidebarLink }),
+  statusSidebar: "",
+  setStatusSidebar: (statusSidebar) => set({ statusSidebar: statusSidebar }),
 
-    statusSidebar: "",
-    setStatusSidebar: (statusSidebar) => set({ statusSidebar: statusSidebar }),
+  //    sidebar
 
-    //    sidebar 
+  //    header
 
-    //    header 
+  progressBar: "0",
+  setProgressBar: (progressBar) => set({ progressBar: progressBar }),
 
-    progressBar: "0",
-    setProgressBar: (progressBar) => set({ progressBar: progressBar }),
+  //    header
 
-    //    header 
+  //    language
 
-    //    language
-
-    languageApp: '',
-    setLanguageApp: (id, dir) => set({
-        languageApp: configureLang(id, dir)
+  languageApp: "",
+  setLanguageApp: (id, dir) =>
+    set({
+      languageApp: configureLang(id, dir),
     }),
 
-    //    language
+  //    language
 
-}))
+  //    country
+
+  country: " ",
+  setCountry: (country) => set({ country: country }),
+
+  //    country
+}));
 
 export default useAppStore;
