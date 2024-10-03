@@ -26,7 +26,7 @@ const LatestAimoonNew = () => {
       startDate: "1716373411",
       // "endDate": newsTo,
       page: 1,
-      pageLimit: 10,
+      pageLimit: 5,
       llmOnly: true,
     };
 
@@ -100,7 +100,7 @@ const LatestAimoonNew = () => {
                     src={row.thImage}
                   />
                   <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">
-                    {firstNew?.summaryEn}
+                    {row?.summaryEn}
                   </div>
                   <div className="absolute right-0 top-0 m-2 bg-D-color-theme">
                     <div className="p-[0.2rem] text-[0.8rem] font-bold text-white">
