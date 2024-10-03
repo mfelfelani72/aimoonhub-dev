@@ -3,8 +3,8 @@ import { NavLink, useLocation } from "react-router-dom";
 
 import avatar from "../../../assets/images/avatar.png";
 
-import { getData } from "../../../utils/helpers/getData";
-import { AUTHOR_INFO } from "../../app/constant/EndPoints";
+import { getData } from "../../../utils/helpers/getData.js";
+import { AUTHOR_INFO } from "../../app/constant/EndPoints.js";
 
 import BarChart from "../core/components/BarChart.jsx";
 import ChartDoughnut from "../core/components/ChartDoughnut.jsx";

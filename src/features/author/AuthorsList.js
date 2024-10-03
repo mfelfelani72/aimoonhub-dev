@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import avatar from "../../../assets/images/avatar.png";
 
-import { getData } from "../../../utils/helpers/getData";
-import { AUTHORS } from "../../app/constant/EndPoints";
+import { getData } from "../../../utils/helpers/getData.js";
+import { AUTHORS } from "../../app/constant/EndPoints.js";
 import Button from "../core/components/Button.jsx";
 
 function AuthorsList() {
@@ -33,7 +33,6 @@ function AuthorsList() {
   let defaultImage =
     "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
 
-  const par = "mohammad";
   useEffect(() => {
     if (authorsList.length == 0) getAuthorsList();
   }, [authorsList]);
@@ -78,19 +77,12 @@ function AuthorsList() {
                       Journalist at{" "}
                       <span className="font-bold">{row?.worked}</span>
                     </div>
-                    <Button onClick={(event) => goto(row, event)}>
-                      dashboard
-                    </Button>
-                    {/* <NavLink
-                      to={{
-                        pathname: "/authors-dashboard",
-                        state: { par },
-                        search: "dsd",
-                      }}
-                      className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.7rem] h-5 cursor-pointer"
+                    <Button
+                      className="bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme text-[0.8rem] h-6 w-[4.6rem] px-1"
+                      onClick={(event) => goto(row, event)}
                     >
                       Dashboard
-                    </NavLink> */}
+                    </Button>
                   </div>
                 </div>
               </div>

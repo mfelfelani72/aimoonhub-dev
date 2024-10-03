@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
-import { getData } from "../../../utils/helpers/getData";
-import { AUTHORS } from "../../app/constant/EndPoints";
+import { getData } from "../../../utils/helpers/getData.js";
+import { AUTHORS } from "../../app/constant/EndPoints.js";
 import ChartPie from "../core/components/ChartPie.jsx";
 
 function AuthorAnalysis() {
