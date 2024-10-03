@@ -10,38 +10,9 @@ import BarChart from "../core/components/BarChart.jsx";
 import ChartDoughnut from "../core/components/ChartDoughnut.jsx";
 
 function AuthorDashboard() {
-  const [author, setAuthor] = useState();
-  const [category, setCategory] = useState("cryptocurrencies");
-  const [authorName, setAuthorName] = useState("newsbtc");
 
   const location = useLocation();
-  const { par } = location.state || {};
-
-  console.log(location);
-
-  const getAuthorInfo = async () => {
-    const parameter = {
-      category: category,
-      name: authorName,
-    };
-
-    try {
-      getData(AUTHOR_INFO, parameter).then((response) => {
-        if (response.data.data) {
-          console.log("Fetch dataAuthors done.");
-        //   console.log(response.data.data[0]);
-          setAuthor(response.data.data[0]);
-          //   console.log(state);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (!author) getAuthorInfo();
-  }, [author]);
+  const [author] =useState(location.state.author);
 
   let defaultImage =
     "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";

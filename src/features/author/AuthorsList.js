@@ -11,6 +11,7 @@ function AuthorsList() {
   const [authorsList, setAuthorsList] = useState([]);
   const [category, setCategory] = useState("cryptocurrencies");
   const [priority, setPriority] = useState(2);
+
   const getAuthorsList = async () => {
     const parameter = {
       category: category,
@@ -21,7 +22,7 @@ function AuthorsList() {
       getData(AUTHORS, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataAuthorsList done.");
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setAuthorsList(response.data.data.author_list);
         }
       });
@@ -40,7 +41,7 @@ function AuthorsList() {
   const navigate = useNavigate();
   const goto = (row, event) => {
     event.preventDefault();
-    navigate("/authors-dashboard", { state: { mohammad: row } });
+    navigate("/author-dashboard", { state: { author: row } });
   };
   return (
     <>

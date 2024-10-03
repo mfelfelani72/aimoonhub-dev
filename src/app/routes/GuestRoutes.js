@@ -26,7 +26,7 @@ const GuestRoutes = () => {
         <Routes>
             <Route path="/" element={<Suspense fallback={<LandingSkeleton />}><LazyLanding /> </Suspense>}></Route>
             <Route path="/authors-list" element={<Suspense fallback={<div>Loading...</div>}><LazyAuthorList /> </Suspense>}></Route>
-            <Route path="/authors-dashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyAuthorDashboard /> </Suspense>}></Route>
+            <Route path="/author-dashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyAuthorDashboard /> </Suspense>}></Route>
         </Routes>
 
     )
