@@ -22,12 +22,6 @@ body {
   @apply w-full;
 
 }
-
-.swiper-pagination {
-  top: 260px !important;
-
-  }
-
   .swiper-pagination-bullet{
     border-radius: 0% !important;
   }

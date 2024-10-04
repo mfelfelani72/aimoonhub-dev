@@ -70,7 +70,7 @@ const latestNews = () => {
   const handleGetNews = async () => {
     setLoading(true);
 
-    if (newsPage !== 1 || newsPage !==2) lodashGetNews();
+    if (newsPage !== 1 || newsPage !== 2) lodashGetNews();
   };
 
   const lodashGetNews = lodash.debounce(function () {
@@ -88,26 +88,24 @@ const latestNews = () => {
   }, [newsData]);
 
   return (
-    <>
-      <div className="flex flex-row bg-B-V-bright dark:bg-DB-dim text-T-bright dark:text-DT-bright relative z-10">
-        <div className="w-full bg-slate-50 dark:bg-DB-dim">
-          <h2 className="p-2">{t("l_cryptocurrency_n")}</h2>
-          {newsData.map((row, index) => (
-            <CardRow row={row} key={index} />
-          ))}
-          <div className="ltr:text-right rtl:text-left">
-            <Button
-              onClick={() => handleGetNews()}
-              className="m-3 bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme"
-            >
-              {t("more_ln")}
-            </Button>
-          </div>
-
-          {loading && <Loader />}
+    <div className="flex flex-row bg-white m-4 rounded-[1rem] text-T-bright">
+      <div className="w-full">
+        <h2 className="p-2">{t("l_cryptocurrency_n")}</h2>
+        {newsData.map((row, index) => (
+          <CardRow row={row} key={index} />
+        ))}
+        <div className="ltr:text-right rtl:text-left">
+          <Button
+            onClick={() => handleGetNews()}
+            className="m-3 bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme"
+          >
+            {t("more_ln")}
+          </Button>
         </div>
+
+        {loading && <Loader />}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -14,11 +14,6 @@ import { LATEST_NEWS } from "../../app/constant/EndPoints";
 import DetailsBox from "./components/DetailsBox.jsx";
 
 const LatestAimoonNew = () => {
-  // set country
-  // const location = useGeoLocation();
-  // const [country] = useState(location.country);
-
-  // set country
 
   const { t } = useTranslation();
 
@@ -52,13 +47,13 @@ const LatestAimoonNew = () => {
   };
 
   useEffect(() => {
-    // console.log(location.country);
+   
     if (newsData.length == 0) getNews();
   }, [newsData, firstNew]);
 
   return (
-    <>
-      <h2 className="p-2 dark:text-DT-bright">{t("aimoon_news_analysis")}</h2>
+    <div className="bg-white m-4 rounded-[1rem]">
+      <h2 className="p-2">{t("aimoon_news_analysis")}</h2>
       {/* summary */}
 
       <div className="relative">
@@ -68,16 +63,14 @@ const LatestAimoonNew = () => {
           </a>
         </div>
         <div className="absolute top-0 left-0">
-          <div className="relative border-b-[200rem] border-b-transparent border-l-[20rem] border-l-slate-500/90">
-            <div className="absolute top-0 -left-[20rem] text-slate-50 text-[0.8rem] p-2 pr-5 font-bold text-justify">
-              <a href={firstNew?.link} target="_blank">
-                {localStorage.getItem("currentLngId") == "fa" ? (
-                  <div className="rtl">{firstNew?.summaryFa}</div>
-                ) : (
-                  firstNew?.summaryEn
-                )}
-              </a>
-            </div>
+          <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">
+            <a href={firstNew?.link} target="_blank">
+              {localStorage.getItem("currentLngId") == "fa" ? (
+                <div className="rtl">{firstNew?.summaryFa}</div>
+              ) : (
+                firstNew?.summaryEn
+              )}
+            </a>
           </div>
         </div>
       </div>
@@ -90,7 +83,7 @@ const LatestAimoonNew = () => {
 
       {/* details box */}
 
-      <div className="bg-slate-50 dark:bg-DB-dim p-4 pb-0 relative border-t-2 z-10">
+      <div className="p-4 border-t-2 pb-4">
         <Swiper
           slidesPerView={"auto"}
           spaceBetween={30}
@@ -139,7 +132,7 @@ const LatestAimoonNew = () => {
           ))}
         </Swiper>
       </div>
-    </>
+    </div>
   );
 };
 

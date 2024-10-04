@@ -39,7 +39,7 @@ function AuthorAnalysis() {
     if (authors.length == 0) getAuthors();
   }, [authors, totalStat]);
   return (
-    <div className="relative bg-slate-50 z-10">
+    <div className="bg-white m-4 rounded-[1rem]">
       {/* title */}
       <h2 className="p-2">{t("aimoon_authors_analysis")}</h2>
       {/* title */}
