@@ -3,14 +3,14 @@ import { create } from "zustand";
 import i18n from "../../../utils/services/i18n";
 
 function configureLang(id, dir) {
-  i18n.changeLanguage(id);
+  // i18n.changeLanguage(id);
 
   const rootHtml = document.getElementById("root-html");
   localStorage.setItem("currentLngId", [id]);
   localStorage.setItem("currentLngDir", [dir]);
 
-  if (rootHtml && dir == "rtl") rootHtml.setAttribute("dir", "rtl");
-  else rootHtml.setAttribute("dir", "ltr");
+  // if (rootHtml && dir == "rtl") rootHtml.setAttribute("dir", "rtl");
+  // else rootHtml.setAttribute("dir", "ltr");
 
   return id;
 }

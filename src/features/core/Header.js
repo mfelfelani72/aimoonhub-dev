@@ -55,9 +55,9 @@ export function Header(...props) {
                         <div className="basis-2/3 flex flex-row-reverse  text-sm leading-6 font-semibold text-DT-bright ">
 
                             {/* language */}
-                            {/* <div className="hover:text-color-theme dark:hover:text-D-color-theme mx-4 my-auto">
+                            <div className="hover:text-color-theme dark:hover:text-D-color-theme mx-4 my-auto">
                                 <Languages />
-                            </div> */}
+                            </div>
                             {/* language */}
 
                             {/* dark - light */}

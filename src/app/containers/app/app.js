@@ -65,14 +65,14 @@ const App = () => {
 
     const rootHtml = document.getElementById("root-html");
 
-    if (
-      rootHtml &&
-      localStorage.getItem("currentLngId") &&
-      localStorage.getItem("currentLngDir")
-    ) {
-      i18n.changeLanguage(localStorage.getItem("currentLngId"));
-      rootHtml.setAttribute("dir", localStorage.getItem("currentLngDir"));
-    }
+    // if (
+    //   rootHtml &&
+    //   localStorage.getItem("currentLngId") &&
+    //   localStorage.getItem("currentLngDir")
+    // ) {
+    //   i18n.changeLanguage(localStorage.getItem("currentLngId"));
+    //   rootHtml.setAttribute("dir", localStorage.getItem("currentLngDir"));
+    // }
 
     // initial language }
 
