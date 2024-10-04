@@ -10,15 +10,25 @@ import BarChart from "../core/components/BarChart.jsx";
 import ChartDoughnut from "../core/components/ChartDoughnut.jsx";
 
 function AuthorDashboard() {
-
   const location = useLocation();
-  const [author] =useState(location.state.author);
+  const [author] = useState(location.state.author);
 
   let defaultImage =
     "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
   return (
     <>
-      <h3 className="p-2">AuthorDashboard</h3>
+      {/* header */}
+      <h3 className="pt-2 px-2">AuthorDashboard</h3>
+      <div className="text-[0.7rem] text-slate-500 font-bold px-2">
+        <span>
+          <NavLink to="/">Home</NavLink>
+        </span>{" "}
+        <span className="pl-2">{" > "}</span>
+        
+        <span className="pl-2"><NavLink to="/authors-list">Authors List</NavLink></span>
+      </div>
+      {/* header */}
+
       <div className="container mx-auto mb-3">
         <div className="flex">
           <div className="basis-1/5 self-center mx-auto">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import avatar from "../../../assets/images/avatar.png";
 
@@ -45,9 +45,12 @@ function AuthorsList() {
   };
   return (
     <>
-      {/* title */}
-      <h2 className="p-2">Authors List</h2>
-      {/* title */}
+      {/* header */}
+      <h2 className="pt-2 px-2">Authors List</h2>
+      <div className="text-[0.7rem] text-slate-500 font-bold px-2">
+        <span><NavLink to="/" >Home</NavLink></span>
+      </div>
+      {/* header */}
       <div className="container p-2 mx-auto">
         <div className="grid grid-cols-1 gap-2 ">
           {/* card */}
