@@ -13,18 +13,14 @@ import { LATEST_NEWS } from "../../app/constant/EndPoints";
 
 import DetailsBox from "./components/DetailsBox.jsx";
 
-
 const LatestAimoonNew = () => {
-
   // set country
   // const location = useGeoLocation();
   // const [country] = useState(location.country);
-  
+
   // set country
 
   const { t } = useTranslation();
-
-  
 
   const [newsData, setNewsData] = useState([]);
   const [firstNew, setFirstNew] = useState();
@@ -44,7 +40,7 @@ const LatestAimoonNew = () => {
       getData(LATEST_NEWS, parameter).then((response) => {
         if (response.data.data.result) {
           console.log("Fetch dataLlm done.");
-          // console.log(response.data.data.result);
+          console.log(response.data.data.result);
           setFirstNew(response.data.data.result[0]);
           response.data.data.result.shift();
           setNewsData(response.data.data.result);
@@ -67,12 +63,16 @@ const LatestAimoonNew = () => {
 
       <div className="relative">
         <div className="h-[10rem]">
-          <img className="h-full w-full" src={firstNew?.thImage} />
+          <a href={firstNew?.link} target="_blank">
+            <img className="h-full w-full" src={firstNew?.thImage} />
+          </a>
         </div>
         <div className="absolute top-0 left-0">
           <div className="relative border-b-[200rem] border-b-transparent border-l-[20rem] border-l-slate-500/90">
             <div className="absolute top-0 -left-[20rem] text-slate-50 text-[0.8rem] p-2 pr-5 font-bold text-justify">
-              {firstNew?.summaryEn}
+              <a href={firstNew?.link} target="_blank">
+                {firstNew?.summaryEn}
+              </a>
             </div>
           </div>
         </div>

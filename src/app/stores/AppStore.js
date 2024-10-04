@@ -15,11 +15,6 @@ function configureLang(id, dir) {
   return id;
 }
 
-function getCountry() {
-  // const location = useGeoLocation();
-  // console.log(location)
-}
-
 const useAppStore = create((set) => ({
   //    splashScreen
 
@@ -37,13 +32,6 @@ const useAppStore = create((set) => ({
   setStatusSidebar: (statusSidebar) => set({ statusSidebar: statusSidebar }),
 
   //    sidebar
-
-  //    header
-
-  progressBar: "0",
-  setProgressBar: (progressBar) => set({ progressBar: progressBar }),
-
-  //    header
 
   //    language
 

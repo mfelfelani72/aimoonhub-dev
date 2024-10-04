@@ -49,13 +49,13 @@ function AuthorsList() {
       <h2 className="p-2">Authors List</h2>
       {/* title */}
       <div className="container p-2 mx-auto">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 ">
           {/* card */}
           {authorsList.map((row, index) => (
-            <div key={index} className="border-2 rounded-xl p-2">
+            <div key={index} className="border-2 rounded-xl p-2 pt-3">
               <div className="h-[6rem]">
                 <div className="flex flex-row">
-                  <div className="basis-1/2">
+                  <div className="basis-2/5">
                     <div className="">
                       <a href={row?.biographyUrl} target="_blank">
                         <img
@@ -70,7 +70,7 @@ function AuthorsList() {
                       </a>
                     </div>
                   </div>
-                  <div className="basis-1/2 text-center self-center">
+                  <div className="basis-3/5 text-center self-center">
                     <div className="text-[0.8rem]">
                       <span className="font-bold">+{row?.newsCount}</span> news
                     </div>
@@ -78,20 +78,22 @@ function AuthorsList() {
                       Journalist at{" "}
                       <span className="font-bold">{row?.worked}</span>
                     </div>
-                    <Button
-                      className="bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme text-[0.8rem] h-6 w-[4.6rem] px-1"
-                      onClick={(event) => goto(row, event)}
-                    >
-                      Dashboard
-                    </Button>
+                    <div className="mt-5">
+                      <Button
+                        className="bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme text-[0.8rem] px-3"
+                        onClick={(event) => goto(row, event)}
+                      >
+                        Dashboard
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-row mt-2">
+              <div className="flex flex-row justify-center mt-1">
                 {row?.symbols.length
                   ? row?.symbols.map((element, index) =>
-                      index <= 3 ? (
+                      index <= 4 ? (
                         <div key={index}>
                           <img
                             className="h-[2rem] w-[2rem] rounded-full mx-auto"

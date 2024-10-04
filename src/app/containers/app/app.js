@@ -1,8 +1,3 @@
-/*
-
-  Wire up all the app
-
-*/
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -34,6 +29,7 @@ class Task {
 }
 
 const App = () => {
+
   // initial country
 
   useGeoLocation();
@@ -50,19 +46,6 @@ const App = () => {
       userLocation: state.userLocation,
     }));
   // load Global States from zustand }
-
-  // { for calculate scroll page
-  const updateScrollCompletion = () => {
-    const currentProgress = window.scrollY;
-    const scrolHeight = document.body.scrollHeight - window.innerHeight;
-
-    if (scrolHeight) {
-      setProgressBar(
-        String(Number((currentProgress / scrolHeight).toFixed(2)) * 100) + "%"
-      );
-    }
-  };
-  // for calculate scroll page }
 
   // { task for splashScreen
   const tasks = [
@@ -106,12 +89,6 @@ const App = () => {
     }
 
     // initial theme mode }
-
-    // { call function to calculate scroll
-
-    window.addEventListener("scroll", updateScrollCompletion);
-
-    // call function to calculate scroll }
   }, []);
 
   // { define public or private routes (guest or admin)

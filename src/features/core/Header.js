@@ -23,7 +23,7 @@ export function Header(...props) {
 
     const { t } = useTranslation();
 
-    const { statusSidebar, setStatusSidebar, progressBar, setLanguageApp, userLocation } = useAppStore((state) => ({
+    const { statusSidebar, setStatusSidebar, setLanguageApp, userLocation } = useAppStore((state) => ({
         statusSidebar: state.statusSidebar,
         setStatusSidebar: state.setStatusSidebar,
         progressBar: state.progressBar,
@@ -101,14 +101,6 @@ export function Header(...props) {
                     </div>
                 </header >
                 {/* header */}
-
-                {/* progress bar */}
-                <div className="bg-slate-50">
-                    <div className="md:mx-[12rem] h-1 w-[98%] xs:w-[99%] sm:w-[74%] md:w-[77%] bi:w-[78%] lg:w-[79%] xl:w-[83%]  z-10">
-                        <div className="h-1 bg-color-theme dark:bg-D-color-theme ltr:rounded-r-xl rtl:rounded-l-xl " style={{ width: progressBar }}></div>
-                    </div>
-                </div>
-                {/* progress bar */}
             </div >
         </>
     );

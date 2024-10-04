@@ -76,7 +76,7 @@ function AuthorAnalysis() {
 
         <div className="flex flex-row mt-4 p-2">
           <div className="basis-1/2 text-md content-center text-T-bright">
-            <div className="h-[9rem] w-[9rem] mx-auto -mt-3 mb-2">
+            <div className="h-[6rem] w-[6rem] mx-auto -mt-[1rem] mb-2">
               <ChartPie
                 data={[
                   totalStat?.crypto_author_counts,
@@ -87,7 +87,7 @@ function AuthorAnalysis() {
                 //   labels={[`+${totalStat?.crypto_author_counts} Cryptocurrencies`,`+${totalStat?.forex_author_counts} Forex`,`+${totalStat?.commodity_author_counts} Commodity`]}
               />
             </div>
-            <div className="text-[0.67rem] text-center font-bold">
+            <div className="text-sm text-center font-bold">
               Author distribution chart in categories
             </div>
           </div>
@@ -124,7 +124,7 @@ function AuthorAnalysis() {
                 </div>
               </div>
               <div className="basis-1/2">
-                <div className="text-lime-500 text-center text-lg mt-8">
+                <div className="text-lime-500 text-center text-md mt-[1.7rem]">
                   <span className="font-bold">+{totalStat?.total_author}</span>{" "}
                   Total Author
                 </div>

@@ -8,7 +8,7 @@ function Landing() {
   return (
     <>
       <LatestAimoonNew />
-      <LatestNews />
+      {/* <LatestNews /> */}
       <AuthorAnalysis />
     </>
   );
