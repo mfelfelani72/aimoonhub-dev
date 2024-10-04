@@ -40,12 +40,12 @@ export function Header(...props) {
                     <div className="flex flex-row">
 
                         {/* menu icon */}
-                        <div className="hover:cursor-pointer md:hidden text-DT-bright hover:text-color-theme dark:hover:text-D-color-theme font-semibold text-2xl ltr:mr-3 rtl:ml-3"
+                        {/* <div className="hover:cursor-pointer md:hidden text-DT-bright hover:text-color-theme dark:hover:text-D-color-theme font-semibold text-2xl ltr:mr-3 rtl:ml-3"
                             onClick={() => { statusSidebar === "block" ? setStatusSidebar("hidden") : setStatusSidebar("flex") }}>
 
                             <IoMenu />
 
-                        </div>
+                        </div> */}
                         {/* menu icon */}
 
                         {/* header title */}
@@ -55,13 +55,13 @@ export function Header(...props) {
                         <div className="basis-2/3 flex flex-row-reverse  text-sm leading-6 font-semibold text-DT-bright ">
 
                             {/* language */}
-                            <div className="hover:text-color-theme dark:hover:text-D-color-theme mx-4 my-auto">
+                            {/* <div className="hover:text-color-theme dark:hover:text-D-color-theme mx-4 my-auto">
                                 <Languages />
-                            </div>
+                            </div> */}
                             {/* language */}
 
                             {/* dark - light */}
-                            <div className="flex items-center ltr:pl-2 rtl:pr-2 hover:cursor-pointer hover:text-color-theme dark:hover:text-D-color-theme" onClick={() => handleSwitchTheme()}>
+                            {/* <div className="flex items-center ltr:pl-2 rtl:pr-2 hover:cursor-pointer hover:text-color-theme dark:hover:text-D-color-theme" onClick={() => handleSwitchTheme()}>
                                 <span className="hidden dark:block">
                                     <IoSunny />
                                 </span>
@@ -69,14 +69,14 @@ export function Header(...props) {
                                     <IoMoon />
                                 </span>
                                 
-                            </div>
+                            </div> */}
                             {/* dark - light */}
 
 
 
 
 
-                            <div className="text-slate-50 mt-1">{userLocation.countryCode}</div> 
+                            {/* <div className="text-slate-50 mt-1">{userLocation.countryCode}</div>  */}
 
 
 

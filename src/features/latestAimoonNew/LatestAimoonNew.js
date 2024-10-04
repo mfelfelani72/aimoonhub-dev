@@ -71,9 +71,11 @@ const LatestAimoonNew = () => {
           <div className="relative border-b-[200rem] border-b-transparent border-l-[20rem] border-l-slate-500/90">
             <div className="absolute top-0 -left-[20rem] text-slate-50 text-[0.8rem] p-2 pr-5 font-bold text-justify">
               <a href={firstNew?.link} target="_blank">
-                {localStorage.getItem("currentLngId") == "fa" ?
-                <div className="rtl">{firstNew?.summaryFa}</div> : firstNew?.summaryEn
-                }
+                {localStorage.getItem("currentLngId") == "fa" ? (
+                  <div className="rtl">{firstNew?.summaryFa}</div>
+                ) : (
+                  firstNew?.summaryEn
+                )}
               </a>
             </div>
           </div>
@@ -108,14 +110,20 @@ const LatestAimoonNew = () => {
             <SwiperSlide row={row} key={index}>
               <div className="relative h-[18rem] border rounded-lg">
                 <div className="h-[12rem]">
-                  <img
-                    className="h-[12rem] w-full border border-transparent rounded-lg"
-                    src={row.thImage}
-                  />
+                  <a href={row?.link} target="_blank">
+                    <img
+                      className="h-[12rem] w-full border border-transparent rounded-lg"
+                      src={row.thImage}
+                    />
+                  </a>
                   <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">
-                  {localStorage.getItem("currentLngId") == "fa" ?
-                <div className="rtl">{row?.summaryFa}</div> : row?.summaryEn
-                }
+                    <a href={row?.link} target="_blank">
+                      {localStorage.getItem("currentLngId") == "fa" ? (
+                        <div className="rtl">{row?.summaryFa}</div>
+                      ) : (
+                        row?.summaryEn
+                      )}
+                    </a>
                   </div>
                   <div className="absolute right-0 top-0 m-2 bg-D-color-theme">
                     <div className="p-[0.2rem] text-[0.8rem] font-bold text-white">

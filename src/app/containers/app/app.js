@@ -78,15 +78,15 @@ const App = () => {
 
     // { initial theme mode (dark or light)
 
-    if (
-      (window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches) ||
-      localStorage.getItem("theme") === "dark"
-    ) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    // if (
+    //   (window.matchMedia &&
+    //     window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+    //   localStorage.getItem("theme") === "dark"
+    // ) {
+    //   document.documentElement.classList.add("dark");
+    // } else {
+    //   document.documentElement.classList.remove("dark");
+    // }
 
     // initial theme mode }
   }, []);
