@@ -119,7 +119,7 @@ const App = () => {
             <>
               <Header />
 
-              <div className="mt-12 bg-B-V-bright dark:bg-DB-dim">
+              <div className="mt-12 bg-gray-100 pt-1 pb-1">
                 <GuestRoutes />
               </div>
 

@@ -52,7 +52,7 @@ const LatestAimoonNew = () => {
   }, [newsData, firstNew]);
 
   return (
-    <div className="bg-white m-4 rounded-[1rem]">
+    <div className="bg-white mx-4 rounded-[1rem]">
       <h2 className="p-2">{t("aimoon_news_analysis")}</h2>
       {/* summary */}
 

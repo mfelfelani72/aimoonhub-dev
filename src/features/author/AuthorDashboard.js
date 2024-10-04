@@ -16,7 +16,7 @@ function AuthorDashboard() {
   let defaultImage =
     "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
   return (
-    <>
+    <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
       <h3 className="pt-2 px-2">AuthorDashboard</h3>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
@@ -120,7 +120,7 @@ function AuthorDashboard() {
           <div>sadsa</div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

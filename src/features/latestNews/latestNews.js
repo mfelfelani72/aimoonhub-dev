@@ -34,7 +34,7 @@ const latestNews = () => {
   const [newsSymbols, setNewsSymbols] = useState("all");
   const [newsFrom, setNewsFrom] = useState("1716373411");
   const [newsTo, setNewsTo] = useState("1725633001");
-  const [newsPageLimit, setNewsPageLimit] = useState(20);
+  const [newsPageLimit, setNewsPageLimit] = useState(5);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 
   const getNews = async () => {
@@ -80,8 +80,6 @@ const latestNews = () => {
   useEffect(() => {
     if (newsData.length == 0) {
       getNews();
-      setNewsPage(2);
-      setNewsPageLimit(10);
     }
 
     setSidebarLink("news");

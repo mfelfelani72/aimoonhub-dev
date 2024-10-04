@@ -44,9 +44,9 @@ function AuthorsList() {
     navigate("/author-dashboard", { state: { author: row } });
   };
   return (
-    <>
+    <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
-      <h2 className="pt-2 px-2">Authors List</h2>
+      <h2 className="pt-1 px-2">Authors List</h2>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
         <span><NavLink to="/" >Home</NavLink></span>
       </div>
@@ -118,7 +118,7 @@ function AuthorsList() {
           {/* card */}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 1;
