@@ -55,12 +55,12 @@ const useAppStore = create((set) => ({
 
   //    language
 
-  //    country
+  //    UserLocation
 
-  country: " ",
-  setCountry: (country) => set({ country: country }),
+  userLocation: "",
+  setUserLocation: (userLocation) => set({ userLocation: userLocation }),
 
-  //    country
+  //    UserLocation
 }));
 
 export default useAppStore;

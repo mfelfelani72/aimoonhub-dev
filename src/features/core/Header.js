@@ -23,14 +23,14 @@ export function Header(...props) {
 
     const { t } = useTranslation();
 
-    const { statusSidebar, setStatusSidebar, progressBar, setLanguageApp, country } = useAppStore((state) => ({
+    const { statusSidebar, setStatusSidebar, progressBar, setLanguageApp, userLocation } = useAppStore((state) => ({
         statusSidebar: state.statusSidebar,
         setStatusSidebar: state.setStatusSidebar,
         progressBar: state.progressBar,
         setLanguageApp: state.setLanguageApp,
-        country: state.country,
+        userLocation: state.userLocation,
     }))
-
+    
     return (
         <>
             <div className="fixed top-0 left-0 right-0 shadow-md dark:shadow-slate-500 z-50">
@@ -76,7 +76,7 @@ export function Header(...props) {
 
 
 
-                            <div className="text-slate-50 mt-1">{country}</div> 
+                            <div className="text-slate-50 mt-1">{userLocation.countryCode}</div> 
 
 
 

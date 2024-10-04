@@ -44,7 +44,7 @@ const LatestAimoonNew = () => {
       getData(LATEST_NEWS, parameter).then((response) => {
         if (response.data.data.result) {
           console.log("Fetch dataLlm done.");
-          console.log(response.data.data.result);
+          // console.log(response.data.data.result);
           setFirstNew(response.data.data.result[0]);
           response.data.data.result.shift();
           setNewsData(response.data.data.result);

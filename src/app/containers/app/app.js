@@ -10,7 +10,9 @@ import { useLocation } from "react-router-dom";
 import useAppStore from "../../stores/AppStore.js";
 import i18n from "../../../../utils/services/i18n";
 // get Country
-import useGeoLocation from "react-ipgeolocation";
+
+import useGeoLocation from "../../../../utils/lib/useGeoLocation.js";
+
 // get Country
 
 import "../../styles/app/app.css";
@@ -33,19 +35,20 @@ class Task {
 
 const App = () => {
   // initial country
-  const Location = useGeoLocation();
+
+  useGeoLocation();
+
   // initial country
 
   // { load Global States from zustand
-  const { splashScreen, setProgressBar, country, setCountry } = useAppStore(
-    (state) => ({
+  const { splashScreen, setProgressBar } =
+    useAppStore((state) => ({
       progressBar: state.progressBar,
       setProgressBar: state.setProgressBar,
       splashScreen: state.splashScreen,
-      country: state.country,
-      setCountry: state.setCountry,
-    })
-  );
+      setUserLocation: state.setUserLocation,
+      userLocation: state.userLocation,
+    }));
   // load Global States from zustand }
 
   // { for calculate scroll page
@@ -72,14 +75,9 @@ const App = () => {
   ];
   // task for splashScreen }
 
+
   useEffect(() => {
-
-    // { set Country
-
-    if (Location.country) if (country == " ") setCountry(Location.country);
-    
-    //   set Country }
-
+   
     // { initial language
 
     const rootHtml = document.getElementById("root-html");
@@ -114,7 +112,7 @@ const App = () => {
     window.addEventListener("scroll", updateScrollCompletion);
 
     // call function to calculate scroll }
-  }, [Location]);
+  }, []);
 
   // { define public or private routes (guest or admin)
 
