@@ -79,7 +79,7 @@ const LatestAimoonNew = () => {
 
       {/* details box */}
 
-      {firstNew && <DetailsBox data={firstNew} lineChartWidth="w-[5rem]" />}
+      {firstNew && <DetailsBox data={firstNew} lineChartWidth="w-[4rem]" />}
 
       {/* details box */}
 
@@ -101,15 +101,15 @@ const LatestAimoonNew = () => {
         >
           {newsData.map((row, index) => (
             <SwiperSlide row={row} key={index}>
-              <div className="relative h-[18rem] border rounded-lg">
-                <div className="h-[12rem]">
+              <div className="relative h-[19rem] border rounded-lg">
+                <div className="h-[13rem]">
                   <a href={row?.link} target="_blank">
                     <img
-                      className="h-[12rem] w-full border border-transparent rounded-lg"
+                      className="h-[13rem] w-full border border-transparent rounded-lg"
                       src={row.thImage}
                     />
                   </a>
-                  <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">
+                  <div className="absolute top-0 left-0 m-5 mt-10 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">
                     <a href={row?.link} target="_blank">
                       {localStorage.getItem("currentLngId") == "fa" ? (
                         <div className="rtl">{row?.summaryFa}</div>
@@ -118,14 +118,14 @@ const LatestAimoonNew = () => {
                       )}
                     </a>
                   </div>
-                  <div className="absolute right-0 top-0 m-2 bg-D-color-theme">
+                  <div className="absolute right-0 top-0 m-2 bg-D-color-theme rounded-md">
                     <div className="p-[0.2rem] text-[0.8rem] font-bold text-white">
-                      News
+                      {row?.category}
                     </div>
                   </div>
                 </div>
-                <div className="absolute top-[9rem] w-full">
-                  <DetailsBox data={row} lineChartWidth="w-[3rem]" />
+                <div className="absolute top-[10rem] w-full">
+                  <DetailsBox data={row} lineChartWidth="w-[2rem]" />
                 </div>
               </div>
             </SwiperSlide>
