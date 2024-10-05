@@ -14,11 +14,12 @@ import { LATEST_NEWS } from "../../app/constant/EndPoints";
 import DetailsBox from "./components/DetailsBox.jsx";
 
 const LatestAimoonNew = () => {
-
   const { t } = useTranslation();
 
   const [newsData, setNewsData] = useState([]);
   const [firstNew, setFirstNew] = useState();
+
+  const [lang, setLang] = useState(true);
 
   const getNews = async () => {
     const parameter = {
@@ -35,7 +36,7 @@ const LatestAimoonNew = () => {
       getData(LATEST_NEWS, parameter).then((response) => {
         if (response.data.data.result) {
           console.log("Fetch dataLlm done.");
-          console.log(response.data.data.result);
+          // console.log(response.data.data.result);
           setFirstNew(response.data.data.result[0]);
           response.data.data.result.shift();
           setNewsData(response.data.data.result);
@@ -46,8 +47,11 @@ const LatestAimoonNew = () => {
     }
   };
 
+  const toggleLang = (event) => {
+    if (event.detail == 2) setLang((prev) => !prev);
+  };
+
   useEffect(() => {
-   
     if (newsData.length == 0) getNews();
   }, [newsData, firstNew]);
 
@@ -64,8 +68,11 @@ const LatestAimoonNew = () => {
         </div>
         <div className="absolute top-0 left-0">
           <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[16rem] text-[0.8rem] p-2 text-justify text-slate-800 mx-2">
-            <a href={firstNew?.link} target="_blank">
-              {localStorage.getItem("currentLngId") == "fa" ? (
+            <a
+              onClick={(event) => toggleLang(event)}
+              className="cursor-pointer"
+            >
+              {lang ? (
                 <div className="rtl">{firstNew?.summaryFa}</div>
               ) : (
                 firstNew?.summaryEn
@@ -110,8 +117,11 @@ const LatestAimoonNew = () => {
                     />
                   </a>
                   <div className="absolute top-0 left-0 m-5 mt-10 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[16rem] text-[0.8rem] p-2 text-justify text-slate-800 mx-2">
-                    <a href={row?.link} target="_blank">
-                      {localStorage.getItem("currentLngId") == "fa" ? (
+                    <a
+                      onClick={(event) => toggleLang(event)}
+                      className="cursor-pointer"
+                    >
+                      {lang ? (
                         <div className="rtl">{row?.summaryFa}</div>
                       ) : (
                         row?.summaryEn

@@ -51,7 +51,7 @@ function DetailsBox(props) {
                 <div className="flex flex-row pl-1 items-center">
                   <img src={avatar} className="h-5 w-5 rounded-[30px]" />
                   <span className="px-1 text-[0.7rem]">
-                    {props.data?.provider}
+                    {props.data?.author}
                   </span>
                   <span className="px-1 text-[0.7rem] font-bold">
                     {props.data?.author_info["last_week_count"] +
@@ -81,7 +81,7 @@ function DetailsBox(props) {
                 <div className="flex flex-row pt-1 pl-1 items-center">
                   <img src={avatar} className="h-5 w-5 rounded-[30px]" />
                   <span className="px-1 text-[0.7rem]">
-                    {props.data?.author}
+                    {props.data?.provider}
                   </span>
                   <span className="px-1 text-[0.7rem] font-bold">
                     {props.data?.provider_info["last_week_count"] +

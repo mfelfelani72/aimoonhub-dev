@@ -86,7 +86,7 @@ const latestNews = () => {
   }, [newsData]);
 
   return (
-    <div className="flex flex-row bg-white m-4 rounded-[1rem] text-T-bright">
+    <div className="flex flex-row bg-white m-4 rounded-[1rem]">
       <div className="w-full">
         <h2 className="p-2">{t("l_cryptocurrency_n")}</h2>
         {newsData.map((row, index) => (
