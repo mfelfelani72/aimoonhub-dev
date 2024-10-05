@@ -83,7 +83,7 @@ function AuthorsList() {
                     </div>
                     <div className="mt-5">
                       <Button
-                        className="bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme text-[0.8rem] px-3"
+                        className="bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme text-[0.8rem] px-3"
                         onClick={(event) => goto(row, event)}
                       >
                         Dashboard

@@ -48,8 +48,8 @@ function AuthorAnalysis() {
         {/* authors images */}
         <div className="self-center pl-2">
           <div className="text-[0.8rem] font-bold pb-1">Top 10 Authors</div>
-          <div className="flex flex-row items-center">
-            <div className="basis-3/4 relative h-10 w-[17rem] justify-center">
+          <div className="flex flex-col items-end">
+            <div className=" relative h-10 w-[17rem] mx-auto">
               {authors.map((row, index) => (
                 <div
                   style={{
@@ -62,7 +62,7 @@ function AuthorAnalysis() {
                 </div>
               ))}
             </div>
-            <div className="basis-1/4 text-center">
+            <div className="mt-5 mx-2">
               <NavLink
                 to="/authors-list"
                 className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.75rem] h-7 cursor-pointer"

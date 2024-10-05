@@ -7,8 +7,8 @@ import AuthorAnalysis from "../author/AuthorAnalysis";
 function Landing() {
   return (
     <>
-      <LatestAimoonNew />
-      <LatestNews />
+      {/* <LatestAimoonNew /> */}
+      {/* <LatestNews /> */}
       <AuthorAnalysis />
     </>
   );
