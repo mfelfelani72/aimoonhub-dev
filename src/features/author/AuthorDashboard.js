@@ -8,12 +8,11 @@ import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
 
 import BarChart from "../core/components/BarChart.jsx";
-import ChartDoughnut from "../core/components/ChartDoughnut.jsx";
 
+const lodash = require("lodash");
 function AuthorDashboard() {
   const location = useLocation();
   const [author] = useState(location.state.author);
-
   // for day
 
   const [dayPercentNewScore, setDayPercentNewScore] = useState();
@@ -28,7 +27,6 @@ function AuthorDashboard() {
   const [weekStatusScore, setWeekStatusScore] = useState();
   const [weekClassNameNewScore, setWeekClassNameNewScore] = useState();
 
- 
   const setDayDetailsProgressBar = () => {
     setDayPercentNewScore(
       Math.max(
@@ -37,8 +35,15 @@ function AuthorDashboard() {
         author?.lastDay_sentiment.positive
       )
     );
-
     if (
+      author?.lastDay_sentiment.negative == 0 &&
+      author?.lastDay_sentiment.neutral == 0 &&
+      author?.lastDay_sentiment.positive == 0
+    ) {
+      setDayClassNameNewScore("text-center font-bold ");
+      setDayStatusScore("");
+      setDaySignScore("");
+    } else if (
       Math.max(
         author?.lastDay_sentiment.negative,
         author?.lastDay_sentiment.neutral,
@@ -73,8 +78,15 @@ function AuthorDashboard() {
         author?.lastWeek_sentiment.positive
       )
     );
-
     if (
+      author?.lastWeek_sentiment.negative == 0 &&
+      author?.lastWeek_sentiment.neutral == 0 &&
+      author?.lastWeek_sentiment.positive == 0
+    ) {
+      setWeekClassNameNewScore("text-center font-bold ");
+      setWeekStatusScore("");
+      setWeekSignScore("");
+    } else if (
       Math.max(
         author?.lastWeek_sentiment.negative,
         author?.lastWeek_sentiment.neutral,
@@ -193,11 +205,11 @@ function AuthorDashboard() {
               News Per Month
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div className="flex">
           <div className="bg-rose-200 border-y-2 border-rose-400 w-full mt-1 py-1 text-center">
-            <span className="text-rose-700">Today Author Statistics</span>
+            <span className="text-rose-700">Today Author Sentiment</span>
           </div>
         </div>
 
@@ -253,7 +265,7 @@ function AuthorDashboard() {
 
         <div className="flex">
           <div className="bg-rose-100 border-y-2 border-rose-200 w-full mt-1 py-1 text-center">
-            <span className="text-rose-500">This week Author Statistics</span>
+            <span className="text-rose-500">This Week Author Sentiment</span>
           </div>
         </div>
 
@@ -304,6 +316,27 @@ function AuthorDashboard() {
             <div className="text-lg">
               <span className={weekClassNameNewScore}>{weekStatusScore}</span>
             </div>
+          </div>
+        </div> */}
+
+        <div className="flex">
+          <div className="bg-blue-100 border-y-2 border-blue-200 w-full mt-1 py-1 text-center">
+            <span className="text-blue-500">
+              Author News Distribution Per Coins
+            </span>
+          </div>
+        </div>
+
+        <div className="flex justify-center my-2">
+          <div className="mx-2">
+            <BarChart
+              labels={lodash
+                .chunk(author?.symbols, 10)[0]
+                .map((node) => [node.coin])}
+              data={lodash
+                .chunk(author?.symbols, 10)[0]
+                .map((node) => [node.news_count])}
+            ></BarChart>
           </div>
         </div>
       </div>
