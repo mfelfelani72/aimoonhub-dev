@@ -54,11 +54,9 @@ function DetailsBox(props) {
                     {props.data?.provider}
                   </span>
                   <span className="px-1 text-[0.7rem] font-bold">
-                    {"( " +
-                      props.data?.author_info["last_week_count"] +
+                    {props.data?.author_info["last_week_count"] +
                       " / " +
-                      props.data?.author_info["AvgNewsPERweek"] +
-                      " )"}
+                      props.data?.author_info["AvgNewsPERweek"]}
                   </span>
                   <div className="flex flex-col my-1 mx-2">
                     <div
@@ -86,11 +84,9 @@ function DetailsBox(props) {
                     {props.data?.author}
                   </span>
                   <span className="px-1 text-[0.7rem] font-bold">
-                    {"( " +
-                      props.data?.provider_info["last_week_count"] +
+                    {props.data?.provider_info["last_week_count"] +
                       " / " +
-                      props.data?.provider_info["AvgNewsPERweek"] +
-                      " )"}
+                      props.data?.provider_info["AvgNewsPERweek"]}
                   </span>
                   <div className="flex flex-col my-1 mx-2">
                     <div
@@ -115,7 +111,11 @@ function DetailsBox(props) {
               <div className="basis-1/5 -mt-1">
                 <div className="h-[3.6rem] w-[3.6rem] mx-auto">
                   <ChartDoughnut
-                    data={[props.data?.Negative, props.data?.Positive, props.data?.Neutral]}
+                    data={[
+                      props.data?.Negative,
+                      props.data?.Positive,
+                      props.data?.Neutral,
+                    ]}
                     colors={[
                       "rgba(255, 0, 0, 0.5)",
                       "rgba(0, 255, 0, 0.5)",
@@ -135,20 +135,28 @@ function DetailsBox(props) {
             <div className="basis-2/3">
               {props.data?.symbols && props.data?.symbols[0] ? (
                 <div className="flex flex-row items-center">
-                  {props.data?.symbols.map((row, index) => (
-                    <div className="" key={index}>
-                      <img
-                        className="h-[1.25rem] w-[1.25rem]"
-                        src={defaultImage}
-                      />
-                    </div>
-                  ))}
-                  <div className="flex flex-row text-slate-700 items-center pt-1">
-                    {props.data?.symbols.map((row, index) => (
-                      <div className="px-1 text-[0.7rem]" key={index}>
-                        {row}
+                  {props.data?.symbols.map((row, index) =>
+                    index <= 2 ? (
+                      <div className="" key={index}>
+                        <img
+                          className="h-[1.25rem] w-[1.25rem]"
+                          src={defaultImage}
+                        />
                       </div>
-                    ))}
+                    ) : (
+                      ""
+                    )
+                  )}
+                  <div className="flex flex-row text-slate-700 items-center pt-1">
+                    {props.data?.symbols.map((row, index) =>
+                      index <= 2 ? (
+                        <div className="px-1 text-[0.7rem]" key={index}>
+                          {row}
+                        </div>
+                      ) : (
+                        ""
+                      )
+                    )}
                   </div>
                 </div>
               ) : (

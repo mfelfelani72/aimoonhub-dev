@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { useTranslation } from "react-i18next";
+import { dateHelper } from "../../../../utils/helpers/dateHelper";
 
 const CardRow = (props) => {
   const [percentNewScore, setPercentNewScore] = useState();
@@ -58,19 +59,26 @@ const CardRow = (props) => {
         </div>
         {/* title */}
 
-        {/* provider */}
-        <div className="px-2 pt-2">
-          <span className="text-sm">{t("provider")}</span>
-          <span className="px-1 text-sm font-bold"> {props.row.provider}</span>
+        {/* author */}
+        <div className="px-2">
+          <span className="text-[0.7rem]">{t("author")}</span>
+          <span className="px-1 text-[0.7rem] font-bold"> {props.row.author}</span>
+        </div>
+        {/* author */}
+
+         {/* provider */}
+         <div className="px-2 leading-3">
+          <span className="text-[0.7rem]">{t("provider")}</span>
+          <span className="px-1 text-[0.7rem] font-bold"> {props.row.provider}</span>
         </div>
         {/* provider */}
 
-        {/* author */}
-        <div className="px-2">
-          <span className="text-sm">{t("author")}</span>
-          <span className="px-1 text-sm font-bold"> {props.row.author}</span>
+        {/* date */}
+        <div className="px-2 text-end">
+          <span className="px-1 text-[0.7rem] text-slate-500"> {dateHelper(props.row.pubDate)}</span>
         </div>
-        {/* author */}
+        {/* date */}
+
       </div>
     </div>
   );

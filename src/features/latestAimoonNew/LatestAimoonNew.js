@@ -63,7 +63,7 @@ const LatestAimoonNew = () => {
           </a>
         </div>
         <div className="absolute top-0 left-0">
-          <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">
+          <div className="absolute top-0 left-0 m-5 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[16rem] text-[0.8rem] p-2 text-justify text-slate-800 mx-2">
             <a href={firstNew?.link} target="_blank">
               {localStorage.getItem("currentLngId") == "fa" ? (
                 <div className="rtl">{firstNew?.summaryFa}</div>
@@ -109,7 +109,7 @@ const LatestAimoonNew = () => {
                       src={row.thImage}
                     />
                   </a>
-                  <div className="absolute top-0 left-0 m-5 mt-10 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[20rem] text-[0.8rem] p-2 text-justify text-slate-800">
+                  <div className="absolute top-0 left-0 m-5 mt-10 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[16rem] text-[0.8rem] p-2 text-justify text-slate-800 mx-2">
                     <a href={row?.link} target="_blank">
                       {localStorage.getItem("currentLngId") == "fa" ? (
                         <div className="rtl">{row?.summaryFa}</div>

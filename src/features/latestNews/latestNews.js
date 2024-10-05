@@ -95,7 +95,7 @@ const latestNews = () => {
         <div className="ltr:text-right rtl:text-left">
           <Button
             onClick={() => handleGetNews()}
-            className="m-3 bg-color-theme/70 hover:bg-color-theme dark:bg-D-color-theme/70 dark:hover:bg-D-color-theme"
+            className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
           >
             {t("more_ln")}
           </Button>
