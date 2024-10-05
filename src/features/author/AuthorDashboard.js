@@ -8,8 +8,16 @@ import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
 
 import BarChart from "../core/components/BarChart.jsx";
+import Button from "../core/components/Button.jsx";
+import CardRow from "./components/CardRow.jsx";
+import Loader from "../core/components/Loader.jsx";
+
+import { getData } from "../../../utils/helpers/getData";
+import { LATEST_NEWS_AUTHOR } from "../../app/constant/EndPoints";
 
 const lodash = require("lodash");
+const PAGE_NUMBER = 1;
+
 function AuthorDashboard() {
   const location = useLocation();
   const [author] = useState(location.state.author);
@@ -26,6 +34,16 @@ function AuthorDashboard() {
   const [weekSignScore, setWeekSignScore] = useState();
   const [weekStatusScore, setWeekStatusScore] = useState();
   const [weekClassNameNewScore, setWeekClassNameNewScore] = useState();
+
+  const [newsAuthor, setNewsAuthor] = useState(author?.name);
+  const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
+  const [newsFrom, setNewsFrom] = useState("1716373411");
+  const [newsLlmOnly, setNewsLlmOnly] = useState(false);
+  const [newsPageLimit, setNewsPageLimit] = useState(5);
+  const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
+
+  const [newsData, setNewsData] = useState([]);
+  const [loading, setLoading] = useState();
 
   const setDayDetailsProgressBar = () => {
     setDayPercentNewScore(
@@ -113,14 +131,52 @@ function AuthorDashboard() {
     }
   };
 
-  console.log(author);
-  let defaultImage =
-    "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
+  const getNews = async () => {
+    const parameter = {
+      author: newsAuthor,
+      category: newsCategory,
+      startDate: newsFrom,
+      llmOnly: newsLlmOnly,
+      page: newsPage,
+      pageLimit: newsPageLimit,
+    };
+
+    try {
+      getData(LATEST_NEWS_AUTHOR, parameter).then((response) => {
+        if (response.data.data.result) {
+          console.log("Fetch data done.");
+          console.log(response.data.data.result);
+          setNewsData((prev) => {
+            return [...prev, ...response.data.data.result];
+          });
+
+          setNewsPage((prev) => prev + 1);
+          setLoading(false);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetNews = async () => {
+    setLoading(true);
+
+    if (newsPage !== 1 || newsPage !== 2) lodashGetNews();
+  };
+
+  const lodashGetNews = lodash.debounce(function () {
+    getNews();
+  }, 100);
 
   useEffect(() => {
+    if (newsData.length == 0) {
+      getNews();
+    }
+
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-  }, []);
+  }, [newsData]);
 
   return (
     <div className="bg-white m-4 rounded-[1rem]">
@@ -138,7 +194,7 @@ function AuthorDashboard() {
       {/* header */}
 
       <div className="container mx-auto my-3 mb-3">
-        {/* <div className="flex mt-1">
+        <div className="flex mt-1">
           <div className="basis-1/4">
             <div className="">
               <a href={author?.biographyUrl} target="_blank">
@@ -169,7 +225,7 @@ function AuthorDashboard() {
           </div>
         </div>
 
-        <div className="flex">
+        <div className="flex mt-2">
           <div className="bg-lime-200 border-y-2 border-lime-400 w-full mt-1 py-1 text-center">
             <span className="text-lime-700">Author Statistics</span>
           </div>
@@ -317,27 +373,55 @@ function AuthorDashboard() {
               <span className={weekClassNameNewScore}>{weekStatusScore}</span>
             </div>
           </div>
-        </div> */}
+        </div>
+        {author?.symbols.length !== 0 ? (
+          <>
+            <div className="flex">
+              <div className="bg-blue-100 border-y-2 border-blue-200 w-full mt-1 py-1 text-center">
+                <span className="text-blue-500">
+                  Author News Distribution Per Coins
+                </span>
+              </div>
+            </div>
 
+            <div className="flex justify-center my-2">
+              <div className="mx-2">
+                <BarChart
+                  labels={lodash
+                    .chunk(author?.symbols, 10)[0]
+                    .map((node) => [node.coin])}
+                  data={lodash
+                    .chunk(author?.symbols, 10)[0]
+                    .map((node) => [node.news_count])}
+                ></BarChart>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
         <div className="flex">
-          <div className="bg-blue-100 border-y-2 border-blue-200 w-full mt-1 py-1 text-center">
-            <span className="text-blue-500">
-              Author News Distribution Per Coins
+          <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
+            <span className="text-orange-500">
+              Latest News from <span className="font-bold">{author?.name}</span>
             </span>
           </div>
         </div>
 
-        <div className="flex justify-center my-2">
-          <div className="mx-2">
-            <BarChart
-              labels={lodash
-                .chunk(author?.symbols, 10)[0]
-                .map((node) => [node.coin])}
-              data={lodash
-                .chunk(author?.symbols, 10)[0]
-                .map((node) => [node.news_count])}
-            ></BarChart>
+        <div className="my-2">
+          {newsData.map((row, index) => (
+            <CardRow row={row} key={index} />
+          ))}
+          <div className="ltr:text-right rtl:text-left">
+            <Button
+              onClick={() => handleGetNews()}
+              className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
+            >
+              More
+            </Button>
           </div>
+
+          {loading && <Loader />}
         </div>
       </div>
     </div>
