@@ -3,8 +3,9 @@ import { NavLink, useLocation } from "react-router-dom";
 
 import avatar from "../../../assets/images/avatar.png";
 
-import { getData } from "../../../utils/helpers/getData.js";
-import { AUTHOR_INFO } from "../../app/constant/EndPoints.js";
+import { AiOutlineBarChart } from "react-icons/ai";
+import { AiOutlineFrown } from "react-icons/ai";
+import { AiOutlineSmile } from "react-icons/ai";
 
 import BarChart from "../core/components/BarChart.jsx";
 import ChartDoughnut from "../core/components/ChartDoughnut.jsx";
@@ -13,8 +14,55 @@ function AuthorDashboard() {
   const location = useLocation();
   const [author] = useState(location.state.author);
 
+  const [percentNewScore, setPercentNewScore] = useState();
+  const [signScore, setSignScore] = useState();
+  const [statusScore, setStatusScore] = useState();
+  const [classNameNewScore, setClassNameNewScore] = useState();
+
+  const setDetailsProgressBar = () => {
+    setPercentNewScore(
+      Math.max(
+        author?.lastDay_sentiment.negative,
+        author?.lastDay_sentiment.neutral,
+        author?.lastDay_sentiment.positive
+      )
+    );
+
+    if (
+      Math.max(
+        author?.lastDay_sentiment.negative,
+        author?.lastDay_sentiment.neutral,
+        author?.lastDay_sentiment.positive
+      ) === author?.lastDay_sentiment.negative
+    ) {
+      setClassNameNewScore("text-center font-bold text-rose-300");
+      setStatusScore("Negative");
+      setSignScore("-");
+    } else if (
+      Math.max(
+        author?.lastDay_sentiment.negative,
+        author?.lastDay_sentiment.neutral,
+        author?.lastDay_sentiment.positive
+      ) === author?.lastDay_sentiment.neutral
+    ) {
+      setClassNameNewScore("text-center font-bold text-slate-300");
+      setStatusScore("Neutral");
+      setSignScore(" ");
+    } else {
+      setClassNameNewScore("text-center font-bold text-lime-300");
+      setStatusScore("Positive");
+      setSignScore("+");
+    }
+  };
+
+  console.log(author);
   let defaultImage =
     "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
+
+  useEffect(() => {
+    setDetailsProgressBar();
+  }, [percentNewScore, classNameNewScore]);
+
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
@@ -24,14 +72,15 @@ function AuthorDashboard() {
           <NavLink to="/">Home</NavLink>
         </span>{" "}
         <span className="pl-2">{" > "}</span>
-        
-        <span className="pl-2"><NavLink to="/authors-list">Authors List</NavLink></span>
+        <span className="pl-2">
+          <NavLink to="/authors-list">Authors List</NavLink>
+        </span>
       </div>
       {/* header */}
 
-      <div className="container mx-auto mb-3">
-        <div className="flex">
-          <div className="basis-1/5 self-center mx-auto">
+      <div className="container mx-auto my-3 mb-3">
+        {/* <div className="flex mt-1">
+          <div className="basis-1/4">
             <div className="">
               <a href={author?.biographyUrl} target="_blank">
                 <img
@@ -46,8 +95,11 @@ function AuthorDashboard() {
               </a>
             </div>
           </div>
-          <div className="basis-3/5 ">
-            <div className="text-[0.8rem] text-slate-800 pt-1 px-2">
+          <div className="basis-3/4 mx-2">
+            <div className="text-[0.8rem] text-slate-800 pt-1 px-2 border rounded-md">
+              <div className="font-bold">
+                <span>Journalist at</span> {author?.worked}
+              </div>
               <span className="text-[0.8rem] font-bold">Biography</span>
               <a href="{author?.biographyUrl}" target="_blank">
                 <div className="text-[0.7rem] text-justify">
@@ -56,68 +108,94 @@ function AuthorDashboard() {
               </a>
             </div>
           </div>
-          <div className="basis-1/5 self-center mx-2">
-            <span className="text-[0.8rem] font-bold">Coins</span>
-            <div className="max-h-[6rem] overflow-y-auto border-2 shadow-inner bg-slate-50">
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-              <div className="flex">
-                <img className="h-7 w-7" src={defaultImage} />
-                <div className="text-[0.7rem] mt-2">name</div>
-              </div>
-            </div>
-          </div>
         </div>
+
         <div className="flex">
-          <div className="w-full mx-2">
-            <BarChart></BarChart>
+          <div className="bg-lime-200 border-y-2 border-lime-400 w-full mt-1 py-1 text-center">
+            <span className="text-lime-700">Author Statistics</span>
           </div>
         </div>
 
-        <div className="h-12 w-12">
-          <ChartDoughnut
-            data={[44, 342, 23]}
-            colors={[
-              "rgba(255, 0, 0, 0.5)",
-              "rgba(0, 255, 0, 0.5)",
-              "rgba(64, 64, 64, 0.5)",
-            ]}
-          ></ChartDoughnut>
-          <div>sadsa</div>
+        <div className="flex my-2">
+          <div className="basis-2/5 self-center">
+            <div className="h-[3rem] w-[3rem] mx-auto rounded-full border-2 border-color-theme">
+              <AiOutlineBarChart className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
+            </div>
+          </div>
+          <div className="basis-3/5 p-2 justify-center">
+            <div className="text-sm">
+              <span className="text-sm font-bold">+{author?.newsCount}</span>{" "}
+              News
+            </div>
+            <div className="text-sm">
+              <span className="text-sm font-bold">
+                +{author?.AvgNewsPERday}
+              </span>{" "}
+              News Per Day
+            </div>
+            <div className="text-sm">
+              <span className="text-sm font-bold">
+                +{author?.AvgNewsPERweek}
+              </span>{" "}
+              News Per Week
+            </div>
+            <div className="text-sm">
+              <span className="text-sm font-bold">
+                +{author?.AvgNewsPERMonth}
+              </span>{" "}
+              News Per Month
+            </div>
+          </div>
+        </div> */}
+
+        <div className="flex">
+          <div className="bg-rose-200 border-y-2 border-rose-400 w-full mt-1 py-1 text-center">
+            <span className="text-rose-700">Today Author Statistics</span>
+          </div>
+        </div>
+
+        <div className="flex my-2">
+          <div className="basis-1/2 self-center">
+            <div className="flex w-ful justify-center mx-2 border-2">
+              <div
+                style={{
+                  width: `${author?.lastDay_sentiment.positive * 100}%`,
+                }}
+                className="bg-lime-300 h-6"
+              ></div>
+              <div
+                style={{
+                  width: `${author?.lastDay_sentiment.negative * 100}%`,
+                }}
+                className="bg-rose-300"
+              ></div>
+              <div
+                style={{
+                  width: `${author?.lastDay_sentiment.neutral * 100}%`,
+                }}
+                className="bg-slate-300"
+              ></div>
+            </div>
+            <div className={classNameNewScore}>
+              {signScore}
+              {percentNewScore * 100}%
+            </div>
+          </div>
+          <div className="basis-1/2 p-2 justify-center text-center">
+            <div className="flex text-md justify-center">
+              <span className="px-2">
+                {signScore == "+" ? <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />: signScore == " " ? "" :<AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />}
+              </span>
+              <span className="self-center">
+                {signScore}
+                {percentNewScore * 100}%
+              </span>
+            </div>
+            <div className="text-md font-bold mt-1">Out of 7 what??</div>
+            <div className="text-lg">
+              <span className={classNameNewScore}>{statusScore}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
