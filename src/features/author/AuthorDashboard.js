@@ -144,8 +144,8 @@ function AuthorDashboard() {
     try {
       getData(LATEST_NEWS_AUTHOR, parameter).then((response) => {
         if (response.data.data.result) {
-          console.log("Fetch data done.");
-          console.log(response.data.data.result);
+          console.log("Fetch data author news done.");
+          // console.log(response.data.data.result);
           setNewsData((prev) => {
             return [...prev, ...response.data.data.result];
           });
@@ -177,7 +177,6 @@ function AuthorDashboard() {
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
   }, [newsData]);
-
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
@@ -218,7 +217,7 @@ function AuthorDashboard() {
                 <span>Journalist at</span> {author?.worked}
               </div>
               <span className="text-[0.8rem] font-bold">Biography</span>
-              <a href="{author?.biographyUrl}" target="_blank">
+              <a href={author?.biographyUrl} target="_blank">
                 <div className="text-[0.7rem] text-justify">
                   {author?.biography}
                 </div>
@@ -228,8 +227,8 @@ function AuthorDashboard() {
         </div>
 
         <div className="flex mt-2">
-          <div className="bg-lime-200 border-y-2 border-lime-400 w-full mt-1 py-1 text-center">
-            <span className="text-lime-700">Author Statistics</span>
+          <div className="bg-indigo-200 border-y-2 border-indigo-400 w-full mt-1 py-1 text-center">
+            <span className="text-indigo-700">Author Statistics</span>
           </div>
         </div>
 
@@ -264,118 +263,140 @@ function AuthorDashboard() {
             </div>
           </div>
         </div>
+        {author?.last_day_count !== 0 ? (
+          <>
+            <div className="flex">
+              <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
+                <span className="text-violet-700">Today Author Sentiment</span>
+              </div>
+            </div>
 
-        <div className="flex">
-          <div className="bg-rose-200 border-y-2 border-rose-400 w-full mt-1 py-1 text-center">
-            <span className="text-rose-700">Today Author Sentiment</span>
-          </div>
-        </div>
+            <div className="flex my-2">
+              <div className="basis-1/2 self-center">
+                <div className="flex w-ful justify-center mx-2 border-2">
+                  <div
+                    style={{
+                      width: `${author?.lastDay_sentiment.positive * 100}%`,
+                    }}
+                    className="bg-lime-300 h-6"
+                  ></div>
+                  <div
+                    style={{
+                      width: `${author?.lastDay_sentiment.negative * 100}%`,
+                    }}
+                    className="bg-rose-300"
+                  ></div>
+                  <div
+                    style={{
+                      width: `${author?.lastDay_sentiment.neutral * 100}%`,
+                    }}
+                    className="bg-slate-300"
+                  ></div>
+                </div>
+                <div className={dayClassNameNewScore}>
+                  {daySignScore}
+                  {dayPercentNewScore * 100}%
+                </div>
+              </div>
+              <div className="basis-1/2 p-2 justify-center text-center">
+                <div className="flex text-md justify-center">
+                  <span className="px-2">
+                    {daySignScore == "+" ? (
+                      <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                    ) : daySignScore == " " ? (
+                      ""
+                    ) : (
+                      <AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                    )}
+                  </span>
+                  <span className="self-center">
+                    {daySignScore}
+                    {dayPercentNewScore * 100}%
+                  </span>
+                </div>
+                <div className="text-md font-bold mt-1">
+                  Out of{" "}
+                  <span className="font-bod">{author?.last_day_count}</span>
+                </div>
+                <div className="text-lg">
+                  <span className={dayClassNameNewScore}>{dayStatusScore}</span>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
 
-        <div className="flex my-2">
-          <div className="basis-1/2 self-center">
-            <div className="flex w-ful justify-center mx-2 border-2">
-              <div
-                style={{
-                  width: `${author?.lastDay_sentiment.positive * 100}%`,
-                }}
-                className="bg-lime-300 h-6"
-              ></div>
-              <div
-                style={{
-                  width: `${author?.lastDay_sentiment.negative * 100}%`,
-                }}
-                className="bg-rose-300"
-              ></div>
-              <div
-                style={{
-                  width: `${author?.lastDay_sentiment.neutral * 100}%`,
-                }}
-                className="bg-slate-300"
-              ></div>
+        {author?.last_week_count !== 0 ? (
+          <>
+            <div className="flex">
+              <div className="bg-violet-100 border-y-2 border-violet-200 w-full mt-1 py-1 text-center">
+                <span className="text-violet-500">
+                  This Week Author Sentiment
+                </span>
+              </div>
             </div>
-            <div className={dayClassNameNewScore}>
-              {daySignScore}
-              {dayPercentNewScore * 100}%
-            </div>
-          </div>
-          <div className="basis-1/2 p-2 justify-center text-center">
-            <div className="flex text-md justify-center">
-              <span className="px-2">
-                {daySignScore == "+" ? (
-                  <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
-                ) : daySignScore == " " ? (
-                  ""
-                ) : (
-                  <AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />
-                )}
-              </span>
-              <span className="self-center">
-                {daySignScore}
-                {dayPercentNewScore * 100}%
-              </span>
-            </div>
-            <div className="text-md font-bold mt-1">Out of 7 what??</div>
-            <div className="text-lg">
-              <span className={dayClassNameNewScore}>{dayStatusScore}</span>
-            </div>
-          </div>
-        </div>
 
-        <div className="flex">
-          <div className="bg-rose-100 border-y-2 border-rose-200 w-full mt-1 py-1 text-center">
-            <span className="text-rose-500">This Week Author Sentiment</span>
-          </div>
-        </div>
+            <div className="flex my-2">
+              <div className="basis-1/2 self-center">
+                <div className="flex w-ful justify-center mx-2 border-2">
+                  <div
+                    style={{
+                      width: `${author?.lastWeek_sentiment.positive * 100}%`,
+                    }}
+                    className="bg-lime-300 h-6"
+                  ></div>
+                  <div
+                    style={{
+                      width: `${author?.lastWeek_sentiment.negative * 100}%`,
+                    }}
+                    className="bg-rose-300"
+                  ></div>
+                  <div
+                    style={{
+                      width: `${author?.lastWeek_sentiment.neutral * 100}%`,
+                    }}
+                    className="bg-slate-300"
+                  ></div>
+                </div>
+                <div className={weekClassNameNewScore}>
+                  {weekSignScore}
+                  {weekPercentNewScore * 100}%
+                </div>
+              </div>
+              <div className="basis-1/2 p-2 justify-center text-center">
+                <div className="flex text-md justify-center">
+                  <span className="px-2">
+                    {weekSignScore == "+" ? (
+                      <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                    ) : weekSignScore == " " ? (
+                      ""
+                    ) : (
+                      <AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                    )}
+                  </span>
+                  <span className="self-center">
+                    {weekSignScore}
+                    {weekPercentNewScore * 100}%
+                  </span>
+                </div>
+                <div className="text-md font-bold mt-1">
+                  Out of{" "}
+                  <span className="font-bod">{author?.last_week_count}</span>
+                </div>
+                <div className="text-lg">
+                  <span className={weekClassNameNewScore}>
+                    {weekStatusScore}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
 
-        <div className="flex my-2">
-          <div className="basis-1/2 self-center">
-            <div className="flex w-ful justify-center mx-2 border-2">
-              <div
-                style={{
-                  width: `${author?.lastWeek_sentiment.positive * 100}%`,
-                }}
-                className="bg-lime-300 h-6"
-              ></div>
-              <div
-                style={{
-                  width: `${author?.lastWeek_sentiment.negative * 100}%`,
-                }}
-                className="bg-rose-300"
-              ></div>
-              <div
-                style={{
-                  width: `${author?.lastWeek_sentiment.neutral * 100}%`,
-                }}
-                className="bg-slate-300"
-              ></div>
-            </div>
-            <div className={weekClassNameNewScore}>
-              {weekSignScore}
-              {weekPercentNewScore * 100}%
-            </div>
-          </div>
-          <div className="basis-1/2 p-2 justify-center text-center">
-            <div className="flex text-md justify-center">
-              <span className="px-2">
-                {weekSignScore == "+" ? (
-                  <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
-                ) : weekSignScore == " " ? (
-                  ""
-                ) : (
-                  <AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />
-                )}
-              </span>
-              <span className="self-center">
-                {weekSignScore}
-                {weekPercentNewScore * 100}%
-              </span>
-            </div>
-            <div className="text-md font-bold mt-1">Out of 7 what??</div>
-            <div className="text-lg">
-              <span className={weekClassNameNewScore}>{weekStatusScore}</span>
-            </div>
-          </div>
-        </div>
         {author?.symbols.length !== 0 ? (
           <>
             <div className="flex">
@@ -395,6 +416,7 @@ function AuthorDashboard() {
                   data={lodash
                     .chunk(author?.symbols, 10)[0]
                     .map((node) => [node.news_count])}
+                  label={"News Count"}
                 ></BarChart>
               </div>
             </div>

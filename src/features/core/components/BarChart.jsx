@@ -1,7 +1,7 @@
 import React from "react";
 import { TEChart } from "tw-elements-react";
 
-const ChartBar = ({ labels, data }) => {
+const ChartBar = ({ labels, data, label }) => {
   return (
     <TEChart
       type="bar"
@@ -9,7 +9,7 @@ const ChartBar = ({ labels, data }) => {
         labels: labels,
         datasets: [
           {
-            label: "Traffic",
+            label: label,
             data: data,
           },
         ],
