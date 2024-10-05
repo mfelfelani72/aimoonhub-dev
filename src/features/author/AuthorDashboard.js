@@ -14,13 +14,23 @@ function AuthorDashboard() {
   const location = useLocation();
   const [author] = useState(location.state.author);
 
-  const [percentNewScore, setPercentNewScore] = useState();
-  const [signScore, setSignScore] = useState();
-  const [statusScore, setStatusScore] = useState();
-  const [classNameNewScore, setClassNameNewScore] = useState();
+  // for day
 
-  const setDetailsProgressBar = () => {
-    setPercentNewScore(
+  const [dayPercentNewScore, setDayPercentNewScore] = useState();
+  const [daySignScore, setDaySignScore] = useState();
+  const [dayStatusScore, setDayStatusScore] = useState();
+  const [dayClassNameNewScore, setDayClassNameNewScore] = useState();
+
+  // for week
+
+  const [weekPercentNewScore, setWeekPercentNewScore] = useState();
+  const [weekSignScore, setWeekSignScore] = useState();
+  const [weekStatusScore, setWeekStatusScore] = useState();
+  const [weekClassNameNewScore, setWeekClassNameNewScore] = useState();
+
+ 
+  const setDayDetailsProgressBar = () => {
+    setDayPercentNewScore(
       Math.max(
         author?.lastDay_sentiment.negative,
         author?.lastDay_sentiment.neutral,
@@ -35,9 +45,9 @@ function AuthorDashboard() {
         author?.lastDay_sentiment.positive
       ) === author?.lastDay_sentiment.negative
     ) {
-      setClassNameNewScore("text-center font-bold text-rose-300");
-      setStatusScore("Negative");
-      setSignScore("-");
+      setDayClassNameNewScore("text-center font-bold text-rose-300");
+      setDayStatusScore("Negative");
+      setDaySignScore("-");
     } else if (
       Math.max(
         author?.lastDay_sentiment.negative,
@@ -45,13 +55,49 @@ function AuthorDashboard() {
         author?.lastDay_sentiment.positive
       ) === author?.lastDay_sentiment.neutral
     ) {
-      setClassNameNewScore("text-center font-bold text-slate-300");
-      setStatusScore("Neutral");
-      setSignScore(" ");
+      setDayClassNameNewScore("text-center font-bold text-slate-300");
+      setDayStatusScore("Neutral");
+      setDaySignScore(" ");
     } else {
-      setClassNameNewScore("text-center font-bold text-lime-300");
-      setStatusScore("Positive");
-      setSignScore("+");
+      setDayClassNameNewScore("text-center font-bold text-lime-300");
+      setDayStatusScore("Positive");
+      setDaySignScore("+");
+    }
+  };
+
+  const setWeekDetailsProgressBar = () => {
+    setWeekPercentNewScore(
+      Math.max(
+        author?.lastWeek_sentiment.negative,
+        author?.lastWeek_sentiment.neutral,
+        author?.lastWeek_sentiment.positive
+      )
+    );
+
+    if (
+      Math.max(
+        author?.lastWeek_sentiment.negative,
+        author?.lastWeek_sentiment.neutral,
+        author?.lastWeek_sentiment.positive
+      ) === author?.lastWeek_sentiment.negative
+    ) {
+      setWeekClassNameNewScore("text-center font-bold text-rose-300");
+      setWeekStatusScore("Negative");
+      setWeekSignScore("-");
+    } else if (
+      Math.max(
+        author?.lastWeek_sentiment.negative,
+        author?.lastWeek_sentiment.neutral,
+        author?.lastWeek_sentiment.positive
+      ) === author?.lastWeek_sentiment.neutral
+    ) {
+      setWeekClassNameNewScore("text-center font-bold text-slate-300");
+      setWeekStatusScore("Neutral");
+      setWeekSignScore(" ");
+    } else {
+      setWeekClassNameNewScore("text-center font-bold text-lime-300");
+      setWeekStatusScore("Positive");
+      setWeekSignScore("+");
     }
   };
 
@@ -60,8 +106,9 @@ function AuthorDashboard() {
     "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
 
   useEffect(() => {
-    setDetailsProgressBar();
-  }, [percentNewScore, classNameNewScore]);
+    setDayDetailsProgressBar();
+    setWeekDetailsProgressBar();
+  }, []);
 
   return (
     <div className="bg-white m-4 rounded-[1rem]">
@@ -176,24 +223,86 @@ function AuthorDashboard() {
                 className="bg-slate-300"
               ></div>
             </div>
-            <div className={classNameNewScore}>
-              {signScore}
-              {percentNewScore * 100}%
+            <div className={dayClassNameNewScore}>
+              {daySignScore}
+              {dayPercentNewScore * 100}%
             </div>
           </div>
           <div className="basis-1/2 p-2 justify-center text-center">
             <div className="flex text-md justify-center">
               <span className="px-2">
-                {signScore == "+" ? <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />: signScore == " " ? "" :<AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />}
+                {daySignScore == "+" ? (
+                  <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                ) : daySignScore == " " ? (
+                  ""
+                ) : (
+                  <AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                )}
               </span>
               <span className="self-center">
-                {signScore}
-                {percentNewScore * 100}%
+                {daySignScore}
+                {dayPercentNewScore * 100}%
               </span>
             </div>
             <div className="text-md font-bold mt-1">Out of 7 what??</div>
             <div className="text-lg">
-              <span className={classNameNewScore}>{statusScore}</span>
+              <span className={dayClassNameNewScore}>{dayStatusScore}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex">
+          <div className="bg-rose-100 border-y-2 border-rose-200 w-full mt-1 py-1 text-center">
+            <span className="text-rose-500">This week Author Statistics</span>
+          </div>
+        </div>
+
+        <div className="flex my-2">
+          <div className="basis-1/2 self-center">
+            <div className="flex w-ful justify-center mx-2 border-2">
+              <div
+                style={{
+                  width: `${author?.lastWeek_sentiment.positive * 100}%`,
+                }}
+                className="bg-lime-300 h-6"
+              ></div>
+              <div
+                style={{
+                  width: `${author?.lastWeek_sentiment.negative * 100}%`,
+                }}
+                className="bg-rose-300"
+              ></div>
+              <div
+                style={{
+                  width: `${author?.lastWeek_sentiment.neutral * 100}%`,
+                }}
+                className="bg-slate-300"
+              ></div>
+            </div>
+            <div className={weekClassNameNewScore}>
+              {weekSignScore}
+              {weekPercentNewScore * 100}%
+            </div>
+          </div>
+          <div className="basis-1/2 p-2 justify-center text-center">
+            <div className="flex text-md justify-center">
+              <span className="px-2">
+                {weekSignScore == "+" ? (
+                  <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                ) : weekSignScore == " " ? (
+                  ""
+                ) : (
+                  <AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                )}
+              </span>
+              <span className="self-center">
+                {weekSignScore}
+                {weekPercentNewScore * 100}%
+              </span>
+            </div>
+            <div className="text-md font-bold mt-1">Out of 7 what??</div>
+            <div className="text-lg">
+              <span className={weekClassNameNewScore}>{weekStatusScore}</span>
             </div>
           </div>
         </div>
