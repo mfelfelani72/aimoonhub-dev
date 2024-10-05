@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -12,6 +13,7 @@ import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
 
 import DetailsBox from "./components/DetailsBox.jsx";
+
 
 const LatestAimoonNew = () => {
   const { t } = useTranslation();
@@ -141,6 +143,11 @@ const LatestAimoonNew = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+        <div className="text-end pt-2">
+          <NavLink to="/aimoon-news" className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.75rem] h-7 cursor-pointer">
+            Read More
+          </NavLink>
+        </div>
       </div>
     </div>
   );

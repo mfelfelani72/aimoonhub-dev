@@ -1,1 +1,1 @@
-export const GUESTS_ROUTES = ['/','/authors-list','/author-dashboard']
+export const GUESTS_ROUTES = ['/','/aimoon-news','/authors-list','/author-dashboard']
