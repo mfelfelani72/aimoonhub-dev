@@ -73,6 +73,8 @@ function AimoonNews() {
         <span>
           <NavLink to="/">Home</NavLink>
         </span>
+        <span className="pl-2"> {" > "}</span>
+        <span className="pl-2">Aimoon News</span>
       </div>
       {/* header */}
 

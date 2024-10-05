@@ -181,7 +181,7 @@ function AuthorDashboard() {
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
-      <h3 className="pt-2 px-2">AuthorDashboard</h3>
+      <h3 className="pt-2 px-2">Author Dashboard</h3>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
         <span>
           <NavLink to="/">Home</NavLink>
@@ -190,6 +190,8 @@ function AuthorDashboard() {
         <span className="pl-2">
           <NavLink to="/authors-list">Authors List</NavLink>
         </span>
+        <span className="pl-2"> {" > "}</span>
+        <span className="pl-2">Author Dashboard</span>
       </div>
       {/* header */}
 
