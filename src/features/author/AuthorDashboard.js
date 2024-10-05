@@ -206,7 +206,7 @@ function AuthorDashboard() {
               </a>
             </div>
             <div className="text-[0.8rem] text-slate-800 pt-1 text-center">
-              <a href="{author?.biographyUrl}" target="_blank">
+              <a href={author?.biographyUrl} target="_blank">
                 {author?.name}
               </a>
             </div>
