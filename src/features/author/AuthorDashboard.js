@@ -263,7 +263,7 @@ function AuthorDashboard() {
             </div>
           </div>
         </div>
-        {author?.last_day_count !== 0 ? (
+        {dayPercentNewScore !== 0 ? (
           <>
             <div className="flex">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
@@ -328,7 +328,7 @@ function AuthorDashboard() {
           ""
         )}
 
-        {author?.last_week_count !== 0 ? (
+        {weekPercentNewScore !== 0 ? (
           <>
             <div className="flex">
               <div className="bg-violet-100 border-y-2 border-violet-200 w-full mt-1 py-1 text-center">
