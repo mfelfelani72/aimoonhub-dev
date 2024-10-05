@@ -74,7 +74,7 @@ function AuthorAnalysis() {
         </div>
         {/* authors images */}
 
-        <div className="flex flex-row mt-4 p-2">
+        <div className="flex flex-row mt-4 py-2 px-[0.29rem]">
           <div className="basis-1/2 text-md content-center text-T-bright">
             <div className="h-[6rem] w-[6rem] mx-auto -mt-[1rem] mb-2">
               <ChartPie
@@ -100,7 +100,7 @@ function AuthorAnalysis() {
                     <div className="bg-[#06b6d4] w-[2rem] h-2 my-3"></div>
                     <div className="bg-[#a855f7] w-[2rem] h-2 my-1"></div>
                   </div>
-                  <div className="basis-3/4 text-[0.85rem] text-slate-800">
+                  <div className="basis-3/4 text-[0.7rem] text-slate-800">
                     <div>
                       <span className="font-bold">
                         {" "}
@@ -108,13 +108,13 @@ function AuthorAnalysis() {
                       </span>{" "}
                       Cryptocurrencies
                     </div>
-                    <div>
+                    <div className="mt-[0.25rem]">
                       <span className="font-bold">
                         +{totalStat?.forex_author_counts}
                       </span>{" "}
                       Forex
                     </div>
-                    <div>
+                    <div className="mt-[0.25rem]">
                       <span className="font-bold">
                         +{totalStat?.commodity_author_counts}
                       </span>{" "}
