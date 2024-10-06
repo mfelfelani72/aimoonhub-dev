@@ -457,7 +457,7 @@ function AuthorDashboard() {
 
         <div className="my-2">
           {newsData.map((row, index) => (
-            <CardRow row={row} key={index} />
+            <CardRow row={row} key={index} nav={nav}/>
           ))}
           <div className="ltr:text-right rtl:text-left">
             <Button

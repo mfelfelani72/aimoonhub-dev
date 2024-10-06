@@ -89,7 +89,7 @@ const CardRow = (props) => {
                 )
               }
             >
-              {props.row.provider}
+              {props?.row.provider}
             </a>
           </span>
         </div>

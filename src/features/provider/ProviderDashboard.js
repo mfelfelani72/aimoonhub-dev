@@ -177,14 +177,13 @@ function ProviderDashboard() {
 
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-   
   }, [newsData]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
       <h3 className="pt-2 px-2">Provider Dashboard</h3>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
-      <span>
+        <span>
           {nav?.map((row, index) => (
             <span key={index}>
               {row?.title !== "end" ? (
@@ -454,7 +453,7 @@ function ProviderDashboard() {
 
         <div className="my-2">
           {newsData.map((row, index) => (
-            <CardRow row={row} key={index} />
+            <CardRow row={row} key={index} nav={nav} />
           ))}
           <div className="ltr:text-right rtl:text-left">
             <Button
