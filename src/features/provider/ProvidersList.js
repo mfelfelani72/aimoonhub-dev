@@ -4,26 +4,26 @@ import { NavLink, useNavigate } from "react-router-dom";
 import avatar from "../../../assets/images/avatar.png";
 
 import { getData } from "../../../utils/helpers/getData.js";
-import { AUTHORS } from "../../app/constant/EndPoints.js";
+import { PROVIDERS } from "../../app/constant/EndPoints.js";
 import Button from "../core/components/Button.jsx";
 
-function AuthorsList() {
-  const [authorsList, setAuthorsList] = useState([]);
+function ProvidersList() {
+  const [providersList, setProvidersList] = useState([]);
   const [category, setCategory] = useState("cryptocurrencies");
   const [priority, setPriority] = useState(2);
 
-  const getAuthorsList = async () => {
+  const getProvidersList = async () => {
     const parameter = {
       category: category,
       priority: priority,
     };
 
     try {
-      getData(AUTHORS, parameter).then((response) => {
+      getData(PROVIDERS, parameter).then((response) => {
         if (response.data.data) {
-          console.log("Fetch dataAuthorsList done.");
+          console.log("Fetch dataProvidersList done.");
           // console.log(response.data.data);
-          setAuthorsList(response.data.data.author_list);
+          setProvidersList(response.data.data.provider_list);
         }
       });
     } catch (error) {
@@ -35,29 +35,29 @@ function AuthorsList() {
     "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
 
   useEffect(() => {
-    if (authorsList.length == 0) getAuthorsList();
-  }, [authorsList]);
+    if (providersList.length == 0) getProvidersList();
+  }, [providersList]);
 
   const navigate = useNavigate();
   const goto = (row, event) => {
     event.preventDefault();
-    navigate("/author-dashboard", { state: { author: row } });
+    navigate("/provider-dashboard", { state: { provider: row } });
   };
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
-      <h2 className="pt-1 px-2">Authors List</h2>
+      <h2 className="pt-1 px-2">Providers List</h2>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
         <span><NavLink to="/" >Home</NavLink></span>
         <span className="pl-2"> {" > "}</span>
-        <span className="pl-2">Authors List</span>
+        <span className="pl-2">Providers List</span>
       </div>
      
       {/* header */}
       <div className="container p-2 mx-auto">
         <div className="grid grid-cols-1 gap-2 ">
           {/* card */}
-          {authorsList.map((row, index) => (
+          {providersList.map((row, index) => (
             <div key={index} className="border-2 rounded-xl p-2 pt-3">
               <div className="h-[6rem]">
                 <div className="flex flex-row">
@@ -66,7 +66,7 @@ function AuthorsList() {
                       <a href={row?.biographyUrl} target="_blank">
                         <img
                           className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
-                          src={row?.picUrl ? row?.picUrl : avatar}
+                          src={row?.logoUrl ? row?.logoUrl : avatar}
                         />
                       </a>
                     </div>
@@ -125,4 +125,4 @@ function AuthorsList() {
   );
 }
 1;
-export default AuthorsList;
+export default ProvidersList;
