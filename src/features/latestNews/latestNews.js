@@ -17,6 +17,7 @@ const lodash = require("lodash");
 const PAGE_NUMBER = 1;
 
 const latestNews = () => {
+  const nav = [{ title: "home", address: "/" }, { title: "end" }];
   const { t } = useTranslation();
 
   const { setSidebarLink } = useAppStore((state) => ({
@@ -90,7 +91,7 @@ const latestNews = () => {
       <div className="w-full">
         <h2 className="p-2">{t("l_cryptocurrency_n")}</h2>
         {newsData.map((row, index) => (
-          <CardRow row={row} key={index} />
+          <CardRow row={row} key={index} nav={nav} />
         ))}
         <div className="ltr:text-right rtl:text-left">
           <Button
