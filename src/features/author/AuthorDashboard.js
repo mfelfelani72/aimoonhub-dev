@@ -21,6 +21,8 @@ const PAGE_NUMBER = 1;
 function AuthorDashboard() {
   const location = useLocation();
   const [author] = useState(location.state.author);
+  const [nav] = useState(location.state.nav);
+
   // for day
 
   const [dayPercentNewScore, setDayPercentNewScore] = useState();
@@ -183,14 +185,19 @@ function AuthorDashboard() {
       <h3 className="pt-2 px-2">Author Dashboard</h3>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
         <span>
-          <NavLink to="/">Home</NavLink>
+          {nav?.map((row, index) => (
+            <span key={index}>
+              {row?.address ? (
+                <NavLink key={index} to={row?.address}>
+                  <span className="capitalize pr-1">{row?.title}</span>
+                  <span> {" > "}</span>
+                </NavLink>
+              ) : (
+                <span className="capitalize">{row?.title}</span>
+              )}
+            </span>
+          ))}
         </span>{" "}
-        <span className="pl-2">{" > "}</span>
-        <span className="pl-2">
-          <NavLink to="/authors-list">Authors List</NavLink>
-        </span>
-        <span className="pl-2"> {" > "}</span>
-        <span className="pl-2">Author Dashboard</span>
       </div>
       {/* header */}
 

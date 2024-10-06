@@ -5,20 +5,22 @@ import ChartDoughnut from "../../core/components/ChartDoughnut.jsx";
 import { dateHelper } from "../../../../utils/helpers/dateHelper.js";
 import { cn } from "../../../../utils/lib/cn.js";
 
-import { AUTHOR_INFO } from "../../../app/constant/EndPoints.js";
-import { PROVIDER_INFO } from "../../../app/constant/EndPoints.js";
+
 
 import { DEFAULT_AVATAR_IMAGE } from "../../../app/constant/Defaults.js";
 import { DEFAULT_PROVIDER_IMAGE } from "../../../app/constant/Defaults.js";
 import { DEFAULT_COIN_IMAGE } from "../../../app/constant/Defaults.js";
 
-import { getData } from "../../../../utils/helpers/getData.js";
+import { goToAuthorDashboard } from "../../../../utils/lib/author/goToAuthorDashboard.js";
+import { goToProviderDashboard } from "../../../../utils/lib/provider/goToProviderDashboard.js";
 
 function DetailsBox(props) {
+
+  const navigate = useNavigate();
+
   const [percentNewScore, setPercentNewScore] = useState();
   const [classNameNewScore, setClassNameNewScore] = useState();
 
-  const [category, setCategory] = useState("cryptocurrencies");
 
   const setDetailsProgressBar = () => {
     setPercentNewScore(
@@ -42,52 +44,6 @@ function DetailsBox(props) {
     )
       setClassNameNewScore("text-slate-500 text-[0.8rem] text-center");
     else setClassNameNewScore("text-lime-500 text-[0.8rem] text-center");
-  };
-
-  const navigate = useNavigate();
-
-  const goToAuthorDashboard = (event, name) => {
-    event.preventDefault();
-
-    const parameter = {
-      category: category,
-      name: name,
-    };
-
-    try {
-      getData(AUTHOR_INFO, parameter).then((response) => {
-        if (response.data.data) {
-          console.log("Fetch dataAuthor done.");
-          // console.log(response.data.data[0]);
-          navigate("/author-dashboard", {
-            state: { author: response.data.data[0] },
-          });
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const goToProviderDashboard = (event, name) => {
-    event.preventDefault();
-
-    const parameter = {
-      name: name,
-    };
-
-    try {
-      getData(PROVIDER_INFO, parameter).then((response) => {
-        if (response.data.data) {
-          console.log("Fetch dataAuthor done.");
-          // console.log(response.data.data[0]);
-          navigate("/provider-dashboard", {
-            state: { provider: response.data.data[0] },
-          });
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   useEffect(() => {
@@ -117,9 +73,14 @@ function DetailsBox(props) {
                     className="h-5 w-5 rounded-[30px]"
                   />
                   <span className="px-1 text-[0.7rem]">
-                    <a
+                    <a className="cursor-pointer hover:text-color-theme"
                       onClick={(event) =>
-                        goToAuthorDashboard(event, props?.data.author)
+                        goToAuthorDashboard(
+                          navigate,
+                          event,
+                          props?.data.author,
+                          "cryptocurrencies"
+                        )
                       }
                     >
                       {props?.data.author}
@@ -166,9 +127,13 @@ function DetailsBox(props) {
                     className="h-5 w-5 rounded-[30px]"
                   />
                   <span className="px-1 text-[0.7rem]">
-                    <a
+                    <a className="cursor-pointer hover:text-color-theme"
                       onClick={(event) =>
-                        goToProviderDashboard(event, props?.data.provider)
+                        goToProviderDashboard(
+                          navigate,
+                          event,
+                          props?.data.provider
+                        )
                       }
                     >
                       {props.data?.provider}

@@ -20,6 +20,7 @@ const PAGE_NUMBER = 1;
 function ProviderDashboard() {
   const location = useLocation();
   const [provider] = useState(location.state.provider);
+  const [nav] = useState(location.state.nav);
   // for day
 
   const [dayPercentNewScore, setDayPercentNewScore] = useState();
@@ -183,15 +184,20 @@ function ProviderDashboard() {
       {/* header */}
       <h3 className="pt-2 px-2">Provider Dashboard</h3>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
-        <span>
-          <NavLink to="/">Home</NavLink>
+      <span>
+          {nav?.map((row, index) => (
+            <span key={index}>
+              {row?.address ? (
+                <NavLink key={index} to={row?.address}>
+                  <span className="capitalize pr-1">{row?.title}</span>
+                  <span> {" > "}</span>
+                </NavLink>
+              ) : (
+                <span className="capitalize">{row?.title}</span>
+              )}
+            </span>
+          ))}
         </span>{" "}
-        <span className="pl-2">{" > "}</span>
-        <span className="pl-2">
-          <NavLink to="/providers-list">Providers List</NavLink>
-        </span>
-        <span className="pl-2"> {" > "}</span>
-        <span className="pl-2">Provider Dashboard</span>
       </div>
       {/* header */}
 
