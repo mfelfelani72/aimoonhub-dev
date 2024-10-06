@@ -177,7 +177,7 @@ function ProviderDashboard() {
 
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-    
+    console.log(provider);
   }, [newsData]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
@@ -200,10 +200,19 @@ function ProviderDashboard() {
         <div className="flex mt-1">
           <div className="basis-1/4">
             <div className="">
-              <a href={provider?.biographyUrl} target="_blank">
+              <a href={provider?.url} target="_blank">
                 <img
                   className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
-                  src={provider?.picUrl ? provider?.picUrl : avatar}
+                  src={
+                    provider?.local_image !== ""
+                      ? provider?.local_image
+                      : provider?.logoUrl !== ""
+                      ? provider?.logoUrl
+                      : avatar
+                  }
+                  onError={(e) => {
+                    e.target.src = avatar;
+                  }}
                 />
               </a>
             </div>

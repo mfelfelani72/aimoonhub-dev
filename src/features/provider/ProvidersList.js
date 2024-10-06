@@ -65,7 +65,7 @@ function ProvidersList() {
                 <div className="flex flex-row">
                   <div className="basis-2/5">
                     <div className="">
-                      <a href={row?.biographyUrl} target="_blank">
+                      <a href={row?.url} target="_blank">
                         <img
                           className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
                           src={row?.local_image !=="" ? row?.local_image : row?.logoUrl !== "" ? row?.logoUrl : avatar}
@@ -76,7 +76,7 @@ function ProvidersList() {
                       </a>
                     </div>
                     <div className="text-[0.8rem] text-slate-800 pt-1 text-center">
-                      <a href={row?.biographyUrl} target="_blank">
+                      <a href={row?.url} target="_blank">
                         {row?.name}
                       </a>
                     </div>

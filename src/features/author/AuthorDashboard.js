@@ -53,7 +53,7 @@ function AuthorDashboard() {
         author?.lastDay_sentiment.positive
       )
     );
-    console.log()
+    console.log();
     if (
       author?.lastDay_sentiment.negative == 0 &&
       author?.lastDay_sentiment.neutral == 0 &&
@@ -177,7 +177,6 @@ function AuthorDashboard() {
 
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-
   }, [newsData]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
@@ -204,6 +203,9 @@ function AuthorDashboard() {
                 <img
                   className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
                   src={author?.picUrl ? author?.picUrl : avatar}
+                  onError={(e) => {
+                    e.target.src = avatar;
+                  }}
                 />
               </a>
             </div>
