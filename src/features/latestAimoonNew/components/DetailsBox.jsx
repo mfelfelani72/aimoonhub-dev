@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import ChartDoughnut from "../../core/components/ChartDoughnut.jsx";
 import { dateHelper } from "../../../../utils/helpers/dateHelper.js";
 import { cn } from "../../../../utils/lib/cn.js";
 
+import { AUTHOR_INFO } from "../../../app/constant/EndPoints.js";
+
 import { DEFAULT_AVATAR_IMAGE } from "../../../app/constant/Defaults.js";
 import { DEFAULT_PROVIDER_IMAGE } from "../../../app/constant/Defaults.js";
 import { DEFAULT_COIN_IMAGE } from "../../../app/constant/Defaults.js";
 
+import { getData } from "../../../../utils/helpers/getData.js";
+
 function DetailsBox(props) {
+
   const [percentNewScore, setPercentNewScore] = useState();
   const [classNameNewScore, setClassNameNewScore] = useState();
+
+  const [category, setCategory] = useState("cryptocurrencies");
+
 
   const setDetailsProgressBar = () => {
     setPercentNewScore(
@@ -36,9 +45,31 @@ function DetailsBox(props) {
     else setClassNameNewScore("text-lime-500 text-[0.8rem] text-center");
   };
 
+  const navigate = useNavigate();
+  const goToAuthorDashboard = (event, name) => {
+    event.preventDefault();
+ 
+    const parameter = {
+      category: category,
+      name: name,
+    };
+
+    try {
+      getData(AUTHOR_INFO, parameter).then((response) => {
+        if (response.data.data) {
+          console.log("Fetch dataAuthor done.");
+          // console.log(response.data.data[0]);
+          navigate("/author-dashboard", { state: { author: response.data.data[0] } });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    // navigate("/author-dashboard", { state: { author: 'mohammad' } });
+  };
+
   useEffect(() => {
     setDetailsProgressBar();
-
   }, [percentNewScore, classNameNewScore]);
 
   return (
@@ -64,7 +95,13 @@ function DetailsBox(props) {
                     className="h-5 w-5 rounded-[30px]"
                   />
                   <span className="px-1 text-[0.7rem]">
-                    {props?.data.author}
+                    <a
+                      onClick={(event) =>
+                        goToAuthorDashboard(event, props?.data.author)
+                      }
+                    >
+                      {props?.data.author}
+                    </a>
                   </span>
                   <span className="px-1 text-[0.7rem] font-bold">
                     {props.data?.author_info["last_week_count"] +

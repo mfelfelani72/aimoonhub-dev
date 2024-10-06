@@ -20,7 +20,7 @@ function AimoonNews() {
   const [newsFrom, setNewsFrom] = useState("1716373411");
   const [newsTo, setNewsTo] = useState("1725633001");
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
-  const [newsPageLimit, setNewsPageLimit] = useState(10);
+  const [newsPageLimit, setNewsPageLimit] = useState(5);
 
   const getNews = async () => {
     const parameter = {

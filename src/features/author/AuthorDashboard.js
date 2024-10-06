@@ -53,7 +53,6 @@ function AuthorDashboard() {
         author?.lastDay_sentiment.positive
       )
     );
-    console.log();
     if (
       author?.lastDay_sentiment.negative == 0 &&
       author?.lastDay_sentiment.neutral == 0 &&
