@@ -10,8 +10,8 @@ function Landing() {
     <>
       <LatestAimoonNew />
       <LatestNews />
-      {/* <AuthorAnalysis /> */}
-      {/* <ProviderAnalysis /> */}
+      <AuthorAnalysis />
+      <ProviderAnalysis />
     </>
   );
 }

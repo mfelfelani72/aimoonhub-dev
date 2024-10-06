@@ -10,6 +10,11 @@ import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
 import Button from "../core/components/Button.jsx";
 
 function ProvidersList() {
+  const nav = [
+    { title: "home", address: "/" },
+    { title: "providers list", address: "/providers-list" },
+    { title: "end" },
+  ];
   const [providersList, setProvidersList] = useState([]);
   const [category, setCategory] = useState("cryptocurrencies");
   const [priority, setPriority] = useState(2);
@@ -33,7 +38,6 @@ function ProvidersList() {
     }
   };
 
-
   useEffect(() => {
     if (providersList.length == 0) getProvidersList();
   }, [providersList]);
@@ -41,7 +45,7 @@ function ProvidersList() {
   const navigate = useNavigate();
   const goto = (row, event) => {
     event.preventDefault();
-    navigate("/provider-dashboard", { state: { provider: row } });
+    navigate("/provider-dashboard", { state: { provider: row, nav: nav } });
   };
   return (
     <div className="bg-white m-4 rounded-[1rem]">

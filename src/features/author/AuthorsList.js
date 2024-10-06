@@ -9,6 +9,11 @@ import { DEFAULT_AVATAR_IMAGE } from "../../app/constant/Defaults.js";
 import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
 
 function AuthorsList() {
+  const nav = [
+    { title: "home", address: "/" },
+    { title: "authors list", address: "/authors-list" },
+    { title: "end" },
+  ];
   const [authorsList, setAuthorsList] = useState([]);
   const [category, setCategory] = useState("cryptocurrencies");
   const [priority, setPriority] = useState(2);
@@ -39,7 +44,7 @@ function AuthorsList() {
   const navigate = useNavigate();
   const goto = (row, event) => {
     event.preventDefault();
-    navigate("/author-dashboard", { state: { author: row } });
+    navigate("/author-dashboard", { state: { author: row, nav: nav } });
   };
   return (
     <div className="bg-white m-4 rounded-[1rem]">
