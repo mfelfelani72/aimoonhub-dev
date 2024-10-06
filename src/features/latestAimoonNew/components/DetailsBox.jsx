@@ -5,8 +5,6 @@ import ChartDoughnut from "../../core/components/ChartDoughnut.jsx";
 import { dateHelper } from "../../../../utils/helpers/dateHelper.js";
 import { cn } from "../../../../utils/lib/cn.js";
 
-
-
 import { DEFAULT_AVATAR_IMAGE } from "../../../app/constant/Defaults.js";
 import { DEFAULT_PROVIDER_IMAGE } from "../../../app/constant/Defaults.js";
 import { DEFAULT_COIN_IMAGE } from "../../../app/constant/Defaults.js";
@@ -15,12 +13,10 @@ import { goToAuthorDashboard } from "../../../../utils/lib/author/goToAuthorDash
 import { goToProviderDashboard } from "../../../../utils/lib/provider/goToProviderDashboard.js";
 
 function DetailsBox(props) {
-
   const navigate = useNavigate();
 
   const [percentNewScore, setPercentNewScore] = useState();
   const [classNameNewScore, setClassNameNewScore] = useState();
-
 
   const setDetailsProgressBar = () => {
     setPercentNewScore(
@@ -73,13 +69,15 @@ function DetailsBox(props) {
                     className="h-5 w-5 rounded-[30px]"
                   />
                   <span className="px-1 text-[0.7rem]">
-                    <a className="cursor-pointer hover:text-color-theme"
+                    <a
+                      className="cursor-pointer hover:text-color-theme"
                       onClick={(event) =>
                         goToAuthorDashboard(
                           navigate,
                           event,
                           props?.data.author,
-                          "cryptocurrencies"
+                          "cryptocurrencies",
+                          props?.nav
                         )
                       }
                     >
@@ -127,12 +125,14 @@ function DetailsBox(props) {
                     className="h-5 w-5 rounded-[30px]"
                   />
                   <span className="px-1 text-[0.7rem]">
-                    <a className="cursor-pointer hover:text-color-theme"
+                    <a
+                      className="cursor-pointer hover:text-color-theme"
                       onClick={(event) =>
                         goToProviderDashboard(
                           navigate,
                           event,
-                          props?.data.provider
+                          props?.data.provider,
+                          props?.nav
                         )
                       }
                     >

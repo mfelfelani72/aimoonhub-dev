@@ -19,6 +19,8 @@ import DetailsBox from "./components/DetailsBox.jsx";
 const LatestAimoonNew = () => {
   const { t } = useTranslation();
 
+  const nav = [{ title: "home", address: "/" }, { title: "end" }];
+
   const [newsData, setNewsData] = useState([]);
   const [firstNew, setFirstNew] = useState();
 
@@ -102,7 +104,9 @@ const LatestAimoonNew = () => {
 
       {/* details box */}
 
-      {firstNew && <DetailsBox data={firstNew} lineChartWidth="w-[4rem]" />}
+      {firstNew && (
+        <DetailsBox data={firstNew} lineChartWidth="w-[4rem]" nav={nav} />
+      )}
 
       {/* details box */}
 
@@ -161,7 +165,7 @@ const LatestAimoonNew = () => {
                   </div>
                 </div>
                 <div className="absolute top-[10rem] w-full">
-                  <DetailsBox data={row} lineChartWidth="w-[2rem]" />
+                  <DetailsBox data={row} lineChartWidth="w-[2rem]" nav={nav} />
                 </div>
               </div>
             </SwiperSlide>

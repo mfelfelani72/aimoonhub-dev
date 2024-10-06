@@ -3,7 +3,7 @@ import React from "react";
 import { PROVIDER_INFO } from "../../../src/app/constant/EndPoints.js";
 import { getData } from "../../helpers/getData.js";
 
-export function goToProviderDashboard(navigate, event, name) {
+export function goToProviderDashboard(navigate, event, name, nav) {
   event.preventDefault();
 
   const parameter = {
@@ -18,10 +18,7 @@ export function goToProviderDashboard(navigate, event, name) {
         navigate("/provider-dashboard", {
           state: {
             provider: response.data.data[0],
-            nav: [
-              { title: "home", address: "/" },
-              { title: "provider dashboard" },
-            ],
+            nav: nav,
           },
         });
       }

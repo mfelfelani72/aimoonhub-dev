@@ -187,13 +187,13 @@ function ProviderDashboard() {
       <span>
           {nav?.map((row, index) => (
             <span key={index}>
-              {row?.address ? (
+              {row?.title !== "end" ? (
                 <NavLink key={index} to={row?.address}>
                   <span className="capitalize pr-1">{row?.title}</span>
                   <span> {" > "}</span>
                 </NavLink>
               ) : (
-                <span className="capitalize">{row?.title}</span>
+                <span className=" pl-1 capitalize">provider dashboard</span>
               )}
             </span>
           ))}

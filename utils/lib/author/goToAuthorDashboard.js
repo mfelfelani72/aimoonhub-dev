@@ -3,7 +3,7 @@ import React from "react";
 import { AUTHOR_INFO } from "../../../src/app/constant/EndPoints.js";
 import { getData } from "../../helpers/getData.js";
 
-export function goToAuthorDashboard(navigate, event, name, category) {
+export function goToAuthorDashboard(navigate, event, name, category, nav) {
   event.preventDefault();
 
   const parameter = {
@@ -19,10 +19,7 @@ export function goToAuthorDashboard(navigate, event, name, category) {
         navigate("/author-dashboard", {
           state: {
             author: response.data.data[0],
-            nav: [
-              { title: "home", address: "/" },
-              { title: "author dashboard" },
-            ],
+            nav: nav,
           },
         });
       }
