@@ -399,7 +399,7 @@ function AuthorDashboard() {
           ""
         )}
 
-        {author?.symbols.length !== 0 ? (
+        {author?.symbols.length && author?.symbols.length !== 0 ? (
           <>
             <div className="flex">
               <div className="bg-blue-100 border-y-2 border-blue-200 w-full mt-1 py-1 text-center">

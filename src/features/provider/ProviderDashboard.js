@@ -13,14 +13,14 @@ import CardRow from "./components/CardRow.jsx";
 import Loader from "../core/components/Loader.jsx";
 
 import { getData } from "../../../utils/helpers/getData";
-import { LATEST_NEWS_AUTHOR } from "../../app/constant/EndPoints";
+import { LATEST_NEWS_PROVIDER } from "../../app/constant/EndPoints";
 
 const lodash = require("lodash");
 const PAGE_NUMBER = 1;
 
-function AuthorDashboard() {
+function ProviderDashboard() {
   const location = useLocation();
-  const [author] = useState(location.state.author);
+  const [provider] = useState(location.state.provider);
   // for day
 
   const [dayPercentNewScore, setDayPercentNewScore] = useState();
@@ -35,7 +35,7 @@ function AuthorDashboard() {
   const [weekStatusScore, setWeekStatusScore] = useState();
   const [weekClassNameNewScore, setWeekClassNameNewScore] = useState();
 
-  const [newsAuthor, setNewsAuthor] = useState(author?.name);
+  const [newsProvider, setNewsProvider] = useState(provider?.name);
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsFrom, setNewsFrom] = useState("1716373411");
   const [newsLlmOnly, setNewsLlmOnly] = useState(false);
@@ -48,36 +48,36 @@ function AuthorDashboard() {
   const setDayDetailsProgressBar = () => {
     setDayPercentNewScore(
       Math.max(
-        author?.lastDay_sentiment.negative,
-        author?.lastDay_sentiment.neutral,
-        author?.lastDay_sentiment.positive
+        provider?.lastDay_sentiment.negative,
+        provider?.lastDay_sentiment.neutral,
+        provider?.lastDay_sentiment.positive
       )
     );
-    console.log()
+    console.log();
     if (
-      author?.lastDay_sentiment.negative == 0 &&
-      author?.lastDay_sentiment.neutral == 0 &&
-      author?.lastDay_sentiment.positive == 0
+      provider?.lastDay_sentiment.negative == 0 &&
+      provider?.lastDay_sentiment.neutral == 0 &&
+      provider?.lastDay_sentiment.positive == 0
     ) {
       setDayClassNameNewScore("text-center font-bold ");
       setDayStatusScore("");
       setDaySignScore("");
     } else if (
       Math.max(
-        author?.lastDay_sentiment.negative,
-        author?.lastDay_sentiment.neutral,
-        author?.lastDay_sentiment.positive
-      ) === author?.lastDay_sentiment.negative
+        provider?.lastDay_sentiment.negative,
+        provider?.lastDay_sentiment.neutral,
+        provider?.lastDay_sentiment.positive
+      ) === provider?.lastDay_sentiment.negative
     ) {
       setDayClassNameNewScore("text-center font-bold text-rose-300");
       setDayStatusScore("Negative");
       setDaySignScore("-");
     } else if (
       Math.max(
-        author?.lastDay_sentiment.negative,
-        author?.lastDay_sentiment.neutral,
-        author?.lastDay_sentiment.positive
-      ) === author?.lastDay_sentiment.neutral
+        provider?.lastDay_sentiment.negative,
+        provider?.lastDay_sentiment.neutral,
+        provider?.lastDay_sentiment.positive
+      ) === provider?.lastDay_sentiment.neutral
     ) {
       setDayClassNameNewScore("text-center font-bold text-slate-300");
       setDayStatusScore("Neutral");
@@ -92,35 +92,35 @@ function AuthorDashboard() {
   const setWeekDetailsProgressBar = () => {
     setWeekPercentNewScore(
       Math.max(
-        author?.lastWeek_sentiment.negative,
-        author?.lastWeek_sentiment.neutral,
-        author?.lastWeek_sentiment.positive
+        provider?.lastWeek_sentiment.negative,
+        provider?.lastWeek_sentiment.neutral,
+        provider?.lastWeek_sentiment.positive
       )
     );
     if (
-      author?.lastWeek_sentiment.negative == 0 &&
-      author?.lastWeek_sentiment.neutral == 0 &&
-      author?.lastWeek_sentiment.positive == 0
+      provider?.lastWeek_sentiment.negative == 0 &&
+      provider?.lastWeek_sentiment.neutral == 0 &&
+      provider?.lastWeek_sentiment.positive == 0
     ) {
       setWeekClassNameNewScore("text-center font-bold ");
       setWeekStatusScore("");
       setWeekSignScore("");
     } else if (
       Math.max(
-        author?.lastWeek_sentiment.negative,
-        author?.lastWeek_sentiment.neutral,
-        author?.lastWeek_sentiment.positive
-      ) === author?.lastWeek_sentiment.negative
+        provider?.lastWeek_sentiment.negative,
+        provider?.lastWeek_sentiment.neutral,
+        provider?.lastWeek_sentiment.positive
+      ) === provider?.lastWeek_sentiment.negative
     ) {
       setWeekClassNameNewScore("text-center font-bold text-rose-300");
       setWeekStatusScore("Negative");
       setWeekSignScore("-");
     } else if (
       Math.max(
-        author?.lastWeek_sentiment.negative,
-        author?.lastWeek_sentiment.neutral,
-        author?.lastWeek_sentiment.positive
-      ) === author?.lastWeek_sentiment.neutral
+        provider?.lastWeek_sentiment.negative,
+        provider?.lastWeek_sentiment.neutral,
+        provider?.lastWeek_sentiment.positive
+      ) === provider?.lastWeek_sentiment.neutral
     ) {
       setWeekClassNameNewScore("text-center font-bold text-slate-300");
       setWeekStatusScore("Neutral");
@@ -134,7 +134,7 @@ function AuthorDashboard() {
 
   const getNews = async () => {
     const parameter = {
-      author: newsAuthor,
+      provider: newsProvider,
       category: newsCategory,
       startDate: newsFrom,
       llmOnly: newsLlmOnly,
@@ -143,9 +143,9 @@ function AuthorDashboard() {
     };
 
     try {
-      getData(LATEST_NEWS_AUTHOR, parameter).then((response) => {
+      getData(LATEST_NEWS_PROVIDER, parameter).then((response) => {
         if (response.data.data.result) {
-          console.log("Fetch data author news done.");
+          console.log("Fetch data provider news done.");
           // console.log(response.data.data.result);
           setNewsData((prev) => {
             return [...prev, ...response.data.data.result];
@@ -177,22 +177,22 @@ function AuthorDashboard() {
 
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-
+    
   }, [newsData]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
-      <h3 className="pt-2 px-2">Author Dashboard</h3>
+      <h3 className="pt-2 px-2">Provider Dashboard</h3>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
         <span>
           <NavLink to="/">Home</NavLink>
         </span>{" "}
         <span className="pl-2">{" > "}</span>
         <span className="pl-2">
-          <NavLink to="/authors-list">Authors List</NavLink>
+          <NavLink to="/providers-list">Providers List</NavLink>
         </span>
         <span className="pl-2"> {" > "}</span>
-        <span className="pl-2">Author Dashboard</span>
+        <span className="pl-2">Provider Dashboard</span>
       </div>
       {/* header */}
 
@@ -200,28 +200,28 @@ function AuthorDashboard() {
         <div className="flex mt-1">
           <div className="basis-1/4">
             <div className="">
-              <a href={author?.biographyUrl} target="_blank">
+              <a href={provider?.biographyUrl} target="_blank">
                 <img
                   className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
-                  src={author?.picUrl ? author?.picUrl : avatar}
+                  src={provider?.picUrl ? provider?.picUrl : avatar}
                 />
               </a>
             </div>
             <div className="text-[0.8rem] text-slate-800 pt-1 text-center">
-              <a href={author?.biographyUrl} target="_blank">
-                {author?.name}
+              <a href={provider?.biographyUrl} target="_blank">
+                {provider?.name}
               </a>
             </div>
           </div>
           <div className="basis-3/4 mx-2">
             <div className="text-[0.8rem] text-slate-800 pt-1 px-2 border rounded-md">
               <div className="font-bold">
-                <span>Journalist at</span> {author?.worked}
+                <span>Journalist at</span> {provider?.worked}
               </div>
               <span className="text-[0.8rem] font-bold">Biography</span>
-              <a href={author?.biographyUrl} target="_blank">
+              <a href={provider?.biographyUrl} target="_blank">
                 <div className="text-[0.7rem] text-justify">
-                  {author?.biography}
+                  {provider?.biography}
                 </div>
               </a>
             </div>
@@ -230,7 +230,7 @@ function AuthorDashboard() {
 
         <div className="flex mt-2">
           <div className="bg-indigo-200 border-y-2 border-indigo-400 w-full mt-1 py-1 text-center">
-            <span className="text-indigo-700">Author Statistics</span>
+            <span className="text-indigo-700">Provider Statistics</span>
           </div>
         </div>
 
@@ -242,24 +242,24 @@ function AuthorDashboard() {
           </div>
           <div className="basis-3/5 p-2 justify-center">
             <div className="text-sm">
-              <span className="text-sm font-bold">+{author?.newsCount}</span>{" "}
+              <span className="text-sm font-bold">+{provider?.newsCount}</span>{" "}
               News
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{author?.AvgNewsPERday}
+                +{provider?.AvgNewsPERday}
               </span>{" "}
               News Per Day
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{author?.AvgNewsPERweek}
+                +{provider?.AvgNewsPERweek}
               </span>{" "}
               News Per Week
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{author?.AvgNewsPERMonth}
+                +{provider?.AvgNewsPERMonth}
               </span>{" "}
               News Per Month
             </div>
@@ -269,7 +269,9 @@ function AuthorDashboard() {
           <>
             <div className="flex">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
-                <span className="text-violet-700">Today Author Sentiment</span>
+                <span className="text-violet-700">
+                  Today Provider Sentiment
+                </span>
               </div>
             </div>
 
@@ -278,19 +280,19 @@ function AuthorDashboard() {
                 <div className="flex w-ful justify-center mx-2 border-2">
                   <div
                     style={{
-                      width: `${author?.lastDay_sentiment.positive * 100}%`,
+                      width: `${provider?.lastDay_sentiment.positive * 100}%`,
                     }}
                     className="bg-lime-300 h-6"
                   ></div>
                   <div
                     style={{
-                      width: `${author?.lastDay_sentiment.negative * 100}%`,
+                      width: `${provider?.lastDay_sentiment.negative * 100}%`,
                     }}
                     className="bg-rose-300"
                   ></div>
                   <div
                     style={{
-                      width: `${author?.lastDay_sentiment.neutral * 100}%`,
+                      width: `${provider?.lastDay_sentiment.neutral * 100}%`,
                     }}
                     className="bg-slate-300"
                   ></div>
@@ -318,7 +320,7 @@ function AuthorDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{author?.last_day_count}</span>
+                  <span className="font-bod">{provider?.last_day_count}</span>
                 </div>
                 <div className="text-lg">
                   <span className={dayClassNameNewScore}>{dayStatusScore}</span>
@@ -335,7 +337,7 @@ function AuthorDashboard() {
             <div className="flex">
               <div className="bg-violet-100 border-y-2 border-violet-200 w-full mt-1 py-1 text-center">
                 <span className="text-violet-500">
-                  This Week Author Sentiment
+                  This Week Provider Sentiment
                 </span>
               </div>
             </div>
@@ -345,19 +347,19 @@ function AuthorDashboard() {
                 <div className="flex w-ful justify-center mx-2 border-2">
                   <div
                     style={{
-                      width: `${author?.lastWeek_sentiment.positive * 100}%`,
+                      width: `${provider?.lastWeek_sentiment.positive * 100}%`,
                     }}
                     className="bg-lime-300 h-6"
                   ></div>
                   <div
                     style={{
-                      width: `${author?.lastWeek_sentiment.negative * 100}%`,
+                      width: `${provider?.lastWeek_sentiment.negative * 100}%`,
                     }}
                     className="bg-rose-300"
                   ></div>
                   <div
                     style={{
-                      width: `${author?.lastWeek_sentiment.neutral * 100}%`,
+                      width: `${provider?.lastWeek_sentiment.neutral * 100}%`,
                     }}
                     className="bg-slate-300"
                   ></div>
@@ -385,7 +387,7 @@ function AuthorDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{author?.last_week_count}</span>
+                  <span className="font-bod">{provider?.last_week_count}</span>
                 </div>
                 <div className="text-lg">
                   <span className={weekClassNameNewScore}>
@@ -399,12 +401,12 @@ function AuthorDashboard() {
           ""
         )}
 
-        {author?.symbols.length !== 0 ? (
+        {provider?.symbols.length && provider?.symbols.length !== 0 ? (
           <>
             <div className="flex">
               <div className="bg-blue-100 border-y-2 border-blue-200 w-full mt-1 py-1 text-center">
                 <span className="text-blue-500">
-                  Author News Distribution Per Coins
+                  Provider News Distribution Per Coins
                 </span>
               </div>
             </div>
@@ -413,10 +415,10 @@ function AuthorDashboard() {
               <div className="mx-2">
                 <BarChart
                   labels={lodash
-                    .chunk(author?.symbols, 10)[0]
+                    .chunk(provider?.symbols, 10)[0]
                     .map((node) => [node.coin])}
                   data={lodash
-                    .chunk(author?.symbols, 10)[0]
+                    .chunk(provider?.symbols, 10)[0]
                     .map((node) => [node.news_count])}
                   label={"News Count"}
                 ></BarChart>
@@ -429,7 +431,8 @@ function AuthorDashboard() {
         <div className="flex">
           <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
             <span className="text-orange-500">
-              Latest News from <span className="font-bold">{author?.name}</span>
+              Latest News from{" "}
+              <span className="font-bold">{provider?.name}</span>
             </span>
           </div>
         </div>
@@ -454,4 +457,4 @@ function AuthorDashboard() {
   );
 }
 
-export default AuthorDashboard;
+export default ProviderDashboard;
