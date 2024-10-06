@@ -13,7 +13,7 @@ import Loader from "../core/components/Loader.jsx";
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS_AUTHOR } from "../../app/constant/EndPoints";
 
-import {DEFAULT_AVATAR_IMAGE} from "../../app/constant/Defaults.js"
+import { DEFAULT_AVATAR_IMAGE } from "../../app/constant/Defaults.js";
 
 const lodash = require("lodash");
 const PAGE_NUMBER = 1;
@@ -227,12 +227,18 @@ function AuthorDashboard() {
               <div className="font-bold">
                 <span>Journalist at</span> {author?.worked}
               </div>
-              <span className="text-[0.8rem] font-bold">Biography</span>
-              <a href={author?.biographyUrl} target="_blank">
-                <div className="text-[0.7rem] text-justify">
-                  {author?.biography}
-                </div>
-              </a>
+              {author?.biography ? (
+                <>
+                  <span className="text-[0.8rem] font-bold">Biography</span>
+                  <a href={author?.biographyUrl} target="_blank">
+                    <div className="text-[0.7rem] text-justify">
+                      {author?.biography}
+                    </div>
+                  </a>
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
