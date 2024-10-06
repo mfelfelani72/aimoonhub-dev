@@ -12,8 +12,9 @@ import { Pagination } from "swiper/modules";
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
 
-import DetailsBox from "./components/DetailsBox.jsx";
+import { DEFAULT_NEW_IMAGE } from "../../app/constant/Defaults.js";
 
+import DetailsBox from "./components/DetailsBox.jsx";
 
 const LatestAimoonNew = () => {
   const { t } = useTranslation();
@@ -65,7 +66,20 @@ const LatestAimoonNew = () => {
       <div className="relative">
         <div className="h-[10rem]">
           <a href={firstNew?.link} target="_blank">
-            <img className="h-full w-full" src={firstNew?.thImage} />
+            <img
+              className="h-full w-full"
+              alt={firstNew?.title}
+              src={
+                firstNew?.local_image
+                  ? firstNew?.local_image
+                  : firstNew?.thImage
+                  ? firstNew?.thImage
+                  : DEFAULT_NEW_IMAGE
+              }
+              onError={(e) => {
+                e.target.src = DEFAULT_NEW_IMAGE;
+              }}
+            />
           </a>
         </div>
         <div className="absolute top-0 left-0">
@@ -115,7 +129,17 @@ const LatestAimoonNew = () => {
                   <a href={row?.link} target="_blank">
                     <img
                       className="h-[13rem] w-full border border-transparent rounded-lg"
-                      src={row.thImage}
+                      alt={row?.title}
+                      src={
+                        row?.local_image !== ""
+                          ? row?.local_image
+                          : row?.thImage !== ""
+                          ? row?.thImage
+                          : DEFAULT_NEW_IMAGE
+                      }
+                      onError={(e) => {
+                        e.target.src = DEFAULT_NEW_IMAGE;
+                      }}
                     />
                   </a>
                   <div className="absolute top-0 left-0 m-5 mt-10 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[6.7rem] w-[16rem] text-[0.8rem] p-2 text-justify text-slate-800 mx-2">
@@ -144,7 +168,10 @@ const LatestAimoonNew = () => {
           ))}
         </Swiper>
         <div className="text-end pt-2">
-          <NavLink to="/aimoon-news" className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.75rem] h-7 cursor-pointer">
+          <NavLink
+            to="/aimoon-news"
+            className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.75rem] h-7 cursor-pointer"
+          >
             Read More
           </NavLink>
         </div>

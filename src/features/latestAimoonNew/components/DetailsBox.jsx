@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import avatar from "../../../../assets/images/avatar.png";
-
 import ChartDoughnut from "../../core/components/ChartDoughnut.jsx";
 import { dateHelper } from "../../../../utils/helpers/dateHelper.js";
 import { cn } from "../../../../utils/lib/cn.js";
+
+import { DEFAULT_AVATAR_IMAGE } from "../../../app/constant/Defaults.js";
+import { DEFAULT_PROVIDER_IMAGE } from "../../../app/constant/Defaults.js";
+import { DEFAULT_COIN_IMAGE } from "../../../app/constant/Defaults.js";
 
 function DetailsBox(props) {
   const [percentNewScore, setPercentNewScore] = useState();
@@ -36,10 +38,8 @@ function DetailsBox(props) {
 
   useEffect(() => {
     setDetailsProgressBar();
-  }, [percentNewScore, classNameNewScore]);
 
-  let defaultImage =
-    "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
+  }, [percentNewScore, classNameNewScore]);
 
   return (
     <>
@@ -49,9 +49,22 @@ function DetailsBox(props) {
             <div className="flex flex-row items-center">
               <div className="basis-4/5 px-2">
                 <div className="flex flex-row pl-1 items-center">
-                  <img src={avatar} className="h-5 w-5 rounded-[30px]" />
+                  <img
+                    alt={props?.data.author}
+                    src={
+                      props?.data.author.local_image
+                        ? props?.data.author.local_image
+                        : props?.data.author.image
+                        ? props?.data.author.image
+                        : DEFAULT_AVATAR_IMAGE
+                    }
+                    onError={(e) => {
+                      e.target.src = DEFAULT_AVATAR_IMAGE;
+                    }}
+                    className="h-5 w-5 rounded-[30px]"
+                  />
                   <span className="px-1 text-[0.7rem]">
-                    {props.data?.author}
+                    {props?.data.author}
                   </span>
                   <span className="px-1 text-[0.7rem] font-bold">
                     {props.data?.author_info["last_week_count"] +
@@ -79,7 +92,20 @@ function DetailsBox(props) {
                 </div>
 
                 <div className="flex flex-row pt-1 pl-1 items-center">
-                  <img src={avatar} className="h-5 w-5 rounded-[30px]" />
+                  <img
+                    alt={props?.data.provider}
+                    src={
+                      props?.data.provider.local_image
+                        ? props?.data.provider.local_image
+                        : props?.data.provider.image
+                        ? props?.data.provider.image
+                        : DEFAULT_PROVIDER_IMAGE
+                    }
+                    onError={(e) => {
+                      e.target.src = DEFAULT_PROVIDER_IMAGE;
+                    }}
+                    className="h-5 w-5 rounded-[30px]"
+                  />
                   <span className="px-1 text-[0.7rem]">
                     {props.data?.provider}
                   </span>
@@ -140,7 +166,17 @@ function DetailsBox(props) {
                       <div className="" key={index}>
                         <img
                           className="h-[1.25rem] w-[1.25rem]"
-                          src={defaultImage}
+                          alt={props?.data.provider}
+                          src={
+                            row?.local_image
+                              ? row?.local_image
+                              : row?.image
+                              ? row?.image
+                              : DEFAULT_COIN_IMAGE
+                          }
+                          onError={(e) => {
+                            e.target.src = DEFAULT_COIN_IMAGE;
+                          }}
                         />
                       </div>
                     ) : (
