@@ -7,6 +7,8 @@ import { getData } from "../../../utils/helpers/getData.js";
 import { AUTHORS } from "../../app/constant/EndPoints.js";
 import ChartPie from "../core/components/ChartPie.jsx";
 
+import { DEFAULT_AVATAR_IMAGE } from "../../app/constant/Defaults.js";
+
 function AuthorAnalysis() {
   const { t } = useTranslation();
 
@@ -25,7 +27,7 @@ function AuthorAnalysis() {
       getData(AUTHORS, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataAuthor done.");
-          //   console.log(response.data.data);
+          // console.log(response.data.data);
           setAuthors(response.data.data.author_list);
           setTotalStat(response.data.data.total_stat);
         }
@@ -60,15 +62,16 @@ function AuthorAnalysis() {
                 >
                   <img
                     className="h-12 w-12 rounded-full"
+                    alt={row?.name}
                     src={
-                      row?.local_image !== ""
+                      row?.local_image
                         ? row?.local_image
-                        : row?.picUrl !== ""
+                        : row?.picUrl
                         ? row?.picUrl
-                        : avatar
+                        : DEFAULT_AVATAR_IMAGE
                     }
                     onError={(e) => {
-                      e.target.src = avatar;
+                      e.target.src = DEFAULT_AVATAR_IMAGE;
                     }}
                   />
                 </div>
