@@ -6,6 +6,7 @@ import { dateHelper } from "../../../../utils/helpers/dateHelper.js";
 import { cn } from "../../../../utils/lib/cn.js";
 
 import { AUTHOR_INFO } from "../../../app/constant/EndPoints.js";
+import { PROVIDER_INFO } from "../../../app/constant/EndPoints.js";
 
 import { DEFAULT_AVATAR_IMAGE } from "../../../app/constant/Defaults.js";
 import { DEFAULT_PROVIDER_IMAGE } from "../../../app/constant/Defaults.js";
@@ -14,12 +15,10 @@ import { DEFAULT_COIN_IMAGE } from "../../../app/constant/Defaults.js";
 import { getData } from "../../../../utils/helpers/getData.js";
 
 function DetailsBox(props) {
-
   const [percentNewScore, setPercentNewScore] = useState();
   const [classNameNewScore, setClassNameNewScore] = useState();
 
   const [category, setCategory] = useState("cryptocurrencies");
-
 
   const setDetailsProgressBar = () => {
     setPercentNewScore(
@@ -46,9 +45,10 @@ function DetailsBox(props) {
   };
 
   const navigate = useNavigate();
+
   const goToAuthorDashboard = (event, name) => {
     event.preventDefault();
- 
+
     const parameter = {
       category: category,
       name: name,
@@ -59,13 +59,35 @@ function DetailsBox(props) {
         if (response.data.data) {
           console.log("Fetch dataAuthor done.");
           // console.log(response.data.data[0]);
-          navigate("/author-dashboard", { state: { author: response.data.data[0] } });
+          navigate("/author-dashboard", {
+            state: { author: response.data.data[0] },
+          });
         }
       });
     } catch (error) {
       console.log(error);
     }
-    // navigate("/author-dashboard", { state: { author: 'mohammad' } });
+  };
+  const goToProviderDashboard = (event, name) => {
+    event.preventDefault();
+
+    const parameter = {
+      name: name,
+    };
+
+    try {
+      getData(PROVIDER_INFO, parameter).then((response) => {
+        if (response.data.data) {
+          console.log("Fetch dataAuthor done.");
+          // console.log(response.data.data[0]);
+          navigate("/provider-dashboard", {
+            state: { provider: response.data.data[0] },
+          });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -144,7 +166,13 @@ function DetailsBox(props) {
                     className="h-5 w-5 rounded-[30px]"
                   />
                   <span className="px-1 text-[0.7rem]">
-                    {props.data?.provider}
+                    <a
+                      onClick={(event) =>
+                        goToProviderDashboard(event, props?.data.provider)
+                      }
+                    >
+                      {props.data?.provider}
+                    </a>
                   </span>
                   <span className="px-1 text-[0.7rem] font-bold">
                     {props.data?.provider_info["last_week_count"] +
