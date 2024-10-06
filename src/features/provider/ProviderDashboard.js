@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-import avatar from "../../../assets/images/avatar.png";
-
 import { AiOutlineBarChart } from "react-icons/ai";
 import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
@@ -14,6 +12,7 @@ import Loader from "../core/components/Loader.jsx";
 
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS_PROVIDER } from "../../app/constant/EndPoints";
+import { DEFAULT_PROVIDER_IMAGE } from "./../../app/constant/Defaults.js";
 
 const lodash = require("lodash");
 const PAGE_NUMBER = 1;
@@ -177,7 +176,7 @@ function ProviderDashboard() {
 
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-    console.log(provider);
+   
   }, [newsData]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
@@ -203,15 +202,16 @@ function ProviderDashboard() {
               <a href={provider?.url} target="_blank">
                 <img
                   className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
+                  alt={provider?.name}
                   src={
-                    provider?.local_image !== ""
+                    provider?.local_image
                       ? provider?.local_image
-                      : provider?.logoUrl !== ""
+                      : provider?.logoUrl
                       ? provider?.logoUrl
-                      : avatar
+                      : DEFAULT_PROVIDER_IMAGE
                   }
                   onError={(e) => {
-                    e.target.src = avatar;
+                    e.target.src = DEFAULT_PROVIDER_IMAGE;
                   }}
                 />
               </a>

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import avatar from "../../../assets/images/avatar.png";
-
 import { getData } from "../../../utils/helpers/getData.js";
+
 import { PROVIDERS } from "../../app/constant/EndPoints.js";
+import { DEFAULT_PROVIDER_IMAGE } from "../../app/constant/Defaults.js";
+import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
+
 import Button from "../core/components/Button.jsx";
 
 function ProvidersList() {
@@ -31,8 +33,6 @@ function ProvidersList() {
     }
   };
 
-  let defaultImage =
-    "https://cdn3d.iconscout.com/3d/premium/thumb/bitcoin-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--logo-btc-gold-symbol-sign-crpto-glossy-crypto-pack-science-technology-illustrations-3591010.png?f=webp";
 
   useEffect(() => {
     if (providersList.length == 0) getProvidersList();
@@ -68,9 +68,16 @@ function ProvidersList() {
                       <a href={row?.url} target="_blank">
                         <img
                           className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
-                          src={row?.local_image !=="" ? row?.local_image : row?.logoUrl !== "" ? row?.logoUrl : avatar}
+                          alt={row?.name}
+                          src={
+                            row?.local_image
+                              ? row?.local_image
+                              : row?.logoUrl
+                              ? row?.logoUrl
+                              : DEFAULT_PROVIDER_IMAGE
+                          }
                           onError={(e) => {
-                            e.target.src = avatar;
+                            e.target.src = DEFAULT_PROVIDER_IMAGE;
                           }}
                         />
                       </a>
@@ -108,7 +115,17 @@ function ProvidersList() {
                         <div key={index}>
                           <img
                             className="h-[2rem] w-[2rem] rounded-full mx-auto"
-                            src={defaultImage}
+                            alt="coin"
+                            src={
+                              row?.coin?.local_image
+                                ? row?.coin?.local_image
+                                : row?.coin?.logoUrl
+                                ? row?.coin?.logoUrl
+                                : DEFAULT_COIN_IMAGE
+                            }
+                            onError={(e) => {
+                              e.target.src = DEFAULT_COIN_IMAGE;
+                            }}
                           />
                           <div className="text-[0.65rem] text-center font-bold">
                             +{element.news_count}

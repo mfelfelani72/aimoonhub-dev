@@ -7,7 +7,7 @@ import { getData } from "../../../utils/helpers/getData.js";
 import { PROVIDERS } from "../../app/constant/EndPoints.js";
 import ChartPie from "../core/components/ChartPie.jsx";
 
-import avatar from "../../../assets/images/avatar.png";
+import { DEFAULT_PROVIDER_IMAGE } from "../../app/constant/Defaults.js";
 
 function ProviderAnalysis() {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ function ProviderAnalysis() {
       getData(PROVIDERS, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataProvider done.");
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setProviders(response.data.data.provider_list);
           setTotalStat(response.data.data.total_stat);
         }
@@ -62,15 +62,16 @@ function ProviderAnalysis() {
                 >
                   <img
                     className="h-12 w-12 rounded-full"
+                    alt={row?.name}
                     src={
-                      row?.local_image !== ""
+                      row?.local_image
                         ? row?.local_image
-                        : row?.logoUrl !== ""
+                        : row?.logoUrl
                         ? row?.logoUrl
-                        : avatar
+                        : DEFAULT_PROVIDER_IMAGE
                     }
                     onError={(e) => {
-                      e.target.src = avatar;
+                      e.target.src = DEFAULT_PROVIDER_IMAGE;
                     }}
                   />
                 </div>

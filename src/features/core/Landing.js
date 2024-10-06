@@ -8,10 +8,10 @@ import ProviderAnalysis from "../provider/ProviderAnalysis";
 function Landing() {
   return (
     <>
-      {/* <LatestAimoonNew /> */}
-      {/* <LatestNews /> */}
+      <LatestAimoonNew />
+      <LatestNews />
       <AuthorAnalysis />
-      {/* <ProviderAnalysis /> */}
+      <ProviderAnalysis />
     </>
   );
 }

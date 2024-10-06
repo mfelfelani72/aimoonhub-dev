@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useTranslation } from "react-i18next";
 import { dateHelper } from "../../../../utils/helpers/dateHelper";
@@ -7,8 +7,6 @@ import { DEFAULT_NEW_IMAGE } from "../../../app/constant/Defaults";
 
 const CardRow = (props) => {
   const { t } = useTranslation();
-
-  useEffect(() => {console.log(props)}, []);
 
   return (
     <div className="flex flex-row px-2 ltr:md:pr-6 rtl:md:pl-6 ltr:bi:pr-6 rtl:bi:pl-6 rtl:lg:px-6 pt-2 pb-2 border-b border-color-theme-light dark:border-D-color-theme-light">
