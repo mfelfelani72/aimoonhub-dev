@@ -429,10 +429,10 @@ function AuthorDashboard() {
                 <BarChart
                   labels={lodash
                     .chunk(author?.symbols, 10)[0]
-                    .map((node) => [node.coin])}
+                    .map((node) => node.coin)}
                   data={lodash
                     .chunk(author?.symbols, 10)[0]
-                    .map((node) => [node.news_count])}
+                    .map((node) => node.news_count)}
                   label={"News Count"}
                 ></BarChart>
               </div>

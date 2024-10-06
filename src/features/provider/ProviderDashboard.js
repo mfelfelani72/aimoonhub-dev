@@ -425,10 +425,10 @@ function ProviderDashboard() {
                 <BarChart
                   labels={lodash
                     .chunk(provider?.symbols, 10)[0]
-                    .map((node) => [node.coin])}
+                    .map((node) => node.coin)}
                   data={lodash
                     .chunk(provider?.symbols, 10)[0]
-                    .map((node) => [node.news_count])}
+                    .map((node) => node.news_count)}
                   label={"News Count"}
                 ></BarChart>
               </div>
