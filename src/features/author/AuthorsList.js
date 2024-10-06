@@ -48,11 +48,13 @@ function AuthorsList() {
       {/* header */}
       <h2 className="pt-1 px-2">Authors List</h2>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
-        <span><NavLink to="/" >Home</NavLink></span>
+        <span>
+          <NavLink to="/">Home</NavLink>
+        </span>
         <span className="pl-2"> {" > "}</span>
         <span className="pl-2">Authors List</span>
       </div>
-     
+
       {/* header */}
       <div className="container p-2 mx-auto">
         <div className="grid grid-cols-1 gap-2 ">
@@ -66,7 +68,16 @@ function AuthorsList() {
                       <a href={row?.biographyUrl} target="_blank">
                         <img
                           className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
-                          src={row?.picUrl ? row?.picUrl : avatar}
+                          src={
+                            row?.local_image !== ""
+                              ? row?.local_image
+                              : row?.picUrl !== ""
+                              ? row?.picUrl
+                              : avatar
+                          }
+                          onError={(e) => {
+                            e.target.src = avatar;
+                          }}
                         />
                       </a>
                     </div>

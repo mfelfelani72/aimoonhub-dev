@@ -69,6 +69,9 @@ function ProviderAnalysis() {
                         ? row?.logoUrl
                         : avatar
                     }
+                    onError={(e) => {
+                      e.target.src = avatar;
+                    }}
                   />
                 </div>
               ))}

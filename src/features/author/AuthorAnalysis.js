@@ -67,6 +67,9 @@ function AuthorAnalysis() {
                         ? row?.picUrl
                         : avatar
                     }
+                    onError={(e) => {
+                      e.target.src = avatar;
+                    }}
                   />
                 </div>
               ))}
