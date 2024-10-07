@@ -23,6 +23,8 @@ function SymbolDashboard() {
   const location = useLocation();
   const [symbol] = useState(location.state.symbol);
   const [nav] = useState(location.state.nav);
+
+  console.log(symbol)
   // for day
 
   const [dayPercentNewScore, setDayPercentNewScore] = useState();
@@ -204,6 +206,8 @@ function SymbolDashboard() {
       {/* header */}
 
       <div className="container mx-auto my-3 mb-3">
+        {/* section info */}
+
         <div className="flex mt-1">
           <div className="basis-1/4">
             <div className="">
@@ -241,6 +245,51 @@ function SymbolDashboard() {
             </div>
           </div>
         </div>
+
+        {/* section info */}
+
+        {/* section based */}
+
+        <div className="flex mt-2">
+          <div className="bg-emerald-200 border-y-2 border-emerald-400 w-full mt-1 py-1 text-center">
+            <span className="text-emerald-700">
+              {symbol?.name} News Based Statistics
+            </span>
+          </div>
+        </div>
+
+        <div className="flex my-2">
+          <div className="basis-2/5 self-center">
+            <div className="h-[3rem] w-[3rem] mx-auto rounded-full border-2 border-color-theme">
+              <AiOutlineBarChart className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
+            </div>
+          </div>
+          <div className="basis-3/5 p-2 justify-center">
+            <div className="text-sm">
+              <span className="text-sm font-bold">+{symbol?.latest_news_info.news_count}</span>{" "}
+              News
+            </div>
+            <div className="text-sm">
+              <span className="text-sm font-bold">
+                +{symbol?.latest_news_info.avg_news_day}
+              </span>{" "}
+              News Per Day
+            </div>
+            <div className="text-sm">
+              <span className="text-sm font-bold">
+                +{symbol.latest_news_info?.avg_news_week}
+              </span>{" "}
+              News Per Week
+            </div>
+            <div className="text-sm">
+              <span className="text-sm font-bold">
+                +{symbol.latest_news_info?.avg_news_month}
+              </span>{" "}
+              News Per Month
+            </div>
+          </div>
+        </div>
+        {/* section based */}
       </div>
     </div>
   );
