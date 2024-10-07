@@ -208,7 +208,6 @@ function ProviderDashboard() {
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
 
-    console.log(symbols);
   }, [newsData, symbols]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
@@ -234,7 +233,7 @@ function ProviderDashboard() {
 
       <div className="container mx-auto my-3 mb-3">
         <div className="flex mt-1 w-full">
-          <div className="basis-1/4 border-r">
+          <div className="basis-1/4">
             <div className="">
               <a href={provider?.url} target="_blank">
                 <img
@@ -260,12 +259,12 @@ function ProviderDashboard() {
             </div>
           </div>
 
-          <div classNam="flex flex-col w-full">
-            <div className="text-[0.7rem] font-bold mx-4 mb-2"> Top 3 Authors</div>
-            <div className="basis-3/4 mx-2 self-center ">
-              <div className="flex justify-between">
+          <div classNam="flex flex-col ">
+            <div className="text-[0.7rem] font-bold mx-4 mb-2"> Top 6 Authors</div>
+            <div className="basis-3/4">
+            <div class="grid grid-cols-3 gap-0">
                 {symbols?.map((row, index) =>
-                  index <= 2 ? (
+                  index <= 5 ? (
                     <div key={index} className="px-2">
                       <img
                         className="h-12 w-12 rounded-full mx-auto border-2"
@@ -281,7 +280,7 @@ function ProviderDashboard() {
                           e.target.src = DEFAULT_AVATAR_IMAGE;
                         }}
                       />
-                      <div className="text-[0.7rem] font-bold py-1">
+                      <div className="text-[0.7rem] font-bold py-1 text-center">
                         <a
                           className="cursor-pointer hover:text-color-theme"
                           onClick={(event) =>
