@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -15,11 +15,18 @@ import { LATEST_NEWS } from "../../app/constant/EndPoints";
 import { DEFAULT_NEW_IMAGE } from "../../app/constant/Defaults.js";
 
 import DetailsBox from "./components/DetailsBox.jsx";
+import Button from "../core/components/Button.jsx";
 
 const LatestAimoonNew = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const nav = [{ title: "home", address: "/" }, { title: "end" }];
+
+  const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
+  const [newsSymbols, setNewsSymbols] = useState("all");
+  const [newsFrom, setNewsFrom] = useState("1716373411");
+  const [newEndDate, setNewEndDate] = useState("");
 
   const [newsData, setNewsData] = useState([]);
   const [firstNew, setFirstNew] = useState();
@@ -28,9 +35,9 @@ const LatestAimoonNew = () => {
 
   const getNews = async () => {
     const parameter = {
-      category: "cryptocurrencies",
-      symbols: "all",
-      startDate: "1716373411",
+      category: newsCategory,
+      symbols: newsSymbols,
+      startDate: newsFrom,
       // "endDate": newsTo,
       page: 1,
       pageLimit: 5,
@@ -42,6 +49,10 @@ const LatestAimoonNew = () => {
         if (response.data.data.result) {
           console.log("Fetch dataLlm done.");
           // console.log(response.data.data.result);
+          setNewEndDate(
+            response.data.data.result[response.data.data.result.length - 1]
+              ?.pubDate
+          );
           setFirstNew(response.data.data.result[0]);
           response.data.data.result.shift();
           setNewsData(response.data.data.result);
@@ -58,7 +69,8 @@ const LatestAimoonNew = () => {
 
   useEffect(() => {
     if (newsData.length == 0) getNews();
-  }, [newsData, firstNew]);
+    
+  }, [newsData, firstNew, newEndDate]);
 
   return (
     <div className="bg-white mx-4 rounded-[1rem]">
@@ -172,12 +184,20 @@ const LatestAimoonNew = () => {
           ))}
         </Swiper>
         <div className="text-end pt-2">
-          <NavLink
-            to="/aimoon-news"
+          <Button
+            onClick={(event) => {
+              event.preventDefault();
+              navigate("/aimoon-news", {
+                state: {
+                  endDate: newEndDate,
+                  nav: nav,
+                },
+              });
+            }}
             className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.75rem] h-7 cursor-pointer"
           >
             Read More
-          </NavLink>
+          </Button>
         </div>
       </div>
     </div>

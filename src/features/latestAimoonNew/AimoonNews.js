@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
@@ -13,12 +13,16 @@ const lodash = require("lodash");
 const PAGE_NUMBER = 2;
 
 function AimoonNews() {
+  const location = useLocation();
+  const endDate = useState(location.state.endDate);
+  const [nav] = useState(location.state.nav);
+
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState();
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsSymbols, setNewsSymbols] = useState("all");
   const [newsFrom, setNewsFrom] = useState("1716373411");
-  const [newsTo, setNewsTo] = useState("1725633001");
+  // const [newsEnd, setNewsEnd] = useState(endDate[0]);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
   const [newsPageLimit, setNewsPageLimit] = useState(5);
 
@@ -27,7 +31,7 @@ function AimoonNews() {
       category: newsCategory,
       symbols: newsSymbols,
       startDate: newsFrom,
-      // "endDate": newsTo,
+      // endDate: newsEnd,
       page: newsPage,
       pageLimit: newsPageLimit,
       llmOnly: true,
@@ -71,11 +75,21 @@ function AimoonNews() {
       <h2 className="p-2">Aimoon News</h2>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
         <span>
-          <NavLink to="/">Home</NavLink>
-        </span>
-        <span className="pl-2"> {" > "}</span>
-        <span className="pl-2">Aimoon News</span>
+          {nav?.map((row, index) => (
+            <span key={index}>
+              {row?.title !== "end" ? (
+                <NavLink key={index} to={row?.address}>
+                  <span className="capitalize pr-1">{row?.title}</span>
+                  <span> {" > "}</span>
+                </NavLink>
+              ) : (
+                <span className="pl-1 capitalize">Aimoon News</span>
+              )}
+            </span>
+          ))}
+        </span>{" "}
       </div>
+
       {/* header */}
 
       <div className="container p-2 mx-auto">
