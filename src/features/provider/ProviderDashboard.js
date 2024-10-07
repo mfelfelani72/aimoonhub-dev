@@ -207,7 +207,6 @@ function ProviderDashboard() {
 
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-
   }, [newsData, symbols]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
@@ -232,78 +231,79 @@ function ProviderDashboard() {
       {/* header */}
 
       <div className="container mx-auto my-3 mb-3">
-        <div className="flex mt-1 w-full">
-          <div className="basis-1/4">
-            <div className="">
-              <a href={provider?.url} target="_blank">
-                <img
-                  className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
-                  alt={provider?.name}
-                  src={
-                    provider?.local_image
-                      ? provider?.local_image
-                      : provider?.logoUrl
-                      ? provider?.logoUrl
-                      : DEFAULT_PROVIDER_IMAGE
-                  }
-                  onError={(e) => {
-                    e.target.src = DEFAULT_PROVIDER_IMAGE;
-                  }}
-                />
-              </a>
-            </div>
-            <div className="text-[0.8rem] text-slate-800 pt-1 text-center">
+        <div className="mt-1 px-3">
+          <div className="flex ">
+            <a href={provider?.url} target="_blank">
+              <img
+                className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
+                alt={provider?.name}
+                src={
+                  provider?.local_image
+                    ? provider?.local_image
+                    : provider?.logoUrl
+                    ? provider?.logoUrl
+                    : DEFAULT_PROVIDER_IMAGE
+                }
+                onError={(e) => {
+                  e.target.src = DEFAULT_PROVIDER_IMAGE;
+                }}
+              />
+            </a>
+            <div className="text-[0.8rem] text-slate-800 pt-1 self-center mx-4">
               <a href={provider?.url} target="_blank">
                 {provider?.name}
               </a>
             </div>
           </div>
 
-          <div classNam="flex flex-col ">
-            <div className="text-[0.7rem] font-bold mx-4 mb-2"> Top 6 Authors</div>
-            <div className="basis-3/4">
-            <div class="grid grid-cols-3 gap-0">
-                {symbols?.map((row, index) =>
-                  index <= 5 ? (
-                    <div key={index} className="px-2">
-                      <img
-                        className="h-12 w-12 rounded-full mx-auto border-2"
-                        alt={row?.name}
-                        src={
-                          row?.local_image
-                            ? row?.local_image
-                            : row?.picUrl
-                            ? row?.picUrl
-                            : DEFAULT_AVATAR_IMAGE
+          <div className="text-[0.8rem] my-4">
+            Renowned Authors in{" "}
+            <span className="font-bold">{provider?.name}</span>
+          </div>
+
+          <div className="basis-3/4">
+            <div class="grid grid-cols-5 gap-0">
+              {symbols?.map((row, index) =>
+                index <= 9 ? (
+                  <div key={index} className="">
+                    <img
+                      className="h-12 w-12 rounded-full mx-auto border-2"
+                      alt={row?.name}
+                      src={
+                        row?.local_image
+                          ? row?.local_image
+                          : row?.picUrl
+                          ? row?.picUrl
+                          : DEFAULT_AVATAR_IMAGE
+                      }
+                      onError={(e) => {
+                        e.target.src = DEFAULT_AVATAR_IMAGE;
+                      }}
+                    />
+                    <div className="text-[0.7rem] font-bold py-1 text-center">
+                      <a
+                        className="cursor-pointer hover:text-color-theme"
+                        onClick={(event) =>
+                          goToAuthorDashboard(
+                            navigate,
+                            event,
+                            row?.name,
+                            "cryptocurrencies",
+                            nav
+                          )
                         }
-                        onError={(e) => {
-                          e.target.src = DEFAULT_AVATAR_IMAGE;
-                        }}
-                      />
-                      <div className="text-[0.7rem] font-bold py-1 text-center">
-                        <a
-                          className="cursor-pointer hover:text-color-theme"
-                          onClick={(event) =>
-                            goToAuthorDashboard(
-                              navigate,
-                              event,
-                              row?.name,
-                              "cryptocurrencies",
-                              nav
-                            )
-                          }
-                        >
-                          {row?.name}
-                        </a>
-                      </div>
+                      >
+                        {row?.name}
+                      </a>
                     </div>
-                  ) : (
-                    ""
-                  )
-                )}
-              </div>
+                  </div>
+                ) : (
+                  ""
+                )
+              )}
             </div>
           </div>
+
         </div>
 
         <div className="flex mt-2">
