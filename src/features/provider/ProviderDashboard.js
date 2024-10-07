@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { AiOutlineBarChart } from "react-icons/ai";
 import { AiOutlineFrown } from "react-icons/ai";
@@ -11,13 +11,20 @@ import CardRow from "./components/CardRow.jsx";
 import Loader from "../core/components/Loader.jsx";
 
 import { getData } from "../../../utils/helpers/getData";
+import { goToAuthorDashboard } from "../../../utils/lib/author/goToAuthorDashboard.js";
+
+import { PROVIDER_AUTHORS } from "../../app/constant/EndPoints";
 import { LATEST_NEWS_PROVIDER } from "../../app/constant/EndPoints";
+
 import { DEFAULT_PROVIDER_IMAGE } from "./../../app/constant/Defaults.js";
+import { DEFAULT_AVATAR_IMAGE } from "./../../app/constant/Defaults.js";
 
 const lodash = require("lodash");
 const PAGE_NUMBER = 1;
 
 function ProviderDashboard() {
+  const navigate = useNavigate();
+
   const location = useLocation();
   const [provider] = useState(location.state.provider);
   const [nav] = useState(location.state.nav);
@@ -35,7 +42,7 @@ function ProviderDashboard() {
   const [weekStatusScore, setWeekStatusScore] = useState();
   const [weekClassNameNewScore, setWeekClassNameNewScore] = useState();
 
-  const [newsProvider, setNewsProvider] = useState(provider?.name);
+  const [providerName, setProviderName] = useState(provider?.name);
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsFrom, setNewsFrom] = useState("1716373411");
   const [newsLlmOnly, setNewsLlmOnly] = useState(false);
@@ -43,6 +50,7 @@ function ProviderDashboard() {
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 
   const [newsData, setNewsData] = useState([]);
+  const [symbols, setSymbols] = useState([]);
   const [loading, setLoading] = useState();
 
   const setDayDetailsProgressBar = () => {
@@ -134,7 +142,7 @@ function ProviderDashboard() {
 
   const getNews = async () => {
     const parameter = {
-      provider: newsProvider,
+      provider: providerName,
       category: newsCategory,
       startDate: newsFrom,
       llmOnly: newsLlmOnly,
@@ -160,6 +168,24 @@ function ProviderDashboard() {
     }
   };
 
+  const getSymbols = async () => {
+    const parameter = {
+      name: providerName,
+    };
+
+    try {
+      getData(PROVIDER_AUTHORS, parameter).then((response) => {
+        if (response.data.data) {
+          console.log("Fetch data provider authors done.");
+          // console.log(response.data.data);
+          setSymbols(response.data.data);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleGetNews = async () => {
     setLoading(true);
 
@@ -175,9 +201,15 @@ function ProviderDashboard() {
       getNews();
     }
 
+    if (symbols.length == 0) {
+      getSymbols();
+    }
+
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-  }, [newsData]);
+
+    console.log(symbols);
+  }, [newsData, symbols]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
@@ -188,7 +220,7 @@ function ProviderDashboard() {
             <span key={index}>
               {row?.title !== "end" ? (
                 <NavLink key={index} to={row?.address}>
-                  <span className="capitalize pr-1">{row?.title}</span>
+                  <span className="capitalize px-1">{row?.title}</span>
                   <span> {" > "}</span>
                 </NavLink>
               ) : (
@@ -201,8 +233,8 @@ function ProviderDashboard() {
       {/* header */}
 
       <div className="container mx-auto my-3 mb-3">
-        <div className="flex mt-1">
-          <div className="basis-1/4">
+        <div className="flex mt-1 w-full">
+          <div className="basis-1/4 border-r">
             <div className="">
               <a href={provider?.url} target="_blank">
                 <img
@@ -222,22 +254,55 @@ function ProviderDashboard() {
               </a>
             </div>
             <div className="text-[0.8rem] text-slate-800 pt-1 text-center">
-              <a href={provider?.biographyUrl} target="_blank">
+              <a href={provider?.url} target="_blank">
                 {provider?.name}
               </a>
             </div>
           </div>
-          <div className="basis-3/4 mx-2">
-            <div className="text-[0.8rem] text-slate-800 pt-1 px-2 border rounded-md">
-              <div className="font-bold">
-                <span>Journalist at</span> {provider?.worked}
+
+          <div classNam="flex flex-col w-full">
+            <div className="text-[0.7rem] font-bold mx-4 mb-2"> Top 3 Authors</div>
+            <div className="basis-3/4 mx-2 self-center ">
+              <div className="flex justify-between">
+                {symbols?.map((row, index) =>
+                  index <= 2 ? (
+                    <div key={index} className="px-2">
+                      <img
+                        className="h-12 w-12 rounded-full mx-auto border-2"
+                        alt={row?.name}
+                        src={
+                          row?.local_image
+                            ? row?.local_image
+                            : row?.picUrl
+                            ? row?.picUrl
+                            : DEFAULT_AVATAR_IMAGE
+                        }
+                        onError={(e) => {
+                          e.target.src = DEFAULT_AVATAR_IMAGE;
+                        }}
+                      />
+                      <div className="text-[0.7rem] font-bold py-1">
+                        <a
+                          className="cursor-pointer hover:text-color-theme"
+                          onClick={(event) =>
+                            goToAuthorDashboard(
+                              navigate,
+                              event,
+                              row?.name,
+                              "cryptocurrencies",
+                              nav
+                            )
+                          }
+                        >
+                          {row?.name}
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )
+                )}
               </div>
-              <span className="text-[0.8rem] font-bold">Biography</span>
-              <a href={provider?.biographyUrl} target="_blank">
-                <div className="text-[0.7rem] text-justify">
-                  {provider?.biography}
-                </div>
-              </a>
             </div>
           </div>
         </div>

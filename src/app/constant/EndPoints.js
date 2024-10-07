@@ -6,4 +6,5 @@ export const LATEST_NEWS_AUTHOR = `News/GetPaginatedData_author/`;
 
 export const PROVIDERS = `Provider/getProviders/`;
 export const PROVIDER_INFO = `Provider/getProviderInfo/`;
+export const PROVIDER_AUTHORS = `Provider/getProviderAuthors/`;
 export const LATEST_NEWS_PROVIDER = `News/GetPaginatedData_provider/`;

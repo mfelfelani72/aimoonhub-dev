@@ -29,7 +29,7 @@ function ProvidersList() {
       getData(PROVIDERS, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataProvidersList done.");
-          // console.log(response.data.data);
+          // console.log(response.data.data);https://cryptonews.com/news/altcoin-news/
           setProvidersList(response.data.data.provider_list);
         }
       });
@@ -95,10 +95,6 @@ function ProvidersList() {
                   <div className="basis-3/5 text-center self-center">
                     <div className="text-[0.8rem]">
                       <span className="font-bold">+{row?.newsCount}</span> news
-                    </div>
-                    <div className="text-[0.7rem]">
-                      Journalist at{" "}
-                      <span className="font-bold">{row?.worked}</span>
                     </div>
                     <div className="mt-5">
                       <Button
