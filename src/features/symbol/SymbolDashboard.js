@@ -1,30 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { AiOutlineBarChart } from "react-icons/ai";
 import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
 
+import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
+
 import TWChart from "../core/components/charts/TWChart.jsx";
-import Button from "../core/components/Button.jsx";
-import CardRow from "./components/CardRow.jsx";
-import Loader from "../core/components/Loader.jsx";
-
-import { getData } from "../../../utils/helpers/getData";
-
-import { DEFAULT_AVATAR_IMAGE } from "./../../app/constant/Defaults.js";
-
-const lodash = require("lodash");
-const PAGE_NUMBER = 1;
 
 function SymbolDashboard() {
-  const navigate = useNavigate();
-
   const location = useLocation();
   const [symbol] = useState(location.state.symbol);
   const [nav] = useState(location.state.nav);
-
-  // console.log(symbol);
 
   // for day
 
@@ -39,17 +27,6 @@ function SymbolDashboard() {
   const [weekSignScore, setWeekSignScore] = useState();
   const [weekStatusScore, setWeekStatusScore] = useState();
   const [weekClassNameNewScore, setWeekClassNameNewScore] = useState();
-
-  const [symbolName, setSymbolName] = useState(symbol?.name);
-  const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
-  const [newsFrom, setNewsFrom] = useState("1716373411");
-  const [newsLlmOnly, setNewsLlmOnly] = useState(false);
-  const [newsPageLimit, setNewsPageLimit] = useState(5);
-  const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
-
-  const [newsData, setNewsData] = useState([]);
-  const [symbols, setSymbols] = useState([]);
-  const [loading, setLoading] = useState();
 
   const setDayDetailsProgressBar = () => {
     setDayPercentNewScore(
@@ -138,52 +115,10 @@ function SymbolDashboard() {
     }
   };
 
-  const getNews = async () => {
-    const parameter = {
-      symbol: symbolName,
-      category: newsCategory,
-      startDate: newsFrom,
-      llmOnly: newsLlmOnly,
-      page: newsPage,
-      pageLimit: newsPageLimit,
-    };
-
-    try {
-      getData(LATEST_NEWS_PROVIDER, parameter).then((response) => {
-        if (response.data.data.result) {
-          console.log("Fetch data symbol news done.");
-          // console.log(response.data.data.result);
-          setNewsData((prev) => {
-            return [...prev, ...response.data.data.result];
-          });
-
-          setNewsPage((prev) => prev + 1);
-          setLoading(false);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleGetNews = async () => {
-    setLoading(true);
-
-    if (newsPage !== 1 || newsPage !== 2) lodashGetNews();
-  };
-
-  const lodashGetNews = lodash.debounce(function () {
-    getNews();
-  }, 100);
-
   useEffect(() => {
-    if (newsData.length == 0) {
-      getNews();
-    }
-
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-  }, [newsData]);
+  }, []);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
@@ -221,10 +156,10 @@ function SymbolDashboard() {
                       ? symbol?.local_image
                       : symbol?.logo
                       ? symbol?.logo
-                      : DEFAULT_AVATAR_IMAGE
+                      : DEFAULT_COIN_IMAGE
                   }
                   onError={(e) => {
-                    e.target.src = DEFAULT_AVATAR_IMAGE;
+                    e.target.src = DEFAULT_COIN_IMAGE;
                   }}
                 />
               </a>
@@ -421,7 +356,7 @@ function SymbolDashboard() {
           <div className="basis-1/2 p-2 justify-center text-center">
             <div className="flex text-md justify-center">
               <span className="px-2">
-                {daySignScore == "+" ? (
+                {weekSignScore == "+" ? (
                   <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
                 ) : daySignScore == " " ? (
                   ""
@@ -511,6 +446,51 @@ function SymbolDashboard() {
                       .slice(-15),
                     backgroundColor: ["rgba(75, 192, 192, 0.2)"],
                     borderColor: ["rgba(75, 192, 192, 1)"],
+                    borderWidth: 1,
+                  },
+                ],
+              }}
+            />
+          </div>
+        </div>
+        {/* mood */}
+
+        {/* mood */}
+        <div className="flex mt-2">
+          <div className="bg-pink-200 border-y-2 border-pink-400 w-full mt-1 py-1 text-center">
+            <span className="text-pink-700">News Count Time Series</span>
+          </div>
+        </div>
+        <div className="flex justify-center my-2">
+          <div className="mx-2">
+            <TWChart
+              type={"line"}
+              data={{
+                labels: [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                ],
+                datasets: [
+                  {
+                    label: "News count",
+                    data: symbol?.latest_news_info.change_stat.newsCount_change.change_series
+                      .filter((num) => num !== 0)
+                      .slice(-15),
+                    backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+                    borderColor: ["rgba(153, 102, 255, 1)"],
                     borderWidth: 1,
                   },
                 ],
