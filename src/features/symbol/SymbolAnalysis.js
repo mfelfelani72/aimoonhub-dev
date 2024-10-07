@@ -5,9 +5,8 @@ import { useTranslation } from "react-i18next";
 
 import { getData } from "../../../utils/helpers/getData.js";
 import { SYMBOLS } from "../../app/constant/EndPoints.js";
-import ChartPie from "../core/components/ChartPie.jsx";
 
-import { DEFAULT_PROVIDER_IMAGE } from "../../app/constant/Defaults.js";
+import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
 
 function SymbolAnalysis() {
   const { t } = useTranslation();
@@ -25,7 +24,7 @@ function SymbolAnalysis() {
       getData(SYMBOLS, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataSymbol done.");
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setSymbols(response.data.data);
         }
       });
@@ -66,10 +65,10 @@ function SymbolAnalysis() {
                           ? row?.local_image
                           : row?.logo
                           ? row?.logo
-                          : DEFAULT_PROVIDER_IMAGE
+                          : DEFAULT_COIN_IMAGE
                       }
                       onError={(e) => {
-                        e.target.src = DEFAULT_PROVIDER_IMAGE;
+                        e.target.src = DEFAULT_COIN_IMAGE;
                       }}
                     />
                   </div>

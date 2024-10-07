@@ -3,34 +3,31 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import { getData } from "../../../utils/helpers/getData.js";
 
-import { PROVIDERS } from "../../app/constant/EndPoints.js";
-import { DEFAULT_PROVIDER_IMAGE } from "../../app/constant/Defaults.js";
+import { SYMBOLS } from "../../app/constant/EndPoints.js";
 import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
 
 import Button from "../core/components/Button.jsx";
 
-function ProvidersList() {
+function SymbolsList() {
   const nav = [
     { title: "home", address: "/" },
-    { title: "providers list", address: "/providers-list" },
+    { title: "symbols list", address: "/symbols-list" },
     { title: "end" },
   ];
-  const [providersList, setProvidersList] = useState([]);
-  const [category, setCategory] = useState("cryptocurrencies");
-  const [priority, setPriority] = useState(2);
+  const [symbolsList, setSymbolsList] = useState([]);
+  const [priority, setPriority] = useState(1);
 
-  const getProvidersList = async () => {
+  const getSymbolsList = async () => {
     const parameter = {
-      category: category,
       priority: priority,
     };
 
     try {
-      getData(PROVIDERS, parameter).then((response) => {
+      getData(SYMBOLS, parameter).then((response) => {
         if (response.data.data) {
-          console.log("Fetch dataProvidersList done.");
-          // console.log(response.data.data);https://cryptonews.com/news/altcoin-news/
-          setProvidersList(response.data.data.provider_list);
+          console.log("Fetch dataSymbolsList done.");
+          console.log(response.data.data);
+          setSymbolsList(response.data.data);
         }
       });
     } catch (error) {
@@ -39,31 +36,28 @@ function ProvidersList() {
   };
 
   useEffect(() => {
-    if (providersList.length == 0) getProvidersList();
-  }, [providersList]);
+    if (symbolsList.length == 0) getSymbolsList();
+  }, [symbolsList]);
 
   const navigate = useNavigate();
-  const goto = (row, event) => {
-    event.preventDefault();
-    navigate("/provider-dashboard", { state: { provider: row, nav: nav } });
-  };
+
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
-      <h2 className="pt-1 px-2">Providers List</h2>
+      <h2 className="pt-1 px-2">Symbols List</h2>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
         <span>
           <NavLink to="/">Home</NavLink>
         </span>
         <span className="pl-2"> {" > "}</span>
-        <span className="pl-2">Providers List</span>
+        <span className="pl-2">Symbols List</span>
       </div>
 
       {/* header */}
       <div className="container p-2 mx-auto">
         <div className="grid grid-cols-1 gap-2 ">
           {/* card */}
-          {providersList.map((row, index) => (
+          {symbolsList?.map((row, index) => (
             <div key={index} className="border-2 rounded-xl p-2 pt-3">
               <div className="h-[6rem]">
                 <div className="flex flex-row">
@@ -76,8 +70,8 @@ function ProvidersList() {
                           src={
                             row?.local_image
                               ? row?.local_image
-                              : row?.logoUrl
-                              ? row?.logoUrl
+                              : row?.logo
+                              ? row?.logo
                               : DEFAULT_PROVIDER_IMAGE
                           }
                           onError={(e) => {
@@ -94,48 +88,23 @@ function ProvidersList() {
                   </div>
                   <div className="basis-3/5 text-center self-center">
                     <div className="text-[0.8rem]">
-                      <span className="font-bold">+{row?.newsCount}</span> news
+                      <span className="font-bold"></span>
                     </div>
-                    <div className="mt-5">
+                    <div className="">
                       <Button
                         className="bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme text-[0.8rem] px-3"
-                        onClick={(event) => goto(row, event)}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          navigate("/symbol-dashboard", {
+                            state: { symbol: row, nav: nav },
+                          });
+                        }}
                       >
                         Dashboard
                       </Button>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="flex flex-row justify-center mt-1">
-                {row?.symbols.length
-                  ? row?.symbols.map((element, index) =>
-                      index <= 4 ? (
-                        <div key={index}>
-                          <img
-                            className="h-[2rem] w-[2rem] rounded-full mx-auto"
-                            alt="coin"
-                            src={
-                              row?.coin?.local_image
-                                ? row?.coin?.local_image
-                                : row?.coin?.logoUrl
-                                ? row?.coin?.logoUrl
-                                : DEFAULT_COIN_IMAGE
-                            }
-                            onError={(e) => {
-                              e.target.src = DEFAULT_COIN_IMAGE;
-                            }}
-                          />
-                          <div className="text-[0.65rem] text-center font-bold">
-                            +{element.news_count}
-                          </div>
-                        </div>
-                      ) : (
-                        ""
-                      )
-                    )
-                  : ""}
               </div>
             </div>
           ))}
@@ -147,4 +116,4 @@ function ProvidersList() {
   );
 }
 1;
-export default ProvidersList;
+export default SymbolsList;

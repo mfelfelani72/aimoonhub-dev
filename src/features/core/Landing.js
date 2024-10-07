@@ -4,7 +4,7 @@ import LatestNews from "../latestNews/latestNews";
 import LatestAimoonNew from "../latestAimoonNew/LatestAimoonNew";
 import AuthorAnalysis from "../author/AuthorAnalysis";
 import ProviderAnalysis from "../provider/ProviderAnalysis";
-import SymbolAnalysis from "../symbols/SymbolAnalysis";
+import SymbolAnalysis from "../symbol/SymbolAnalysis";
 
 function Landing() {
   return (
