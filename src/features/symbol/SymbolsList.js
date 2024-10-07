@@ -26,7 +26,7 @@ function SymbolsList() {
       getData(SYMBOLS, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataSymbolsList done.");
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setSymbolsList(response.data.data);
         }
       });

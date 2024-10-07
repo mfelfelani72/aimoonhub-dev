@@ -83,7 +83,8 @@ export function Header(...props) {
 
 
                             {/* login - register */}
-                            {/* <ul className="flex items-center space-x-1 text-sm ltr:ml-3 rtl:mr-3 ltr:border-r rtl:border-l border-slate-200">
+                            {/* <ul className="flex items-center space-x-1 text-sm ltr:ml-3 rtl:mr-3 ltr:border-r rtl:border-l border-slate-200"> */}
+                            <ul className="flex items-center space-x-1 text-sm ltr:ml-3 rtl:mr-3">
                                 <li>
                                     <NavLink className="text-DT-bright hover:text-color-theme dark:hover:text-D-color-theme px-2" to="/login">
                                         {t('login')}
@@ -94,7 +95,7 @@ export function Header(...props) {
                                         {t('register')}
                                     </NavLink>
                                 </li>
-                            </ul> */}
+                            </ul>
                             {/* login - register */}
 
                         </div>

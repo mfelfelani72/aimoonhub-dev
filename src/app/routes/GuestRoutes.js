@@ -2,6 +2,9 @@ import React, {lazy, Suspense } from 'react'
 import { Routes, Route } from "react-router-dom";
 
 import LandingSkeleton from '../../features/core/LandingSkeleton';
+
+const LazyLogin = lazy(() => import("../../features/auth/Login.js"))
+
 const LazyLanding = lazy(() => import("../../features/core/Landing.js"))
 const LazyAimoonNews = lazy(() => import("../../features/latestAimoonNew/AimoonNews.js"))
 
@@ -20,6 +23,9 @@ const GuestRoutes = () => {
     return (
 
         <Routes>
+
+<           Route path="/login" element={<Suspense fallback={<div>Loading...</div>}><LazyLogin /> </Suspense>}></Route>
+
             {/* <Route path="/" element={<Suspense fallback={<LandingSkeleton />}><LazyLanding /> </Suspense>}></Route> */}
             <Route path="/" element={<Suspense fallback={<div>Loading...</div>}><LazyLanding /> </Suspense>}></Route>
             <Route path="/aimoon-news" element={<Suspense fallback={<div>Loading...</div>}><LazyAimoonNews /> </Suspense>}></Route>

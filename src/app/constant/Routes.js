@@ -1,5 +1,6 @@
 export const GUESTS_ROUTES = [
   "/",
+  "/login",
   "/aimoon-news",
   "/authors-list",
   "/author-dashboard",
