@@ -97,35 +97,35 @@ function SymbolDashboard() {
   const setWeekDetailsProgressBar = () => {
     setWeekPercentNewScore(
       Math.max(
-        symbol?.lastWeek_sentiment.negative,
-        symbol?.lastWeek_sentiment.neutral,
-        symbol?.lastWeek_sentiment.positive
+        symbol?.latest_news_info.last_Week_sentiment.negative,
+        symbol?.latest_news_info.last_Week_sentiment.neutral,
+        symbol?.latest_news_info.last_Week_sentiment.positive
       )
     );
     if (
-      symbol?.lastWeek_sentiment.negative == 0 &&
-      symbol?.lastWeek_sentiment.neutral == 0 &&
-      symbol?.lastWeek_sentiment.positive == 0
+      symbol?.latest_news_info.last_Week_sentiment.negative == 0 &&
+      symbol?.latest_news_info.last_Week_sentiment.neutral == 0 &&
+      symbol?.latest_news_info.last_Week_sentiment.positive == 0
     ) {
       setWeekClassNameNewScore("text-center font-bold ");
       setWeekStatusScore("");
       setWeekSignScore("");
     } else if (
       Math.max(
-        symbol?.lastWeek_sentiment.negative,
-        symbol?.lastWeek_sentiment.neutral,
-        symbol?.lastWeek_sentiment.positive
-      ) === symbol?.lastWeek_sentiment.negative
+        symbol?.latest_news_info.last_Week_sentiment.negative,
+        symbol?.latest_news_info.last_Week_sentiment.neutral,
+        symbol?.latest_news_info.last_Week_sentiment.positive
+      ) === symbol?.latest_news_info.last_Week_sentiment.negative
     ) {
       setWeekClassNameNewScore("text-center font-bold text-rose-300");
       setWeekStatusScore("Negative");
       setWeekSignScore("-");
     } else if (
       Math.max(
-        symbol?.lastWeek_sentiment.negative,
-        symbol?.lastWeek_sentiment.neutral,
-        symbol?.lastWeek_sentiment.positive
-      ) === symbol?.lastWeek_sentiment.neutral
+        symbol?.latest_news_info.last_Week_sentiment.negative,
+        symbol?.latest_news_info.last_Week_sentiment.neutral,
+        symbol?.latest_news_info.last_Week_sentiment.positive
+      ) === symbol?.latest_news_info.last_Week_sentiment.neutral
     ) {
       setWeekClassNameNewScore("text-center font-bold text-slate-300");
       setWeekStatusScore("Neutral");
@@ -181,7 +181,7 @@ function SymbolDashboard() {
     }
 
     setDayDetailsProgressBar();
-    // setWeekDetailsProgressBar();
+    setWeekDetailsProgressBar();
   }, [newsData]);
   return (
     <div className="bg-white m-4 rounded-[1rem]">
@@ -371,6 +371,74 @@ function SymbolDashboard() {
         )}
 
         {/* today */}
+
+        {/* week */}
+
+        <div className="flex mt-2">
+          <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
+            <span className="text-violet-700">Today Currency Pair Sentiment</span>
+          </div>
+        </div>
+
+        <div className="flex my-2">
+          <div className="basis-1/2 self-center">
+            <div className="flex w-ful justify-center mx-2 border-2">
+              <div
+                style={{
+                  width: `${
+                    symbol?.latest_news_info.last_Week_sentiment.positive * 100
+                  }%`,
+                }}
+                className="bg-lime-300 h-6"
+              ></div>
+              <div
+                style={{
+                  width: `${
+                    symbol?.latest_news_info.last_Week_sentiment.negative * 100
+                  }%`,
+                }}
+                className="bg-rose-300"
+              ></div>
+              <div
+                style={{
+                  width: `${
+                    symbol?.latest_news_info.last_Week_sentiment.neutral * 100
+                  }%`,
+                }}
+                className="bg-slate-300"
+              ></div>
+            </div>
+            <div className={weekClassNameNewScore}>
+              {weekSignScore}
+              {Math.round(weekPercentNewScore * 100)}%
+            </div>
+          </div>
+          <div className="basis-1/2 p-2 justify-center text-center">
+            <div className="flex text-md justify-center">
+              <span className="px-2">
+                {daySignScore == "+" ? (
+                  <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                ) : daySignScore == " " ? (
+                  ""
+                ) : (
+                  <AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                )}
+              </span>
+              <span className="self-center">
+                {weekSignScore}
+                {Math.round(weekPercentNewScore * 100)}%
+              </span>
+            </div>
+            <div className="text-md font-bold mt-1">
+              Out of <span className="font-bod">{symbol?.last_week_count}</span>
+            </div>
+            <div className="text-lg">
+              <span className={weekClassNameNewScore}>{weekStatusScore}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* week */}
       </div>
     </div>
   );
