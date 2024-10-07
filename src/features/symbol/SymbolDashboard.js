@@ -5,7 +5,7 @@ import { AiOutlineBarChart } from "react-icons/ai";
 import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
 
-import BarChart from "../core/components/BarChart.jsx";
+import TWChart from "../core/components/charts/TWChart.jsx";
 import Button from "../core/components/Button.jsx";
 import CardRow from "./components/CardRow.jsx";
 import Loader from "../core/components/Loader.jsx";
@@ -24,7 +24,8 @@ function SymbolDashboard() {
   const [symbol] = useState(location.state.symbol);
   const [nav] = useState(location.state.nav);
 
-  console.log(symbol);
+  // console.log(symbol);
+
   // for day
 
   const [dayPercentNewScore, setDayPercentNewScore] = useState();
@@ -58,7 +59,7 @@ function SymbolDashboard() {
         symbol?.latest_news_info.last_day_sentiment.positive
       )
     );
-    console.log();
+
     if (
       symbol?.latest_news_info.last_day_sentiment.negative == 0 &&
       symbol?.latest_news_info.last_day_sentiment.neutral == 0 &&
@@ -358,7 +359,9 @@ function SymbolDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{symbol?.last_day_count}</span>
+                  <span className="font-bod">
+                    {symbol?.latest_news_info.last_day_count}
+                  </span>
                 </div>
                 <div className="text-lg">
                   <span className={dayClassNameNewScore}>{dayStatusScore}</span>
@@ -376,7 +379,9 @@ function SymbolDashboard() {
 
         <div className="flex mt-2">
           <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
-            <span className="text-violet-700">Today Currency Pair Sentiment</span>
+            <span className="text-violet-700">
+              This Week Currency Pair Sentiment
+            </span>
           </div>
         </div>
 
@@ -430,7 +435,10 @@ function SymbolDashboard() {
               </span>
             </div>
             <div className="text-md font-bold mt-1">
-              Out of <span className="font-bod">{symbol?.last_week_count}</span>
+              Out of{" "}
+              <span className="font-bod">
+                {symbol?.latest_news_info.last_week_count}
+              </span>
             </div>
             <div className="text-lg">
               <span className={weekClassNameNewScore}>{weekStatusScore}</span>
@@ -439,6 +447,78 @@ function SymbolDashboard() {
         </div>
 
         {/* week */}
+
+        {/* mood */}
+        <div className="flex mt-2">
+          <div className="bg-fuchsia-200 border-y-2 border-fuchsia-400 w-full mt-1 py-1 text-center">
+            <span className="text-fuchsia-700">Mood Time Series</span>
+          </div>
+        </div>
+        <div className="flex justify-center my-2">
+          <div className="mx-2">
+            <TWChart
+              type={"line"}
+              data={{
+                labels: [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                ],
+                datasets: [
+                  {
+                    label: "damp 05",
+                    data: symbol?.daily_timeseries.damp_5
+                      .filter((num) => num !== 0)
+                      .slice(-15),
+                    backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+                    borderColor: ["rgba(255,99,132,1)"],
+                    borderWidth: 1,
+                  },
+                  {
+                    label: "damp 10",
+                    data: symbol?.daily_timeseries.damp_10
+                      .filter((num) => num !== 0)
+                      .slice(-15),
+                    backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+                    borderColor: ["rgba(54, 162, 235, 1)"],
+                    borderWidth: 1,
+                  },
+                  {
+                    label: "damp 15",
+                    data: symbol?.daily_timeseries.damp_15
+                      .filter((num) => num !== 0)
+                      .slice(-15),
+                    backgroundColor: ["rgba(255, 206, 86, 0.2)"],
+                    borderColor: ["rgba(255, 206, 86, 1)"],
+                    borderWidth: 1,
+                  },
+                  {
+                    label: "damp 20",
+                    data: symbol?.daily_timeseries.damp_20
+                      .filter((num) => num !== 0)
+                      .slice(-15),
+                    backgroundColor: ["rgba(75, 192, 192, 0.2)"],
+                    borderColor: ["rgba(75, 192, 192, 1)"],
+                    borderWidth: 1,
+                  },
+                ],
+              }}
+            />
+          </div>
+        </div>
+        {/* mood */}
       </div>
     </div>
   );

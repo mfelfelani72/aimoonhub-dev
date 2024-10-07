@@ -9,7 +9,7 @@ export default function useGeoLocation() {
   }));
 
   useEffect(() => {
-    getLocation();
+    // getLocation();
   }, []);
 
   async function getLocation() {
