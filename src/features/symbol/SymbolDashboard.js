@@ -24,7 +24,7 @@ function SymbolDashboard() {
   const [symbol] = useState(location.state.symbol);
   const [nav] = useState(location.state.nav);
 
-  console.log(symbol)
+  console.log(symbol);
   // for day
 
   const [dayPercentNewScore, setDayPercentNewScore] = useState();
@@ -53,36 +53,36 @@ function SymbolDashboard() {
   const setDayDetailsProgressBar = () => {
     setDayPercentNewScore(
       Math.max(
-        symbol?.lastDay_sentiment.negative,
-        symbol?.lastDay_sentiment.neutral,
-        symbol?.lastDay_sentiment.positive
+        symbol?.latest_news_info.last_day_sentiment.negative,
+        symbol?.latest_news_info.last_day_sentiment.neutral,
+        symbol?.latest_news_info.last_day_sentiment.positive
       )
     );
     console.log();
     if (
-      symbol?.lastDay_sentiment.negative == 0 &&
-      symbol?.lastDay_sentiment.neutral == 0 &&
-      symbol?.lastDay_sentiment.positive == 0
+      symbol?.latest_news_info.last_day_sentiment.negative == 0 &&
+      symbol?.latest_news_info.last_day_sentiment.neutral == 0 &&
+      symbol?.latest_news_info.last_day_sentiment.positive == 0
     ) {
       setDayClassNameNewScore("text-center font-bold ");
       setDayStatusScore("");
       setDaySignScore("");
     } else if (
       Math.max(
-        symbol?.lastDay_sentiment.negative,
-        symbol?.lastDay_sentiment.neutral,
-        symbol?.lastDay_sentiment.positive
-      ) === symbol?.lastDay_sentiment.negative
+        symbol?.latest_news_info.last_day_sentiment.negative,
+        symbol?.latest_news_info.last_day_sentiment.neutral,
+        symbol?.latest_news_info.last_day_sentiment.positive
+      ) === symbol?.latest_news_info.last_day_sentiment.negative
     ) {
       setDayClassNameNewScore("text-center font-bold text-rose-300");
       setDayStatusScore("Negative");
       setDaySignScore("-");
     } else if (
       Math.max(
-        symbol?.lastDay_sentiment.negative,
-        symbol?.lastDay_sentiment.neutral,
-        symbol?.lastDay_sentiment.positive
-      ) === symbol?.lastDay_sentiment.neutral
+        symbol?.latest_news_info.last_day_sentiment.negative,
+        symbol?.latest_news_info.last_day_sentiment.neutral,
+        symbol?.latest_news_info.last_day_sentiment.positive
+      ) === symbol?.latest_news_info.last_day_sentiment.neutral
     ) {
       setDayClassNameNewScore("text-center font-bold text-slate-300");
       setDayStatusScore("Neutral");
@@ -180,7 +180,7 @@ function SymbolDashboard() {
       getNews();
     }
 
-    // setDayDetailsProgressBar();
+    setDayDetailsProgressBar();
     // setWeekDetailsProgressBar();
   }, [newsData]);
   return (
@@ -266,7 +266,9 @@ function SymbolDashboard() {
           </div>
           <div className="basis-3/5 p-2 justify-center">
             <div className="text-sm">
-              <span className="text-sm font-bold">+{symbol?.latest_news_info.news_count}</span>{" "}
+              <span className="text-sm font-bold">
+                +{symbol?.latest_news_info.news_count}
+              </span>{" "}
               News
             </div>
             <div className="text-sm">
@@ -290,6 +292,85 @@ function SymbolDashboard() {
           </div>
         </div>
         {/* section based */}
+
+        {/* today */}
+        {dayPercentNewScore !== 0 ? (
+          <>
+            <div className="flex mt-2">
+              <div className="bg-cyan-200 border-y-2 border-cyan-400 w-full mt-1 py-1 text-center">
+                <span className="text-cyan-700">
+                  Today Currency Pair Sentiment
+                </span>
+              </div>
+            </div>
+
+            <div className="flex my-2">
+              <div className="basis-1/2 self-center">
+                <div className="flex w-ful justify-center mx-2 border-2">
+                  <div
+                    style={{
+                      width: `${
+                        symbol?.latest_news_info.last_day_sentiment.positive *
+                        100
+                      }%`,
+                    }}
+                    className="bg-lime-300 h-6"
+                  ></div>
+                  <div
+                    style={{
+                      width: `${
+                        symbol?.latest_news_info.last_day_sentiment.negative *
+                        100
+                      }%`,
+                    }}
+                    className="bg-rose-300"
+                  ></div>
+                  <div
+                    style={{
+                      width: `${
+                        symbol?.latest_news_info.last_day_sentiment.neutral *
+                        100
+                      }%`,
+                    }}
+                    className="bg-slate-300"
+                  ></div>
+                </div>
+                <div className={dayClassNameNewScore}>
+                  {daySignScore}
+                  {Math.round(dayPercentNewScore * 100)}%
+                </div>
+              </div>
+              <div className="basis-1/2 p-2 justify-center text-center">
+                <div className="flex text-md justify-center">
+                  <span className="px-2">
+                    {daySignScore == "+" ? (
+                      <AiOutlineSmile className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                    ) : daySignScore == " " ? (
+                      ""
+                    ) : (
+                      <AiOutlineFrown className="h-7 w-7 rounded-full bg-[#fef08a]" />
+                    )}
+                  </span>
+                  <span className="self-center">
+                    {daySignScore}
+                    {Math.round(dayPercentNewScore * 100)}%
+                  </span>
+                </div>
+                <div className="text-md font-bold mt-1">
+                  Out of{" "}
+                  <span className="font-bod">{symbol?.last_day_count}</span>
+                </div>
+                <div className="text-lg">
+                  <span className={dayClassNameNewScore}>{dayStatusScore}</span>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+
+        {/* today */}
       </div>
     </div>
   );
