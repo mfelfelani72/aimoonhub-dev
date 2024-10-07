@@ -6,4 +6,5 @@ export const GUESTS_ROUTES = [
   "/providers-list",
   "/provider-dashboard",
   "/symbols-list",
+  "/symbol-dashboard",
 ];

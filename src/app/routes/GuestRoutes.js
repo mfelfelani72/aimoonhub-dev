@@ -12,6 +12,7 @@ const LazyProvidersList = lazy(() => import("../../features/provider/ProvidersLi
 const LazyProviderDashboard = lazy(() => import("../../features/provider/ProviderDashboard.js"))
 
 const LazySymbolsList = lazy(() => import("../../features/symbol/SymbolsList.js"))
+const LazySymbolDashboard = lazy(() => import("../../features/symbol/SymbolDashboard.js"))
 
 
 const GuestRoutes = () => {
@@ -30,6 +31,7 @@ const GuestRoutes = () => {
             <Route path="/provider-dashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyProviderDashboard /> </Suspense>}></Route>
 
             <Route path="/symbols-list" element={<Suspense fallback={<div>Loading...</div>}><LazySymbolsList /> </Suspense>}></Route>
+            <Route path="/symbol-dashboard" element={<Suspense fallback={<div>Loading...</div>}><LazySymbolDashboard /> </Suspense>}></Route>
         </Routes>
 
     )
