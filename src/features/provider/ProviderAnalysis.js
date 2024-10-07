@@ -49,7 +49,7 @@ function ProviderAnalysis() {
       <div className="container mx-auto">
         {/* providers images */}
         <div className="self-center pl-2">
-          <div className="text-[0.8rem] font-bold pb-1">Top 10 Providers</div>
+          <div className="text-[0.8rem] font-bold pb-1">Renowned Provider</div>
           <div className="flex flex-col items-end">
             <div className="relative h-10 w-[17rem] mx-auto">
               {providers.map((row, index) => (

@@ -39,13 +39,13 @@ const en = {
 
   // aimoon_news_analysis
 
-  aimoon_news_analysis: "AimoonHUB News Analysis",
+  aimoon_news_analysis: "Aimoon News Analysis",
 
   // aimoon_news_analysis
 
   // aimoon_author_analysis
 
-  aimoon_authors_analysis : "AimoonHUB Authors Analysis",
+  aimoon_authors_analysis : "Aimoon Authors Analysis",
 
   // aimoon_author_analysis
 

@@ -49,7 +49,7 @@ function AuthorAnalysis() {
       <div className="container mx-auto">
         {/* authors images */}
         <div className="self-center pl-2">
-          <div className="text-[0.8rem] font-bold pb-1">Top 10 Authors</div>
+          <div className="text-[0.8rem] font-bold pb-1">Renowned Author</div>
           <div className="flex flex-col items-end">
             <div className=" relative h-10 w-[17rem] mx-auto">
               {authors.map((row, index) => (
