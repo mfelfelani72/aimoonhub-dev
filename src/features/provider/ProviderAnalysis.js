@@ -55,7 +55,7 @@ function ProviderAnalysis() {
               {providers.map((row, index) => (
                 <div
                   style={{
-                    left: `${index * 1.5}rem`,
+                    left: `${(index * 2)+3}rem`,
                   }}
                   className="absolute top-0"
                   key={index}
