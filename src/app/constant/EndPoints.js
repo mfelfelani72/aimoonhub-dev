@@ -10,3 +10,4 @@ export const PROVIDER_AUTHORS = `Provider/getProviderAuthors/`;
 export const LATEST_NEWS_PROVIDER = `News/GetPaginatedData_provider/`;
 
 export const SYMBOLS = `Symbols/getSymbols/`;
+export const OFFLINE_COIN_ANALYZE = `LLM/offlineCoinAnalyze/`;

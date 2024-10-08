@@ -4,6 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineBarChart } from "react-icons/ai";
 import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
+import { AiOutlineEdit } from "react-icons/ai";
 
 import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
 
@@ -16,6 +17,7 @@ import NewsTimeSeries from "./components/NewsTimeSeries.jsx";
 
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
+import { OFFLINE_COIN_ANALYZE } from "../../app/constant/EndPoints";
 
 const lodash = require("lodash");
 
@@ -27,6 +29,7 @@ function SymbolDashboard() {
   const [nav] = useState(location.state.nav);
 
   const [newsData, setNewsData] = useState([]);
+  const [offlineCoinAnalyze, setOfflineCoinAnalyze] = useState();
   const [loading, setLoading] = useState();
 
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
@@ -141,6 +144,23 @@ function SymbolDashboard() {
     }
   };
 
+  const getOfflineCoinAnalyze = async () => {
+    const parameter = {
+      symbol: symbol?.name,
+    };
+
+    try {
+      getData(OFFLINE_COIN_ANALYZE, parameter).then((response) => {
+        if (response.data.return && response.data.data) {
+          console.log("Fetch data  offlinecoins done.");
+          // console.log(response.data.data)
+          setOfflineCoinAnalyze(response.data.data);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getNews = async () => {
     const parameter = {
       category: newsCategory,
@@ -184,6 +204,11 @@ function SymbolDashboard() {
     if (newsData.length == 0) {
       getNews();
     }
+
+    if (!offlineCoinAnalyze) {
+      getOfflineCoinAnalyze();
+    }
+    console.log(offlineCoinAnalyze);
 
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
@@ -240,7 +265,7 @@ function SymbolDashboard() {
             </div>
           </div>
           <div className="basis-3/4 mx-2">
-            <div className="text-[0.8rem] text-slate-800 pt-1 px-2 border rounded-md">
+            <div className="text-[0.8rem] text-slate-800 py-1 px-2 border rounded-md">
               <span className="text-[0.8rem] font-bold">Description</span>
               <a href={symbol?.biographyUrl} target="_blank">
                 <div className="text-[0.7rem] text-justify">
@@ -253,9 +278,48 @@ function SymbolDashboard() {
 
         {/* section info */}
 
+        {/* fundamental */}
+
+        <div className="flex mt-2">
+          <div className="bg-amber-200 border-y-2 border-amber-400 w-full mt-1 py-1 text-center">
+            <span className="text-amber-700">Aimoon Fundamental Analysis</span>
+          </div>
+        </div>
+
+        <div className="flex flex-row-reverse mt-4">
+          <div className="basis-1/4">
+            <div className="h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
+              <AiOutlineEdit className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
+            </div>
+          </div>
+          <div className="basis-3/4 mx-2 pb-1 border rounded-md">
+            <div className="text-[0.9rem] text-slate-800 pt-1 px-2 text-right">
+              <span className="font-bold">{symbol?.name}</span>
+              <span className="pl-1">خلاصه خبرهای</span>
+            </div>
+
+            <div className="text-[0.7rem] text-slate-800 pt-1 px-2 text-justify rtl">
+              <p>{offlineCoinAnalyze?.response.summaryFa}</p>
+            </div>
+
+            <div className="text-slate-800 pt-1 px-2">
+              <div className="text-[0.9rem] text-right pb-1">خبرها</div>
+
+              {offlineCoinAnalyze?.newsTiltes.map((row, index) => (
+                <div key={index} className="text-[0.8rem] py-1">
+                  {" "}
+                  - {index + 1 + " "} {row}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* fundamental */}
+
         {/* section based */}
 
-        {symbol?.latest_news_info ? (
+        {/* {symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-emerald-200 border-y-2 border-emerald-400 w-full mt-1 py-1 text-center">
@@ -301,12 +365,13 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )}
+        )} */}
 
         {/* section based */}
 
         {/* today */}
-        {dayPercentNewScore !== 0 && symbol?.latest_news_info ? (
+
+        {/* {dayPercentNewScore !== 0 && symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-cyan-200 border-y-2 border-cyan-400 w-full mt-1 py-1 text-center">
@@ -383,12 +448,13 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )}
+        )} */}
 
         {/* today */}
 
         {/* week */}
-        {weekPercentNewScore !== 0 && symbol?.latest_news_info ? (
+
+        {/* {weekPercentNewScore !== 0 && symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
@@ -467,10 +533,11 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )}
+        )} */}
 
         {/* week */}
-        {symbol?.daily_timeseries ? (
+
+        {/* {symbol?.daily_timeseries ? (
           <>
             <MoodTimeSeries data={symbol?.daily_timeseries} />
 
@@ -478,10 +545,11 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )}
+        )} */}
 
         {/* latest news */}
-        {newsData.length !== 0 ? (
+
+        {/* {newsData.length !== 0 ? (
           <>
             <div className="flex">
               <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
@@ -510,7 +578,7 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )}
+        )} */}
 
         {/* latest news */}
       </div>
