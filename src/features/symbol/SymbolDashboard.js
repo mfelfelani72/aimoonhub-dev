@@ -7,6 +7,7 @@ import { AiOutlineSmile } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 
 import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
+import { DEFAULT_NEW_IMAGE } from "../../app/constant/Defaults.js";
 
 import CardRow from "./components/CardRow.jsx";
 import Button from "../core/components/Button.jsx";
@@ -285,7 +286,7 @@ function SymbolDashboard() {
             <span className="text-amber-700">Aimoon Fundamental Analysis</span>
           </div>
         </div>
-
+        {/* 
         <div className="flex flex-row-reverse mt-4">
           <div className="basis-1/4">
             <div className="h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
@@ -311,6 +312,36 @@ function SymbolDashboard() {
                   - {index + 1 + " "} {row}
                 </div>
               ))}
+            </div>
+          </div>
+        </div> */}
+
+        <div className="my-3">
+          {/* <img src={DEFAULT_NEW_IMAGE} className="rounded-lg h-[14rem] w-full"/> */}
+          <div className="m-2 p-2 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[10rem] rtl ">
+            <div className="flex flex-col h-[8.5rem] justify-between">
+              <div className="flex">
+                <AiOutlineEdit className="h-[2rem] w-[2rem] text-color-theme" />
+                <div className="self-center mx-2">
+                  <span>الگوی چارت : </span>
+                  <span>{offlineCoinAnalyze?.response.chart_Pattern}</span>
+                </div>
+              </div>
+              <div className="flex">
+                <AiOutlineEdit className="h-[2rem] w-[2rem] text-color-theme" />
+                <div className="self-center mx-2">
+                  {" "}
+                  <span>پیشنهاد آیمون : </span>
+                  <span>{offlineCoinAnalyze?.response.rec_position}</span>
+                </div>
+              </div>
+              <div className="flex">
+                <AiOutlineEdit className="h-[2rem] w-[2rem] text-color-theme" />
+                <div className="self-center mx-2">
+                  <span> مدت زمان : </span>
+                  <span>{offlineCoinAnalyze?.response.duration}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
