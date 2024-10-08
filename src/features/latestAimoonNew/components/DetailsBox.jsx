@@ -85,16 +85,16 @@ function DetailsBox(props) {
                     </a>
                   </span>
                   <span className="px-1 text-[0.7rem] font-bold">
-                    {props.data?.author_info["last_week_count"] +
+                    {props.data?.author_info["last_week_count"].toLocaleString() +
                       " / " +
-                      props.data?.author_info["AvgNewsPERweek"]}
+                      props.data?.author_info["AvgNewsPERweek"].toLocaleString()}
                   </span>
                   <div className="flex flex-col my-1 mx-2">
                     <div
                       style={{
                         width: `${
-                          (props.data?.author_info["last_week_count"] /
-                            props.data?.author_info["AvgNewsPERweek"]) *
+                          (props.data?.author_info["last_week_count"].toLocaleString() /
+                            props.data?.author_info["AvgNewsPERweek"].toLocaleString()) *
                           100
                         }%`,
                       }}

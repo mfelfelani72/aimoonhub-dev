@@ -42,10 +42,7 @@ function AuthorsList() {
   }, [authorsList]);
 
   const navigate = useNavigate();
-  const goto = (row, event) => {
-    event.preventDefault();
-    navigate("/author-dashboard", { state: { author: row, nav: nav } });
-  };
+
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
@@ -93,7 +90,10 @@ function AuthorsList() {
                   </div>
                   <div className="basis-3/5 text-center self-center">
                     <div className="text-[0.8rem]">
-                      <span className="font-bold">+{row?.newsCount}</span> news
+                      <span className="font-bold">
+                        +{row?.newsCount.toLocaleString()}
+                      </span>{" "}
+                      news
                     </div>
                     <div className="text-[0.7rem]">
                       Journalist at{" "}
@@ -102,7 +102,12 @@ function AuthorsList() {
                     <div className="mt-5">
                       <Button
                         className="bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme text-[0.8rem] px-3"
-                        onClick={(event) => goto(row, event)}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          navigate("/author-dashboard", {
+                            state: { author: row, nav: nav },
+                          });
+                        }}
                       >
                         Dashboard
                       </Button>
@@ -131,7 +136,7 @@ function AuthorsList() {
                             }}
                           />
                           <div className="text-[0.65rem] text-center font-bold">
-                            +{element.news_count}
+                            +{element.news_count.toLocaleString()}
                           </div>
                         </div>
                       ) : (

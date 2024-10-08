@@ -303,8 +303,9 @@ function ProviderDashboard() {
               )}
             </div>
           </div>
-
         </div>
+
+        {/* statistics */}
 
         <div className="flex mt-2">
           <div className="bg-indigo-200 border-y-2 border-indigo-400 w-full mt-1 py-1 text-center">
@@ -320,29 +321,32 @@ function ProviderDashboard() {
           </div>
           <div className="basis-3/5 p-2 justify-center">
             <div className="text-sm">
-              <span className="text-sm font-bold">+{provider?.newsCount}</span>{" "}
+              <span className="text-sm font-bold">+{provider?.newsCount.toLocaleString()}</span>{" "}
               News
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{provider?.AvgNewsPERday}
+                +{provider?.AvgNewsPERday.toLocaleString()}
               </span>{" "}
               News Per Day
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{provider?.AvgNewsPERweek}
+                +{provider?.AvgNewsPERweek.toLocaleString()}
               </span>{" "}
               News Per Week
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{provider?.AvgNewsPERMonth}
+                +{provider?.AvgNewsPERMonth.toLocaleString()}
               </span>{" "}
               News Per Month
             </div>
           </div>
         </div>
+
+        {/* statistics */}
+
         {dayPercentNewScore !== 0 ? (
           <>
             <div className="flex">
@@ -398,7 +402,7 @@ function ProviderDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{provider?.last_day_count}</span>
+                  <span className="font-bod">{provider?.last_day_count.toLocaleString()}</span>
                 </div>
                 <div className="text-lg">
                   <span className={dayClassNameNewScore}>{dayStatusScore}</span>
@@ -465,7 +469,7 @@ function ProviderDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{provider?.last_week_count}</span>
+                  <span className="font-bod">{provider?.last_week_count.toLocaleString()}</span>
                 </div>
                 <div className="text-lg">
                   <span className={weekClassNameNewScore}>

@@ -55,7 +55,7 @@ function ProviderAnalysis() {
               {providers.map((row, index) => (
                 <div
                   style={{
-                    left: `${(index * 2)+3}rem`,
+                    left: `${index * 2 + 3}rem`,
                   }}
                   className="absolute top-0"
                   key={index}
@@ -119,19 +119,28 @@ function ProviderAnalysis() {
                     <div>
                       <span className="font-bold">
                         {" "}
-                        +{totalStat?.crypto_provider_counts}
+                        +
+                        {parseInt(
+                          totalStat?.crypto_provider_counts
+                        ).toLocaleString()}
                       </span>{" "}
                       Cryptocurrencies
                     </div>
                     <div className="mt-[0.25rem]">
                       <span className="font-bold">
-                        +{totalStat?.forex_provider_counts}
+                        +
+                        {parseInt(
+                          totalStat?.forex_provider_counts
+                        ).toLocaleString()}
                       </span>{" "}
                       Forex
                     </div>
                     <div className="mt-[0.25rem]">
                       <span className="font-bold">
-                        +{totalStat?.commodity_provider_counts}
+                        +
+                        {parseInt(
+                          totalStat?.commodity_provider_counts
+                        ).toLocaleString()}
                       </span>{" "}
                       Commodities
                     </div>
@@ -141,7 +150,7 @@ function ProviderAnalysis() {
               <div className="basis-1/2">
                 <div className="text-lime-500 text-center text-md mt-[1.7rem]">
                   <span className="font-bold">
-                    +{totalStat?.total_provider}
+                    +{parseInt(totalStat?.total_provider).toLocaleString()}
                   </span>{" "}
                   Total Provider
                 </div>

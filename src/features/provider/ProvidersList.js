@@ -94,7 +94,7 @@ function ProvidersList() {
                   </div>
                   <div className="basis-3/5 text-center self-center">
                     <div className="text-[0.8rem]">
-                      <span className="font-bold">+{row?.newsCount}</span> news
+                      <span className="font-bold">+{row?.newsCount.toLocaleString()}</span> news
                     </div>
                     <div className="mt-5">
                       <Button
@@ -128,7 +128,7 @@ function ProvidersList() {
                             }}
                           />
                           <div className="text-[0.65rem] text-center font-bold">
-                            +{element.news_count}
+                            +{element.news_count.toLocaleString()}
                           </div>
                         </div>
                       ) : (

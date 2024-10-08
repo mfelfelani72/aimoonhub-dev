@@ -119,19 +119,28 @@ function AuthorAnalysis() {
                     <div>
                       <span className="font-bold">
                         {" "}
-                        +{totalStat?.crypto_author_counts}
+                        +
+                        {parseInt(
+                          totalStat?.crypto_author_counts
+                        ).toLocaleString()}
                       </span>{" "}
                       Cryptocurrencies
                     </div>
                     <div className="mt-[0.25rem]">
                       <span className="font-bold">
-                        +{totalStat?.forex_author_counts}
+                        +
+                        {parseInt(
+                          totalStat?.forex_author_counts
+                        ).toLocaleString()}
                       </span>{" "}
                       Forex
                     </div>
                     <div className="mt-[0.25rem]">
                       <span className="font-bold">
-                        +{totalStat?.commodity_author_counts}
+                        +
+                        {parseInt(
+                          totalStat?.commodity_author_counts
+                        ).toLocaleString()}
                       </span>{" "}
                       Commodities
                     </div>
@@ -140,7 +149,9 @@ function AuthorAnalysis() {
               </div>
               <div className="basis-1/2">
                 <div className="text-lime-500 text-center text-md mt-[1.7rem]">
-                  <span className="font-bold">+{totalStat?.total_author}</span>{" "}
+                  <span className="font-bold">
+                    +{parseInt(totalStat?.total_author).toLocaleString()}
+                  </span>{" "}
                   Total Author
                 </div>
               </div>

@@ -202,6 +202,7 @@ function AuthorDashboard() {
       {/* header */}
 
       <div className="container mx-auto my-3 mb-3">
+
         <div className="flex mt-1">
           <div className="basis-1/4">
             <div className="">
@@ -249,6 +250,8 @@ function AuthorDashboard() {
           </div>
         </div>
 
+        {/* statistics */}
+
         <div className="flex mt-2">
           <div className="bg-indigo-200 border-y-2 border-indigo-400 w-full mt-1 py-1 text-center">
             <span className="text-indigo-700">Author Statistics</span>
@@ -263,29 +266,34 @@ function AuthorDashboard() {
           </div>
           <div className="basis-3/5 p-2 justify-center">
             <div className="text-sm">
-              <span className="text-sm font-bold">+{author?.newsCount}</span>{" "}
+              <span className="text-sm font-bold">
+                +{author?.newsCount.toLocaleString()}
+              </span>{" "}
               News
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{author?.AvgNewsPERday}
+                +{author?.AvgNewsPERday.toLocaleString()}
               </span>{" "}
               News Per Day
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{author?.AvgNewsPERweek}
+                +{author?.AvgNewsPERweek.toLocaleString()}
               </span>{" "}
               News Per Week
             </div>
             <div className="text-sm">
               <span className="text-sm font-bold">
-                +{author?.AvgNewsPERMonth}
+                +{author?.AvgNewsPERMonth.toLocaleString()}
               </span>{" "}
               News Per Month
             </div>
           </div>
         </div>
+
+        {/* statistics */}
+
         {dayPercentNewScore !== 0 ? (
           <>
             <div className="flex">
@@ -339,7 +347,7 @@ function AuthorDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{author?.last_day_count}</span>
+                  <span className="font-bod">{author?.last_day_count.toLocaleString()}</span>
                 </div>
                 <div className="text-lg">
                   <span className={dayClassNameNewScore}>{dayStatusScore}</span>
@@ -406,7 +414,7 @@ function AuthorDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{author?.last_week_count}</span>
+                  <span className="font-bod">{author?.last_week_count.toLocaleString()}</span>
                 </div>
                 <div className="text-lg">
                   <span className={weekClassNameNewScore}>
@@ -457,7 +465,7 @@ function AuthorDashboard() {
 
         <div className="my-2">
           {newsData.map((row, index) => (
-            <CardRow row={row} key={index} nav={nav}/>
+            <CardRow row={row} key={index} nav={nav} />
           ))}
           <div className="ltr:text-right rtl:text-left">
             <Button

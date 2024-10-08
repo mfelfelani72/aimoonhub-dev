@@ -212,25 +212,25 @@ function SymbolDashboard() {
               <div className="basis-3/5 p-2 justify-center">
                 <div className="text-sm">
                   <span className="text-sm font-bold">
-                    +{symbol?.latest_news_info.news_count}
+                    +{symbol?.latest_news_info.news_count.toLocaleString()}
                   </span>{" "}
                   News
                 </div>
                 <div className="text-sm">
                   <span className="text-sm font-bold">
-                    +{symbol?.latest_news_info.avg_news_day}
+                    +{symbol?.latest_news_info.avg_news_day.toLocaleString()}
                   </span>{" "}
                   News Per Day
                 </div>
                 <div className="text-sm">
                   <span className="text-sm font-bold">
-                    +{symbol.latest_news_info.avg_news_week}
+                    +{symbol.latest_news_info.avg_news_week.toLocaleString()}
                   </span>{" "}
                   News Per Week
                 </div>
                 <div className="text-sm">
                   <span className="text-sm font-bold">
-                    +{symbol.latest_news_info?.avg_news_month}
+                    +{symbol.latest_news_info?.avg_news_month.toLocaleString()}
                   </span>{" "}
                   News Per Month
                 </div>
@@ -309,7 +309,7 @@ function SymbolDashboard() {
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
                   <span className="font-bod">
-                    {symbol?.latest_news_info.last_day_count}
+                    {symbol?.latest_news_info.last_day_count.toLocaleString()}
                   </span>
                 </div>
                 <div className="text-lg">
@@ -325,7 +325,7 @@ function SymbolDashboard() {
         {/* today */}
 
         {/* week */}
-        {symbol?.latest_news_info ? (
+        {weekPercentNewScore !== 0 && symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
@@ -390,7 +390,7 @@ function SymbolDashboard() {
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
                   <span className="font-bod">
-                    {symbol?.latest_news_info.last_week_count}
+                    {symbol?.latest_news_info.last_week_count.toLocaleString()}
                   </span>
                 </div>
                 <div className="text-lg">
