@@ -321,7 +321,9 @@ function ProviderDashboard() {
           </div>
           <div className="basis-3/5 p-2 justify-center">
             <div className="text-sm">
-              <span className="text-sm font-bold">+{provider?.newsCount.toLocaleString()}</span>{" "}
+              <span className="text-sm font-bold">
+                +{provider?.newsCount.toLocaleString()}
+              </span>{" "}
               News
             </div>
             <div className="text-sm">
@@ -402,7 +404,9 @@ function ProviderDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{provider?.last_day_count.toLocaleString()}</span>
+                  <span className="font-bod">
+                    {provider?.last_day_count.toLocaleString()}
+                  </span>
                 </div>
                 <div className="text-lg">
                   <span className={dayClassNameNewScore}>{dayStatusScore}</span>
@@ -469,7 +473,9 @@ function ProviderDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{provider?.last_week_count.toLocaleString()}</span>
+                  <span className="font-bod">
+                    {provider?.last_week_count.toLocaleString()}
+                  </span>
                 </div>
                 <div className="text-lg">
                   <span className={weekClassNameNewScore}>
@@ -510,30 +516,36 @@ function ProviderDashboard() {
         ) : (
           ""
         )}
-        <div className="flex">
-          <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
-            <span className="text-orange-500">
-              Latest News from{" "}
-              <span className="font-bold">{provider?.name}</span>
-            </span>
-          </div>
-        </div>
+        {newsData.length !== 0 ? (
+          <>
+            <div className="flex">
+              <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
+                <span className="text-orange-500">
+                  Latest News from{" "}
+                  <span className="font-bold">{provider?.name}</span>
+                </span>
+              </div>
+            </div>
 
-        <div className="my-2">
-          {newsData.map((row, index) => (
-            <CardRow row={row} key={index} nav={nav} />
-          ))}
-          <div className="ltr:text-right rtl:text-left">
-            <Button
-              onClick={() => handleGetNews()}
-              className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
-            >
-              More
-            </Button>
-          </div>
+            <div className="my-2">
+              {newsData.map((row, index) => (
+                <CardRow row={row} key={index} nav={nav} />
+              ))}
+              <div className="ltr:text-right rtl:text-left">
+                <Button
+                  onClick={() => handleGetNews()}
+                  className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
+                >
+                  More
+                </Button>
+              </div>
 
-          {loading && <Loader />}
-        </div>
+              {loading && <Loader />}
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

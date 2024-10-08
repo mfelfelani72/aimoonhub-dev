@@ -202,7 +202,6 @@ function AuthorDashboard() {
       {/* header */}
 
       <div className="container mx-auto my-3 mb-3">
-
         <div className="flex mt-1">
           <div className="basis-1/4">
             <div className="">
@@ -347,7 +346,9 @@ function AuthorDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{author?.last_day_count.toLocaleString()}</span>
+                  <span className="font-bod">
+                    {author?.last_day_count.toLocaleString()}
+                  </span>
                 </div>
                 <div className="text-lg">
                   <span className={dayClassNameNewScore}>{dayStatusScore}</span>
@@ -414,7 +415,9 @@ function AuthorDashboard() {
                 </div>
                 <div className="text-md font-bold mt-1">
                   Out of{" "}
-                  <span className="font-bod">{author?.last_week_count.toLocaleString()}</span>
+                  <span className="font-bod">
+                    {author?.last_week_count.toLocaleString()}
+                  </span>
                 </div>
                 <div className="text-lg">
                   <span className={weekClassNameNewScore}>
@@ -455,29 +458,36 @@ function AuthorDashboard() {
         ) : (
           ""
         )}
-        <div className="flex">
-          <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
-            <span className="text-orange-500">
-              Latest News from <span className="font-bold">{author?.name}</span>
-            </span>
-          </div>
-        </div>
+        {newsData.length !== 0 ? (
+          <>
+            <div className="flex">
+              <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
+                <span className="text-orange-500">
+                  Latest News from{" "}
+                  <span className="font-bold">{author?.name}</span>
+                </span>
+              </div>
+            </div>
 
-        <div className="my-2">
-          {newsData.map((row, index) => (
-            <CardRow row={row} key={index} nav={nav} />
-          ))}
-          <div className="ltr:text-right rtl:text-left">
-            <Button
-              onClick={() => handleGetNews()}
-              className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
-            >
-              More
-            </Button>
-          </div>
+            <div className="my-2">
+              {newsData.map((row, index) => (
+                <CardRow row={row} key={index} nav={nav} />
+              ))}
+              <div className="ltr:text-right rtl:text-left">
+                <Button
+                  onClick={() => handleGetNews()}
+                  className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
+                >
+                  More
+                </Button>
+              </div>
 
-          {loading && <Loader />}
-        </div>
+              {loading && <Loader />}
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
