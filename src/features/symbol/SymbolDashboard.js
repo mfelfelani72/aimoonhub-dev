@@ -8,11 +8,14 @@ import { AiOutlineSmile } from "react-icons/ai";
 import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
 
 import TWChart from "../core/components/charts/TWChart.jsx";
+import { dateHelper } from "../../../utils/helpers/dateHelper.js";
 
 function SymbolDashboard() {
   const location = useLocation();
   const [symbol] = useState(location.state.symbol);
   const [nav] = useState(location.state.nav);
+
+  console.log(symbol);
 
   // for day
 
@@ -389,116 +392,138 @@ function SymbolDashboard() {
             <span className="text-fuchsia-700">Mood Time Series</span>
           </div>
         </div>
-        <div className="flex justify-center my-2">
-          <div className="mx-2">
-            <TWChart
-              type={"line"}
-              data={{
-                labels: [
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                ],
-                datasets: [
-                  {
-                    label: "damp 05",
-                    data: symbol?.daily_timeseries.damp_5
-                      .filter((num) => num !== 0)
-                      .slice(-15),
-                    backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-                    borderColor: ["rgba(255,99,132,1)"],
-                    borderWidth: 1,
+        <div className="flex mx-3 my-6">
+          <TWChart
+            type={"line"}
+            data={{
+              labels: symbol?.daily_timeseries.timestamp.map((row) =>
+                dateHelper(row, "AD-date", "date")
+              ),
+              datasets: [
+                {
+                  label: "damp 05",
+                  data: symbol?.daily_timeseries.damp_5,
+                  pointRadius: 0,
+                  backgroundColor: ["rgba(222, 49, 99, 0.2)"],
+                  borderColor: ["rgba(222, 49, 99,1)"],
+                  borderWidth: 1,
+                },
+                {
+                  label: "damp 10",
+                  data: symbol?.daily_timeseries.damp_10,
+                  pointRadius: 0,
+                  backgroundColor: ["rgba(255, 127, 80, 0.2)"],
+                  borderColor: ["rgba(255, 127, 80, 1)"],
+                  borderWidth: 1,
+                },
+                {
+                  label: "damp 15",
+                  data: symbol?.daily_timeseries.damp_15,
+                  pointRadius: 0,
+                  backgroundColor: ["rgba(159, 226, 191, 0.2)"],
+                  borderColor: ["rgba(159, 226, 191, 1)"],
+                  borderWidth: 1,
+                },
+                {
+                  label: "damp 20",
+                  data: symbol?.daily_timeseries.damp_20,
+                  pointRadius: 0,
+                  backgroundColor: ["rgba(100, 149, 237 , 0.2)"],
+                  borderColor: ["rgba(100, 149, 237 , 1)"],
+                  borderWidth: 1,
+                },
+                {
+                  label: "damp 30",
+                  data: symbol?.daily_timeseries.damp_30,
+                  pointRadius: 0,
+                  backgroundColor: ["rgba(28, 40, 51, 0.2)"],
+                  borderColor: ["rgba(28, 40, 51, 1)"],
+                  borderWidth: 1,
+                },
+              ],
+            }}
+            options={{
+              indexAxis: "x",
+              plugins: {
+                legend: {
+                  position: "top",
+                  // labels: {
+                  //   color: "green",
+                  // },
+                },
+              },
+              scales: {
+                x: {
+                  stacked: true,
+                  grid: {
+                    display: true,
+                    borderDash: [2],
+                    zeroLineColor: "rgba(0,0,0,0)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2],
                   },
-                  {
-                    label: "damp 10",
-                    data: symbol?.daily_timeseries.damp_10
-                      .filter((num) => num !== 0)
-                      .slice(-15),
-                    backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-                    borderColor: ["rgba(54, 162, 235, 1)"],
-                    borderWidth: 1,
+                  ticks: {
+                    color: "rgba(0,0,0, 0.5)",
                   },
-                  {
-                    label: "damp 15",
-                    data: symbol?.daily_timeseries.damp_15
-                      .filter((num) => num !== 0)
-                      .slice(-15),
-                    backgroundColor: ["rgba(255, 206, 86, 0.2)"],
-                    borderColor: ["rgba(255, 206, 86, 1)"],
-                    borderWidth: 1,
+                },
+                y: {
+                  stacked: false,
+                  grid: {
+                    display: true,
                   },
-                  {
-                    label: "damp 20",
-                    data: symbol?.daily_timeseries.damp_20
-                      .filter((num) => num !== 0)
-                      .slice(-15),
-                    backgroundColor: ["rgba(75, 192, 192, 0.2)"],
-                    borderColor: ["rgba(75, 192, 192, 1)"],
-                    borderWidth: 1,
+                  ticks: {
+                    display: true,
+                    color: "rgba(0,0,0, 0.5)",
                   },
-                ],
-              }}
-            />
-          </div>
+                },
+              },
+            }}
+          />
         </div>
         {/* mood */}
 
-        {/* mood */}
+        {/* news count */}
         <div className="flex mt-2">
           <div className="bg-pink-200 border-y-2 border-pink-400 w-full mt-1 py-1 text-center">
             <span className="text-pink-700">News Count Time Series</span>
           </div>
         </div>
-        <div className="flex justify-center my-2">
-          <div className="mx-2">
-            <TWChart
-              type={"line"}
-              data={{
-                labels: [
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                  "",
-                ],
-                datasets: [
-                  {
-                    label: "News count",
-                    data: symbol?.latest_news_info.change_stat.newsCount_change.change_series
-                      .filter((num) => num !== 0)
-                      .slice(-15),
-                    backgroundColor: ["rgba(153, 102, 255, 0.2)"],
-                    borderColor: ["rgba(153, 102, 255, 1)"],
-                    borderWidth: 1,
-                  },
-                ],
-              }}
-            />
-          </div>
+        <div className="flex mx-3 my-6">
+          <TWChart
+            type={"line"}
+            data={{
+              labels: [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+              ],
+              datasets: [
+                {
+                  label: "News count",
+                  data: symbol?.latest_news_info.change_stat.newsCount_change.change_series
+                    .filter((num) => num !== 0)
+                    .slice(-15),
+                  backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+                  borderColor: ["rgba(153, 102, 255, 1)"],
+                  borderWidth: 1,
+                },
+              ],
+            }}
+          />
         </div>
-        {/* mood */}
+        {/* news count */}
       </div>
     </div>
   );
