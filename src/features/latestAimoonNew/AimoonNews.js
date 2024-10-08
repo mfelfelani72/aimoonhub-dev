@@ -10,7 +10,7 @@ import Loader from "../core/components/Loader.jsx";
 import CardRow from "../latestAimoonNew/components/cardRow.jsx";
 
 const lodash = require("lodash");
-const PAGE_NUMBER = 2;
+const PAGE_NUMBER = 1;
 
 function AimoonNews() {
   const location = useLocation();
@@ -22,16 +22,16 @@ function AimoonNews() {
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsSymbols, setNewsSymbols] = useState("all");
   const [newsFrom, setNewsFrom] = useState("1716373411");
-  // const [newsEnd, setNewsEnd] = useState(endDate[0]);
+  const [newsEnd, setNewsEnd] = useState(endDate[0]);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
-  const [newsPageLimit, setNewsPageLimit] = useState(5);
+  const [newsPageLimit, setNewsPageLimit] = useState(10);
 
   const getNews = async () => {
     const parameter = {
       category: newsCategory,
       symbols: newsSymbols,
       startDate: newsFrom,
-      // endDate: newsEnd,
+      endDate: newsEnd,
       page: newsPage,
       pageLimit: newsPageLimit,
       llmOnly: true,
