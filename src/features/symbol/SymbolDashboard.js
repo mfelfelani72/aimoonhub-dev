@@ -249,7 +249,7 @@ function SymbolDashboard() {
             <div className="flex mt-2">
               <div className="bg-cyan-200 border-y-2 border-cyan-400 w-full mt-1 py-1 text-center">
                 <span className="text-cyan-700">
-                  Today Currency Pair Sentiment
+                  Today <span className="font-bold">{symbol?.name}</span> Sentiment
                 </span>
               </div>
             </div>
@@ -330,7 +330,7 @@ function SymbolDashboard() {
             <div className="flex mt-2">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
                 <span className="text-violet-700">
-                  This Week Currency Pair Sentiment
+                  This Week <span className="font-bold">{symbol?.name}</span> Sentiment
                 </span>
               </div>
             </div>
