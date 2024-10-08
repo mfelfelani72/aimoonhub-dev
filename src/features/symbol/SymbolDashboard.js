@@ -5,6 +5,9 @@ import { AiOutlineBarChart } from "react-icons/ai";
 import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineFund } from "react-icons/ai";
+import { AiOutlineOpenAI } from "react-icons/ai";
+import { AiOutlineFieldTime } from "react-icons/ai";
 
 import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
 import { DEFAULT_NEW_IMAGE } from "../../app/constant/Defaults.js";
@@ -19,6 +22,7 @@ import NewsTimeSeries from "./components/NewsTimeSeries.jsx";
 import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS } from "../../app/constant/EndPoints";
 import { OFFLINE_COIN_ANALYZE } from "../../app/constant/EndPoints";
+import { dateHelper } from "../../../utils/helpers/dateHelper.js";
 
 const lodash = require("lodash");
 
@@ -286,7 +290,7 @@ function SymbolDashboard() {
             <span className="text-amber-700">Aimoon Fundamental Analysis</span>
           </div>
         </div>
-        {/* 
+        
         <div className="flex flex-row-reverse mt-4">
           <div className="basis-1/4">
             <div className="h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
@@ -303,47 +307,48 @@ function SymbolDashboard() {
               <p>{offlineCoinAnalyze?.response.summaryFa}</p>
             </div>
 
-            <div className="text-slate-800 pt-1 px-2">
-              <div className="text-[0.9rem] text-right pb-1">خبرها</div>
-
-              {offlineCoinAnalyze?.newsTiltes.map((row, index) => (
-                <div key={index} className="text-[0.8rem] py-1">
-                  {" "}
-                  - {index + 1 + " "} {row}
-                </div>
-              ))}
-            </div>
+         
           </div>
-        </div> */}
+        </div>
 
         <div className="my-3">
           {/* <img src={DEFAULT_NEW_IMAGE} className="rounded-lg h-[14rem] w-full"/> */}
           <div className="m-2 p-2 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[10rem] rtl ">
-            <div className="flex flex-col h-[8.5rem] justify-between">
-              <div className="flex">
-                <AiOutlineEdit className="h-[2rem] w-[2rem] text-color-theme" />
-                <div className="self-center mx-2">
+            <div className="flex flex-col  h-[8.5rem] justify-between">
+              <div className="flex mx-2">
+                <AiOutlineFund className="h-[2rem] w-[2rem] text-color-theme" />
+                <div className="self-center px-3 ">
                   <span>الگوی چارت : </span>
                   <span>{offlineCoinAnalyze?.response.chart_Pattern}</span>
                 </div>
               </div>
-              <div className="flex">
-                <AiOutlineEdit className="h-[2rem] w-[2rem] text-color-theme" />
-                <div className="self-center mx-2">
+              <div className="flex mx-2">
+                <AiOutlineOpenAI className="h-[2rem] w-[2rem] text-color-theme" />
+                <div className="self-center px-3">
                   {" "}
                   <span>پیشنهاد آیمون : </span>
                   <span>{offlineCoinAnalyze?.response.rec_position}</span>
                 </div>
               </div>
-              <div className="flex">
-                <AiOutlineEdit className="h-[2rem] w-[2rem] text-color-theme" />
-                <div className="self-center mx-2">
+              <div className="flex mx-2">
+                <AiOutlineFieldTime className="h-[2rem] w-[2rem] text-color-theme" />
+                <div className="self-center px-3">
                   <span> مدت زمان : </span>
                   <span>{offlineCoinAnalyze?.response.duration}</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="relative mt-10 mb-3 mx-2 border rounded-xl">
+          <div className="absolute bg-white border rounded-md -top-4 right-[5rem] left-[5rem]">
+            <div className="flex-wrap text-center py-1">تحلیل آیمون</div>
+          </div>
+
+          <div className="py-2 px-3 mt-6 text-justify text-[0.8rem] rtl"> {offlineCoinAnalyze?.response.analysis}</div>
+          <div className="py-2 px-3 text-justify text-[0.8rem] text-rose-600 ltr"> {dateHelper(offlineCoinAnalyze?.response.timestamp)}</div>
+    
         </div>
 
         {/* fundamental */}
