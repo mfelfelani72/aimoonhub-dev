@@ -7,15 +7,34 @@ import { AiOutlineSmile } from "react-icons/ai";
 
 import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
 
+import CardRow from "./components/CardRow.jsx";
+import Button from "../core/components/Button.jsx";
+import Loader from "../core/components/Loader.jsx";
+
 import MoodTimeSeries from "./components/MoodTimeSeries.jsx";
 import NewsTimeSeries from "./components/NewsTimeSeries.jsx";
+
+import { getData } from "../../../utils/helpers/getData";
+import { LATEST_NEWS } from "../../app/constant/EndPoints";
+
+const lodash = require("lodash");
+
+const PAGE_NUMBER = 1;
 
 function SymbolDashboard() {
   const location = useLocation();
   const [symbol] = useState(location.state.symbol);
   const [nav] = useState(location.state.nav);
 
-  console.log(symbol);
+  const [newsData, setNewsData] = useState([]);
+  const [loading, setLoading] = useState();
+
+  const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
+  const [newsSymbols, setNewsSymbols] = useState(symbol?.name);
+  const [newsFrom, setNewsFrom] = useState("1716373411");
+  // const [newsTo, setNewsTo] = useState("1725633001");
+  const [newsPageLimit, setNewsPageLimit] = useState(10);
+  const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 
   // for day
 
@@ -122,10 +141,52 @@ function SymbolDashboard() {
     }
   };
 
+  const getNews = async () => {
+    const parameter = {
+      category: newsCategory,
+      symbols: newsSymbols,
+      startDate: newsFrom,
+      // "endDate": newsTo,
+      page: newsPage,
+      pageLimit: newsPageLimit,
+    };
+
+    try {
+      getData(LATEST_NEWS, parameter).then((response) => {
+        if (response.data.data.result) {
+          console.log("Fetch data coins done.");
+          // console.log(response.data.data.result)
+          setNewsData((prev) => {
+            return [...prev, ...response.data.data.result];
+          });
+
+          setNewsPage((prev) => prev + 1);
+          setLoading(false);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetNews = async () => {
+    setLoading(true);
+
+    if (newsPage !== 1 || newsPage !== 2) lodashGetNews();
+  };
+
+  const lodashGetNews = lodash.debounce(function () {
+    getNews();
+  }, 100);
+
   useEffect(() => {
+    if (newsData.length == 0) {
+      getNews();
+    }
+
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
-  }, []);
+  }, [newsData]);
   return (
     <div className="bg-white m-4 rounded-[1rem] pb-2">
       {/* header */}
@@ -249,7 +310,8 @@ function SymbolDashboard() {
             <div className="flex mt-2">
               <div className="bg-cyan-200 border-y-2 border-cyan-400 w-full mt-1 py-1 text-center">
                 <span className="text-cyan-700">
-                  Today <span className="font-bold">{symbol?.name}</span> Sentiment
+                  Today <span className="font-bold">{symbol?.name}</span>{" "}
+                  Sentiment
                 </span>
               </div>
             </div>
@@ -330,7 +392,8 @@ function SymbolDashboard() {
             <div className="flex mt-2">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
                 <span className="text-violet-700">
-                  This Week <span className="font-bold">{symbol?.name}</span> Sentiment
+                  This Week <span className="font-bold">{symbol?.name}</span>{" "}
+                  Sentiment
                 </span>
               </div>
             </div>
@@ -415,6 +478,34 @@ function SymbolDashboard() {
         ) : (
           ""
         )}
+
+        {/* latest news */}
+
+        <div className="flex">
+          <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
+            <span className="text-orange-500">
+              Latest News from <span className="font-bold">{symbol?.name}</span>
+            </span>
+          </div>
+        </div>
+
+        <div className="my-2">
+          {newsData.map((row, index) => (
+            <CardRow row={row} key={index} nav={nav} />
+          ))}
+          <div className="ltr:text-right rtl:text-left">
+            <Button
+              onClick={() => handleGetNews()}
+              className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
+            >
+              More
+            </Button>
+          </div>
+
+          {loading && <Loader />}
+        </div>
+
+        {/* latest news */}
       </div>
     </div>
   );

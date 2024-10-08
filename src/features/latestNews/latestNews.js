@@ -34,7 +34,7 @@ const latestNews = () => {
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsSymbols, setNewsSymbols] = useState("all");
   const [newsFrom, setNewsFrom] = useState("1716373411");
-  const [newsTo, setNewsTo] = useState("1725633001");
+  // const [newsTo, setNewsTo] = useState("1725633001");
   const [newsPageLimit, setNewsPageLimit] = useState(5);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 

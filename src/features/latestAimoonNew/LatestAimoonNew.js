@@ -53,6 +53,7 @@ const LatestAimoonNew = () => {
             response.data.data.result[response.data.data.result.length - 1]
               ?.pubDate
           );
+      
           setFirstNew(response.data.data.result[0]);
           response.data.data.result.shift();
           setNewsData(response.data.data.result);
@@ -69,7 +70,7 @@ const LatestAimoonNew = () => {
 
   useEffect(() => {
     if (newsData.length == 0) getNews();
-    
+    // console.log(newEndDate)
   }, [newsData, firstNew, newEndDate]);
 
   return (

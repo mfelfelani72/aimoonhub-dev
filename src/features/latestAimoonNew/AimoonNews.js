@@ -22,7 +22,6 @@ function AimoonNews() {
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsSymbols, setNewsSymbols] = useState("all");
   const [newsFrom, setNewsFrom] = useState("1716373411");
-  const [newsEnd, setNewsEnd] = useState(endDate[0]);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
   const [newsPageLimit, setNewsPageLimit] = useState(10);
 
@@ -31,7 +30,7 @@ function AimoonNews() {
       category: newsCategory,
       symbols: newsSymbols,
       startDate: newsFrom,
-      endDate: newsEnd,
+      endDate: endDate[0],
       page: newsPage,
       pageLimit: newsPageLimit,
       llmOnly: true,

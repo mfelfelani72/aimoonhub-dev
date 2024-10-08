@@ -262,7 +262,7 @@ function ProviderDashboard() {
           </div>
 
           <div className="basis-3/4">
-            <div class="grid grid-cols-5 gap-0">
+            <div className="grid grid-cols-5 gap-0">
               {symbols?.map((row, index) =>
                 index <= 9 ? (
                   <div key={index} className="">

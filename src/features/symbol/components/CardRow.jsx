@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
@@ -7,9 +8,11 @@ import { dateHelper } from "../../../../utils/helpers/dateHelper";
 import { DEFAULT_NEW_IMAGE } from "../../../app/constant/Defaults";
 
 import { goToAuthorDashboard } from "../../../../utils/lib/author/goToAuthorDashboard.js";
+import { goToProviderDashboard } from "../../../../utils/lib/provider/goToProviderDashboard.js";
 
 const CardRow = (props) => {
   const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   return (
@@ -19,12 +22,12 @@ const CardRow = (props) => {
         <a href={props.row.link} target="_blank">
           <img
             className="w-full !h-full transition duration-300 ease-in-out hover:scale-110"
-            alt={props.row.title}
+            alt={props?.row.title}
             src={
-              props.row?.local_image
-                ? props.row?.local_image
-                : props.row?.thImage
-                ? props.row?.thImage
+              props?.row.local_image
+                ? props?.row.local_image
+                : props?.row?.thImage
+                ? props?.row?.thImage
                 : DEFAULT_NEW_IMAGE
             }
             onError={(e) => {
@@ -49,9 +52,10 @@ const CardRow = (props) => {
         {/* title */}
 
         {/* author */}
-        <div className="px-2 pt-4">
+        <div className="px-2">
           <span className="text-[0.7rem]">{t("author")}</span>
           <span className="px-1 text-[0.7rem] font-bold">
+            {" "}
             <a
               className="cursor-pointer hover:text-color-theme"
               onClick={(event) =>
@@ -69,6 +73,27 @@ const CardRow = (props) => {
           </span>
         </div>
         {/* author */}
+
+        {/* provider */}
+        <div className="px-2 leading-3">
+          <span className="text-[0.7rem]">{t("provider")}</span>
+          <span className="px-1 text-[0.7rem] font-bold">
+            <a
+              className="cursor-pointer hover:text-color-theme"
+              onClick={(event) =>
+                goToProviderDashboard(
+                  navigate,
+                  event,
+                  props?.row.provider,
+                  props?.nav
+                )
+              }
+            >
+              {props?.row.provider}
+            </a>
+          </span>
+        </div>
+        {/* provider */}
 
         {/* date */}
         <div className="px-2 text-end">
