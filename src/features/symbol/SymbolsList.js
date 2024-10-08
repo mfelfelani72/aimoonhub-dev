@@ -15,7 +15,7 @@ function SymbolsList() {
     { title: "end" },
   ];
   const [symbolsList, setSymbolsList] = useState([]);
-  const [priority, setPriority] = useState(1);
+  const [priority, setPriority] = useState(0);
 
   const getSymbolsList = async () => {
     const parameter = {
@@ -72,10 +72,10 @@ function SymbolsList() {
                               ? row?.local_image
                               : row?.logo
                               ? row?.logo
-                              : DEFAULT_PROVIDER_IMAGE
+                              : DEFAULT_COIN_IMAGE
                           }
                           onError={(e) => {
-                            e.target.src = DEFAULT_PROVIDER_IMAGE;
+                            e.target.src = DEFAULT_COIN_IMAGE;
                           }}
                         />
                       </a>
