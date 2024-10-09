@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
+import { Toast } from "flowbite-react";
+import { HiFire } from "react-icons/hi";
+
 import { AiOutlineBarChart } from "react-icons/ai";
 import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
@@ -44,6 +47,9 @@ function SymbolDashboard() {
 
   const [loading, setLoading] = useState();
   const [visibleUpdateCoinAnalysis, setVisibleUpdateCoinAnalysis] = useState();
+  const [statusMessageUpdateCoinAnalysis, setStatusMessageUpdateCoinAnalysis] =
+    useState();
+  const [messageUpdateCoinAnalysis, setMessageUpdateCoinAnalysis] = useState();
   const [loading2, setLoading2] = useState();
   const [wordCloud, setWordCloud] = useState([]);
 
@@ -207,7 +213,7 @@ function SymbolDashboard() {
 
   const handleGetNews = async () => {
     setLoading2(true);
-   
+
     if (newsPage !== 1 || newsPage !== 2) lodashGetNews();
   };
 
@@ -243,12 +249,16 @@ function SymbolDashboard() {
     let intervalId = setInterval(() => {
       loopToGetCoinAnalysis(task_id, intervalId);
     }, 5000);
+
+    setTimeout(function () {
+      stopLoopToGetCoinAnalysis(intervalId);
+    }, 20000);
   };
 
   const loopToGetCoinAnalysis = (task_id, intervalId) => {
     try {
-      // getData(COIN_LLM_RESPONSE, { task_id: "67066df0505340f037e20fea" }).then(
-      getData(COIN_LLM_RESPONSE, { task_id: "67064f24505340f037e1f65d" }).then((res) => {
+      // getData(COIN_LLM_RESPONSE, { task_id: "67064f24505340f037e1f65d" }).then(
+      getData(COIN_LLM_RESPONSE, { task_id: task_id }).then((res) => {
         console.log(res.data.data[0].status);
 
         if (res.data.data[0].status == "completed") {
@@ -260,13 +270,26 @@ function SymbolDashboard() {
 
           setLoading(false);
           setVisibleUpdateCoinAnalysis("");
-
+          
+          setStatusMessageUpdateCoinAnalysis(true)
+          setMessageUpdateCoinAnalysis("Coin Analysis Updated.")
           clearInterval(intervalId);
+          document.getElementById("root").scrollIntoView({ behavior: "smooth" });
         }
       });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const stopLoopToGetCoinAnalysis = (intervalId) => {
+    setLoading(false);
+    setVisibleUpdateCoinAnalysis("");
+    setStatusMessageUpdateCoinAnalysis(true)
+    setMessageUpdateCoinAnalysis("fail to update analysis")
+    clearInterval(intervalId);
+    document.getElementById("root").scrollIntoView({ behavior: "smooth" });
+
   };
 
   const drawWordCloud = () => {
@@ -298,7 +321,7 @@ function SymbolDashboard() {
     setWeekDetailsProgressBar();
   }, [newsData]);
   return (
-    <div className="bg-white m-4 rounded-[1rem] pb-2">
+    <div className="relative bg-white m-4 rounded-[1rem] pb-2">
       {/* header */}
       <h3 className="pt-2 px-2">Symbol Dashboard</h3>
       <div className="text-[0.7rem] text-slate-500 font-bold px-2">
@@ -455,6 +478,21 @@ function SymbolDashboard() {
               </div>
               <div className="mx-auto -my-5">{loading && <Loader />}</div>
             </div>
+            {statusMessageUpdateCoinAnalysis && (
+              <div
+                className={"flex absolute top-0 " + messageUpdateCoinAnalysis}
+              >
+                <Toast>
+                  <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-cyan-500 dark:bg-cyan-800 dark:text-cyan-200">
+                    <HiFire className="h-5 w-5" />
+                  </div>
+                  <div className="ml-3 text-sm font-normal">
+                    {messageUpdateCoinAnalysis}
+                  </div>
+                  <Toast.Toggle />
+                </Toast>
+              </div>
+            )}
           </>
         ) : (
           ""
