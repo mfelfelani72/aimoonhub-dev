@@ -10,7 +10,7 @@ import { AiOutlineOpenAI } from "react-icons/ai";
 import { AiOutlineFieldTime } from "react-icons/ai";
 
 import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
-import { DEFAULT_NEW_IMAGE } from "../../app/constant/Defaults.js";
+import { DEFAULT_COIN_FUNDAMENTAL_IMAGE } from "../../app/constant/Defaults.js";
 
 import CardRow from "./components/CardRow.jsx";
 import Button from "../core/components/Button.jsx";
@@ -24,6 +24,8 @@ import { LATEST_NEWS } from "../../app/constant/EndPoints";
 import { OFFLINE_COIN_ANALYZE } from "../../app/constant/EndPoints";
 import { dateHelper } from "../../../utils/helpers/dateHelper.js";
 
+import WordCloud from "react-d3-cloud";
+
 const lodash = require("lodash");
 
 const PAGE_NUMBER = 1;
@@ -36,6 +38,7 @@ function SymbolDashboard() {
   const [newsData, setNewsData] = useState([]);
   const [offlineCoinAnalyze, setOfflineCoinAnalyze] = useState();
   const [loading, setLoading] = useState();
+  const [wordCloud, setWordCloud] = useState([]);
 
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsSymbols, setNewsSymbols] = useState(symbol?.name);
@@ -157,7 +160,7 @@ function SymbolDashboard() {
     try {
       getData(OFFLINE_COIN_ANALYZE, parameter).then((response) => {
         if (response.data.return && response.data.data) {
-          console.log("Fetch data  offlinecoins done.");
+          // console.log("Fetch data  offlinecoins done.");
           // console.log(response.data.data)
           setOfflineCoinAnalyze(response.data.data);
         }
@@ -213,7 +216,21 @@ function SymbolDashboard() {
     if (!offlineCoinAnalyze) {
       getOfflineCoinAnalyze();
     }
-    console.log(offlineCoinAnalyze);
+    if (offlineCoinAnalyze) {
+      const words = [];
+      offlineCoinAnalyze.newsTiltes.map((row) =>
+        words.push({ word: row.split(" ") })
+      );
+      const words2 = [];
+      words.map((element) => words2.push(...element.word));
+      const data = words2.map((row) => ({
+        text: row,
+        value: Math.floor(Math.random() * 5000),
+      }));
+      // console.log(data)
+
+      setWordCloud(data);
+    }
 
     setDayDetailsProgressBar();
     setWeekDetailsProgressBar();
@@ -284,78 +301,90 @@ function SymbolDashboard() {
         {/* section info */}
 
         {/* fundamental */}
-
-        <div className="flex mt-2">
-          <div className="bg-amber-200 border-y-2 border-amber-400 w-full mt-1 py-1 text-center">
-            <span className="text-amber-700">Aimoon Fundamental Analysis</span>
-          </div>
-        </div>
-        
-        <div className="flex flex-row-reverse mt-4">
-          <div className="basis-1/4">
-            <div className="h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
-              <AiOutlineEdit className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
-            </div>
-          </div>
-          <div className="basis-3/4 mx-2 pb-1 border rounded-md">
-            <div className="text-[0.9rem] text-slate-800 pt-1 px-2 text-right">
-              <span className="font-bold">{symbol?.name}</span>
-              <span className="pl-1">خلاصه خبرهای</span>
+        {offlineCoinAnalyze?.response ? (
+          <>
+            <div className="flex mt-2">
+              <div className="bg-amber-200 border-y-2 border-amber-400 w-full mt-1 py-1 text-center">
+                <span className="text-amber-700">
+                  Aimoon Fundamental Analysis
+                </span>
+              </div>
             </div>
 
-            <div className="text-[0.7rem] text-slate-800 pt-1 px-2 text-justify rtl">
-              <p>{offlineCoinAnalyze?.response.summaryFa}</p>
-            </div>
-
-         
-          </div>
-        </div>
-
-        <div className="my-3">
-          {/* <img src={DEFAULT_NEW_IMAGE} className="rounded-lg h-[14rem] w-full"/> */}
-          <div className="m-2 p-2 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[10rem] rtl ">
-            <div className="flex flex-col  h-[8.5rem] justify-between">
-              <div className="flex mx-2">
-                <AiOutlineFund className="h-[2rem] w-[2rem] text-color-theme" />
-                <div className="self-center px-3 ">
-                  <span>الگوی چارت : </span>
-                  <span>{offlineCoinAnalyze?.response.chart_Pattern}</span>
+            <div className="flex flex-row-reverse mt-4">
+              <div className="basis-1/4">
+                <div className="h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
+                  <AiOutlineEdit className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
                 </div>
               </div>
-              <div className="flex mx-2">
-                <AiOutlineOpenAI className="h-[2rem] w-[2rem] text-color-theme" />
-                <div className="self-center px-3">
-                  {" "}
-                  <span>پیشنهاد آیمون : </span>
-                  <span>{offlineCoinAnalyze?.response.rec_position}</span>
+              <div className="basis-3/4 mx-2 pb-1 border rounded-md">
+                <div className="text-[0.9rem] text-slate-800 pt-1 px-2 text-right">
+                  <span className="font-bold">{symbol?.name}</span>
+                  <span className="pl-1">خلاصه خبرهای</span>
                 </div>
-              </div>
-              <div className="flex mx-2">
-                <AiOutlineFieldTime className="h-[2rem] w-[2rem] text-color-theme" />
-                <div className="self-center px-3">
-                  <span> مدت زمان : </span>
-                  <span>{offlineCoinAnalyze?.response.duration}</span>
+
+                <div className="text-[0.7rem] text-slate-800 pt-1 px-2 text-justify rtl">
+                  <p>{offlineCoinAnalyze?.response.summaryFa}</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+            <div className="my-3 mx-2 border border-lg">
+              <WordCloud data={wordCloud} />
+            </div>
+            <div className="relative my-3">
+              <img src={DEFAULT_COIN_FUNDAMENTAL_IMAGE} className="rounded-lg h-[14rem] w-full"/>
+              <div className="absolute top-2 bottom-2 my-auto left-10 right-10 mx-auto m-2 p-2 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[10rem] rtl">
+                <div className="flex flex-col  h-[8.5rem] justify-between">
+                  <div className="flex mx-2">
+                    <AiOutlineFund className="h-[2rem] w-[2rem] text-color-theme" />
+                    <div className="self-center px-3 ">
+                      <span>الگوی چارت : </span>
+                      <span>{offlineCoinAnalyze?.response.chart_Pattern}</span>
+                    </div>
+                  </div>
+                  <div className="flex mx-2">
+                    <AiOutlineOpenAI className="h-[2rem] w-[2rem] text-color-theme" />
+                    <div className="self-center px-3">
+                      {" "}
+                      <span>پیشنهاد آیمون : </span>
+                      <span>{offlineCoinAnalyze?.response.rec_position}</span>
+                    </div>
+                  </div>
+                  <div className="flex mx-2">
+                    <AiOutlineFieldTime className="h-[2rem] w-[2rem] text-color-theme" />
+                    <div className="self-center px-3">
+                      <span> مدت زمان : </span>
+                      <span>{offlineCoinAnalyze?.response.duration}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div className="relative mt-10 mb-3 mx-2 border rounded-xl">
-          <div className="absolute bg-white border rounded-md -top-4 right-[5rem] left-[5rem]">
-            <div className="flex-wrap text-center py-1">تحلیل آیمون</div>
-          </div>
+            <div className="relative mt-10 mb-3 mx-2 border rounded-xl">
+              <div className="absolute bg-white border rounded-md -top-4 right-[5rem] left-[5rem]">
+                <div className="flex-wrap text-center py-1">تحلیل آیمون</div>
+              </div>
 
-          <div className="py-2 px-3 mt-6 text-justify text-[0.8rem] rtl"> {offlineCoinAnalyze?.response.analysis}</div>
-          <div className="py-2 px-3 text-justify text-[0.8rem] text-rose-600 ltr"> {dateHelper(offlineCoinAnalyze?.response.timestamp)}</div>
-    
-        </div>
+              <div className="py-2 px-3 mt-6 text-justify text-[0.8rem] rtl">
+                {" "}
+                {offlineCoinAnalyze?.response.analysis}
+              </div>
+              <div className="py-2 px-3 text-justify text-[0.8rem] text-rose-600 ltr">
+                {" "}
+                {dateHelper(offlineCoinAnalyze?.response.timestamp)}
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
 
         {/* fundamental */}
 
         {/* section based */}
 
-        {/* {symbol?.latest_news_info ? (
+        {symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-emerald-200 border-y-2 border-emerald-400 w-full mt-1 py-1 text-center">
@@ -401,13 +430,13 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* section based */}
 
         {/* today */}
 
-        {/* {dayPercentNewScore !== 0 && symbol?.latest_news_info ? (
+        {dayPercentNewScore !== 0 && symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-cyan-200 border-y-2 border-cyan-400 w-full mt-1 py-1 text-center">
@@ -484,13 +513,13 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* today */}
 
         {/* week */}
 
-        {/* {weekPercentNewScore !== 0 && symbol?.latest_news_info ? (
+        {weekPercentNewScore !== 0 && symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
@@ -569,11 +598,11 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* week */}
 
-        {/* {symbol?.daily_timeseries ? (
+        {symbol?.daily_timeseries ? (
           <>
             <MoodTimeSeries data={symbol?.daily_timeseries} />
 
@@ -581,11 +610,11 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* latest news */}
 
-        {/* {newsData.length !== 0 ? (
+        {newsData.length !== 0 ? (
           <>
             <div className="flex">
               <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
@@ -614,7 +643,7 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* latest news */}
       </div>

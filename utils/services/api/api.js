@@ -12,6 +12,6 @@ export default axios.create({
     // 'Authorization': "b6ac98f9007c571d980ead04606fff55",
   },
 
-  withCredentials: true,
-  withXSRFToken: true,
+  withCredentials: false,
+  withXSRFToken: false,
 });
