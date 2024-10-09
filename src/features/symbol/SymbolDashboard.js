@@ -43,6 +43,7 @@ function SymbolDashboard() {
   const [coinAnalyze, setCoinAnalyze] = useState();
 
   const [loading, setLoading] = useState();
+  const [visibleUpdateCoinAnalysis, setVisibleUpdateCoinAnalysis] = useState();
   const [loading2, setLoading2] = useState();
   const [wordCloud, setWordCloud] = useState([]);
 
@@ -166,7 +167,7 @@ function SymbolDashboard() {
     try {
       getData(OFFLINE_COIN_ANALYZE, parameter).then((response) => {
         if (response.data.return && response.data.data) {
-          // console.log("Fetch data  offlinecoins done.");
+          console.log("Fetch data  offlinecoins done.");
           // console.log(response.data.data)
           setCoinAnalyze(response.data.data);
         }
@@ -206,7 +207,7 @@ function SymbolDashboard() {
 
   const handleGetNews = async () => {
     setLoading2(true);
-
+   
     if (newsPage !== 1 || newsPage !== 2) lodashGetNews();
   };
 
@@ -215,6 +216,9 @@ function SymbolDashboard() {
   }, 100);
 
   const handleUpdateCoinAnalysis = async () => {
+    setLoading(true);
+    setVisibleUpdateCoinAnalysis("hidden");
+
     const parameter = {
       symbol: symbol?.name,
       useNews: true,
@@ -233,22 +237,31 @@ function SymbolDashboard() {
     } catch (error) {
       console.log(error);
     }
-  }; 
+  };
 
   const updateCoinAnalysis = (task_id) => {
     let intervalId = setInterval(() => {
-      myfunc(task_id, intervalId);
+      loopToGetCoinAnalysis(task_id, intervalId);
     }, 5000);
   };
 
-  const myfunc = (task_id, intervalId) => {
+  const loopToGetCoinAnalysis = (task_id, intervalId) => {
     try {
-      getData(COIN_LLM_RESPONSE, { task_id: task_id }).then((res) => {
-        // console.log(res.data.data[0].status);
+      // getData(COIN_LLM_RESPONSE, { task_id: "67066df0505340f037e20fea" }).then(
+      getData(COIN_LLM_RESPONSE, { task_id: "67064f24505340f037e1f65d" }).then((res) => {
+        console.log(res.data.data[0].status);
+
         if (res.data.data[0].status == "completed") {
           console.log("update coin analysis : " + res.data.data[0].status);
+          // console.log(res.data.data);
+
+          setCoinAnalyze(res.data.data[0].result);
+          drawWordCloud();
+
+          setLoading(false);
+          setVisibleUpdateCoinAnalysis("");
+
           clearInterval(intervalId);
-          // console.log(res);
         }
       });
     } catch (error) {
@@ -256,6 +269,19 @@ function SymbolDashboard() {
     }
   };
 
+  const drawWordCloud = () => {
+    const words = [];
+    coinAnalyze.newsTiltes.map((row) => words.push({ word: row.split(" ") }));
+    const words2 = [];
+    words.map((element) => words2.push(...element.word));
+    const data = words2.map((row) => ({
+      text: row,
+      value: Math.floor(Math.random() * 5000),
+    }));
+    // console.log(data)
+
+    setWordCloud(data);
+  };
   useEffect(() => {
     if (newsData.length == 0) {
       getNews();
@@ -265,17 +291,7 @@ function SymbolDashboard() {
       getOfflineCoinAnalyze();
     }
     if (coinAnalyze) {
-      const words = [];
-      coinAnalyze.newsTiltes.map((row) => words.push({ word: row.split(" ") }));
-      const words2 = [];
-      words.map((element) => words2.push(...element.word));
-      const data = words2.map((row) => ({
-        text: row,
-        value: Math.floor(Math.random() * 5000),
-      }));
-      // console.log(data)
-
-      setWordCloud(data);
+      drawWordCloud();
     }
 
     setDayDetailsProgressBar();
@@ -349,15 +365,15 @@ function SymbolDashboard() {
         {/* fundamental */}
         {coinAnalyze?.response ? (
           <>
-            {/* <div className="flex mt-2">
+            <div className="flex mt-2">
               <div className="bg-amber-200 border-y-2 border-amber-400 w-full mt-1 py-1 text-center">
                 <span className="text-amber-700">
                   Aimoon Fundamental Analysis
                 </span>
               </div>
-            </div> */}
+            </div>
 
-            {/* <div className="flex flex-row-reverse mt-4">
+            <div className="flex flex-row-reverse mt-4">
               <div className="basis-1/4">
                 <div className="h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
                   <AiOutlineEdit className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
@@ -373,17 +389,17 @@ function SymbolDashboard() {
                   <p>{coinAnalyze?.response.summaryFa}</p>
                 </div>
               </div>
-            </div> */}
-            {/* <div className="my-3 mx-2 border border-lg">
+            </div>
+            <div className="my-3 mx-2 border border-lg">
               <WordCloud data={wordCloud} />
-            </div> */}
+            </div>
             <div className="relative my-3">
               <img
                 src={DEFAULT_COIN_FUNDAMENTAL_IMAGE}
                 className="rounded-lg h-[14rem] w-full"
               />
               <div className="absolute top-2 bottom-2 my-auto left-10 right-10 mx-auto m-2 p-2 border rounded-xl bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[10rem] rtl">
-                <div className="flex flex-col  h-[8.5rem] justify-between">
+                <div className="flex flex-col text-slate-800 h-[7.5rem] justify-between">
                   <div className="flex mx-2">
                     <AiOutlineFund className="h-[2rem] w-[2rem] text-color-theme" />
                     <div className="self-center px-3 ">
@@ -425,18 +441,19 @@ function SymbolDashboard() {
               </div>
             </div>
 
-            <div className="flex m-2">
-              <>
+            <div className="flex">
+              <div className="mx-2">
                 <Button
                   className={
-                    "bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
+                    "bg-color-theme hover:bg-color-theme " +
+                    visibleUpdateCoinAnalysis
                   }
                   onClick={() => handleUpdateCoinAnalysis()}
                 >
                   Update Analysis
                 </Button>
-              </>
-              <div className="-mt-2 text-center">{loading && <Loader />}</div>
+              </div>
+              <div className="mx-auto -my-5">{loading && <Loader />}</div>
             </div>
           </>
         ) : (
@@ -447,9 +464,9 @@ function SymbolDashboard() {
 
         {/* section based */}
 
-        {/* {symbol?.latest_news_info ? (
+        {symbol?.latest_news_info ? (
           <>
-            <div className="flex mt-2">
+            <div className="flex mt-4">
               <div className="bg-emerald-200 border-y-2 border-emerald-400 w-full mt-1 py-1 text-center">
                 <span className="text-emerald-700">
                   {symbol?.name} News Based Statistics
@@ -493,13 +510,13 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* section based */}
 
         {/* today */}
 
-        {/* {dayPercentNewScore !== 0 && symbol?.latest_news_info ? (
+        {dayPercentNewScore !== 0 && symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-cyan-200 border-y-2 border-cyan-400 w-full mt-1 py-1 text-center">
@@ -576,13 +593,13 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* today */}
 
         {/* week */}
 
-        {/* {weekPercentNewScore !== 0 && symbol?.latest_news_info ? (
+        {weekPercentNewScore !== 0 && symbol?.latest_news_info ? (
           <>
             <div className="flex mt-2">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
@@ -661,11 +678,11 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* week */}
 
-        {/* {symbol?.daily_timeseries ? (
+        {symbol?.daily_timeseries ? (
           <>
             <MoodTimeSeries data={symbol?.daily_timeseries} />
 
@@ -673,11 +690,11 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* latest news */}
 
-        {/* {newsData.length !== 0 ? (
+        {newsData.length !== 0 ? (
           <>
             <div className="flex">
               <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
@@ -706,7 +723,7 @@ function SymbolDashboard() {
           </>
         ) : (
           ""
-        )} */}
+        )}
 
         {/* latest news */}
       </div>
