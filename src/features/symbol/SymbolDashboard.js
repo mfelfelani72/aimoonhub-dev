@@ -233,7 +233,7 @@ function SymbolDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; 
 
   const updateCoinAnalysis = (task_id) => {
     let intervalId = setInterval(() => {
