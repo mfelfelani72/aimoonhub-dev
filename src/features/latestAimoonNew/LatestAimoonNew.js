@@ -46,9 +46,10 @@ const LatestAimoonNew = () => {
 
     try {
       getData(LATEST_NEWS, parameter).then((response) => {
-        if (response.data.data.result) {
+        console.log(response.data.return)
+        if (response.data.return && response.data.data.result) {
           console.log("Fetch dataLlm done.");
-          // console.log(response.data.data.result);
+          console.log(response.data.data.result);
           setNewEndDate(
             response.data.data.result[response.data.data.result.length - 1]
               ?.pubDate
