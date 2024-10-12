@@ -29,7 +29,6 @@ class Task {
 }
 
 const App = () => {
-
   // initial country
 
   useGeoLocation();
@@ -37,14 +36,13 @@ const App = () => {
   // initial country
 
   // { load Global States from zustand
-  const { splashScreen, setProgressBar } =
-    useAppStore((state) => ({
-      progressBar: state.progressBar,
-      setProgressBar: state.setProgressBar,
-      splashScreen: state.splashScreen,
-      setUserLocation: state.setUserLocation,
-      userLocation: state.userLocation,
-    }));
+  const { splashScreen, setProgressBar } = useAppStore((state) => ({
+    progressBar: state.progressBar,
+    setProgressBar: state.setProgressBar,
+    splashScreen: state.splashScreen,
+    setUserLocation: state.setUserLocation,
+    userLocation: state.userLocation,
+  }));
   // load Global States from zustand }
 
   // { task for splashScreen
@@ -58,9 +56,7 @@ const App = () => {
   ];
   // task for splashScreen }
 
-
   useEffect(() => {
-   
     // { initial language
 
     const rootHtml = document.getElementById("root-html");
@@ -117,13 +113,11 @@ const App = () => {
             // { load app for guest users
 
             <>
-              <Header />
-
-              <div className="container mx-auto md:w-[30rem] mt-12 bg-gray-100 pt-1 pb-1">
+              <div className="md:container md:mx-auto md:w-[30rem] bg-gray-100 mt-12 pt-1 pb-1">
+                <Header />
                 <GuestRoutes />
+                <Footer />
               </div>
-
-              <Footer />
             </>
           )
 
