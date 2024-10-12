@@ -14,7 +14,7 @@ function cardRow(props) {
       <div className="h-[13rem]">
         <a href={props?.row.link} target="_blank">
           <img
-            className="h-[13rem] w-full border border-transparent rounded-lg"
+            className="h-[13rem] w-full border border-transparent rounded-lg "
             alt={props?.row.title}
             src={
               props?.row.local_image

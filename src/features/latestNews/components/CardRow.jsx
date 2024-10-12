@@ -21,7 +21,7 @@ const CardRow = (props) => {
       <div className="w-[8rem] h-[6rem]">
         <a href={props.row.link} target="_blank">
           <img
-            className="w-full !h-full transition duration-300 ease-in-out hover:scale-110"
+            className="w-full !h-full transition duration-300 ease-in-out hover:scale-110 rounded-2xl rounded-bl-none"
             alt={props?.row.title}
             src={
               props?.row.local_image
