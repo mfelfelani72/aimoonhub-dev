@@ -18,6 +18,7 @@ import { LATEST_NEWS_PROVIDER } from "../../app/constant/EndPoints";
 
 import { DEFAULT_PROVIDER_IMAGE } from "./../../app/constant/Defaults.js";
 import { DEFAULT_AVATAR_IMAGE } from "./../../app/constant/Defaults.js";
+import ToolTip from "../core/components/ToolTip.jsx";
 
 const lodash = require("lodash");
 const PAGE_NUMBER = 1;
@@ -361,25 +362,53 @@ function ProviderDashboard() {
 
             <div className="flex my-2">
               <div className="basis-1/2 self-center">
+                <div className="text-center py-2">
+                  <span>نمودار سنتیمنت</span>
+                </div>
                 <div className="flex w-ful justify-center mx-2 border-2">
                   <div
                     style={{
                       width: `${provider?.lastDay_sentiment.positive * 100}%`,
                     }}
                     className="bg-lime-300 h-6"
-                  ></div>
+                  >
+                    <ToolTip
+                      text={`Positive ${
+                        provider?.lastDay_sentiment.positive * 100
+                      }%`}
+                    >
+                      <span className="text-lime-300">p</span>
+                    </ToolTip>
+                  </div>
                   <div
                     style={{
                       width: `${provider?.lastDay_sentiment.negative * 100}%`,
                     }}
                     className="bg-rose-300"
-                  ></div>
+                  >
+                    {" "}
+                    <ToolTip
+                      text={`Negative ${
+                        provider?.lastDay_sentiment.negative * 100
+                      }%`}
+                    >
+                      <span className="text-rose-300">n</span>
+                    </ToolTip>
+                  </div>
                   <div
                     style={{
                       width: `${provider?.lastDay_sentiment.neutral * 100}%`,
                     }}
                     className="bg-slate-300"
-                  ></div>
+                  >
+                    <ToolTip
+                      text={`Neutral ${
+                        provider?.lastDay_sentiment.neutral * 100
+                      }%`}
+                    >
+                      <span className="text-slate-300">n</span>
+                    </ToolTip>
+                  </div>
                 </div>
                 <div className={dayClassNameNewScore}>
                   {daySignScore}
@@ -430,25 +459,55 @@ function ProviderDashboard() {
 
             <div className="flex my-2">
               <div className="basis-1/2 self-center">
+                <div className="text-center py-2">
+                  <span>نمودار سنتیمنت</span>
+                </div>
                 <div className="flex w-ful justify-center mx-2 border-2">
                   <div
                     style={{
                       width: `${provider?.lastWeek_sentiment.positive * 100}%`,
                     }}
                     className="bg-lime-300 h-6"
-                  ></div>
+                  >
+                    {" "}
+                    <ToolTip
+                      text={`Positive ${
+                        provider?.lastWeek_sentiment.positive * 100
+                      }%`}
+                    >
+                      <span className="text-lime-300">p</span>
+                    </ToolTip>
+                  </div>
                   <div
                     style={{
                       width: `${provider?.lastWeek_sentiment.negative * 100}%`,
                     }}
                     className="bg-rose-300"
-                  ></div>
+                  >
+                    {" "}
+                    <ToolTip
+                      text={`Negative ${
+                        provider?.lastWeek_sentiment.negative * 100
+                      }%`}
+                    >
+                      <span className="text-rose-300">n</span>
+                    </ToolTip>
+                  </div>
                   <div
                     style={{
                       width: `${provider?.lastWeek_sentiment.neutral * 100}%`,
                     }}
                     className="bg-slate-300"
-                  ></div>
+                  >
+                    {" "}
+                    <ToolTip
+                      text={`Neutral ${
+                        provider?.lastWeek_sentiment.neutral * 100
+                      }%`}
+                    >
+                      <span className="text-slate-300">n</span>
+                    </ToolTip>
+                  </div>
                 </div>
                 <div className={weekClassNameNewScore}>
                   {weekSignScore}
@@ -498,19 +557,19 @@ function ProviderDashboard() {
                 </span>
               </div>
             </div>
-
-            <div className="flex justify-center my-2">
-              <div className="mx-2">
-                <BarChart
-                  labels={lodash
-                    .chunk(provider?.symbols, 10)[0]
-                    .map((node) => node.coin)}
-                  data={lodash
-                    .chunk(provider?.symbols, 10)[0]
-                    .map((node) => node.news_count)}
-                  label={"News Count"}
-                ></BarChart>
-              </div>
+            <div className="text-center py-3">
+              <span>نمودار توزیع به سکه اخبار خبرگزاری</span>
+            </div>
+            <div className="flex justify-center mx-2">
+              <BarChart
+                labels={lodash
+                  .chunk(provider?.symbols, 10)[0]
+                  .map((node) => node.coin)}
+                data={lodash
+                  .chunk(provider?.symbols, 10)[0]
+                  .map((node) => node.news_count)}
+                label={"News Count"}
+              ></BarChart>
             </div>
           </>
         ) : (
