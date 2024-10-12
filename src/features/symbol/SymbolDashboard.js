@@ -40,8 +40,15 @@ const PAGE_NUMBER = 1;
 
 function SymbolDashboard() {
   const location = useLocation();
-  const [symbol] = useState(location.state.symbol);
+  const [symbol, setSymbol] = useState(location.state.symbol);
   const [nav] = useState(location.state.nav);
+
+  const [loadPage, setLoadPage] = useState(true);
+
+  if (symbol.name !== location.state.symbol.name) {
+    setSymbol(location.state.symbol);
+    setLoadPage(true);
+  }
 
   const [newsData, setNewsData] = useState([]);
   const [coinAnalyze, setCoinAnalyze] = useState();
@@ -308,20 +315,25 @@ function SymbolDashboard() {
     setWordCloud(data);
   };
   useEffect(() => {
-    if (newsData.length == 0) {
-      getNews();
-    }
+    if (loadPage) {
+      console.log("d");
+      if (newsData.length == 0 || loadPage) {
+        getNews();
+      }
 
-    if (!coinAnalyze) {
-      getOfflineCoinAnalyze();
-    }
-    if (coinAnalyze) {
-      drawWordCloud();
-    }
+      if (!coinAnalyze) {
+        getOfflineCoinAnalyze();
+      }
+      if (coinAnalyze) {
+        drawWordCloud();
+      }
 
-    setDayDetailsProgressBar();
-    setWeekDetailsProgressBar();
-  }, [newsData]);
+      setDayDetailsProgressBar();
+      setWeekDetailsProgressBar();
+
+      setLoadPage(false);
+    }
+  }, [newsData,loadPage]);
   return (
     <div className="relative bg-white m-4 rounded-[1rem] pb-2">
       {/* header */}
@@ -692,7 +704,6 @@ function SymbolDashboard() {
 
             <div className="flex my-2">
               <div className="basis-1/2 self-center">
-               
                 <div className="text-center py-2">
                   <span>نمودار سنتیمنت</span>
                 </div>
