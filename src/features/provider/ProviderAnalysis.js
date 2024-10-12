@@ -89,6 +89,10 @@ function ProviderAnalysis() {
         </div>
         {/* providers images */}
 
+        <div className="text-center m-4">
+          <span>نمودار توزیع خبرگزاری در دسته ها</span>
+        </div>
+
         <div className="flex flex-row mt-4 py-2 px-[0.29rem]">
           <div className="basis-1/2 text-md content-center text-T-bright">
             <div className="h-[6rem] w-[6rem] mx-auto -mt-[1rem] mb-2">
@@ -106,7 +110,7 @@ function ProviderAnalysis() {
               Provider distribution chart in categories
             </div>
           </div>
-          {/* <div className="basis-1/2">
+          <div className="basis-1/2">
             <div className="flex flex-col content-center justify-center">
               <div className="basis-1/2">
                 <div className="flex flex-row">
@@ -156,7 +160,7 @@ function ProviderAnalysis() {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

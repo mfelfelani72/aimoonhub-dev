@@ -101,7 +101,9 @@ function DetailsBox(props) {
                   </ToolTip>
 
                   <div className="flex flex-col my-1 mx-2">
-                    <ToolTip text={"نمودار نسبت تعداد خبر در هفته به میانگین هفته"}>
+                    <ToolTip
+                      text={"نمودار نسبت تعداد خبر در هفته به میانگین هفته"}
+                    >
                       <div
                         style={{
                           width: `${
@@ -164,7 +166,9 @@ function DetailsBox(props) {
                     </span>
                   </ToolTip>
                   <div className="flex flex-col my-1 mx-2">
-                    <ToolTip text={"نمودار نسبت تعداد خبر در هفته به میانگین هفته"}>
+                    <ToolTip
+                      text={"نمودار نسبت تعداد خبر در هفته به میانگین هفته"}
+                    >
                       <div
                         style={{
                           width: `${
@@ -200,9 +204,11 @@ function DetailsBox(props) {
                     ]}
                   />
                 </div>
-                <div className={classNameNewScore}>
-                  {percentNewScore * 100}%
-                </div>
+                <ToolTip text={"دونات چارت ... "}>
+                  <div className={classNameNewScore}>
+                    {percentNewScore * 100}%
+                  </div>
+                </ToolTip>
               </div>
             </div>
           </div>

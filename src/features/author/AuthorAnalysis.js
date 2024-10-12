@@ -88,8 +88,10 @@ function AuthorAnalysis() {
           </div>
         </div>
         {/* authors images */}
-
-        <div className="flex flex-row mt-4 py-2 px-[0.29rem]">
+        <div className="text-center m-4">
+          <span>نمودار توزیع نویسنده در دسته ها</span>
+        </div>
+        <div className="flex flex-row pb-2 px-[0.29rem]">
           <div className="basis-1/2 text-md content-center text-T-bright">
             <div className="h-[6rem] w-[6rem] mx-auto -mt-[1rem] mb-2">
               <ChartPie
