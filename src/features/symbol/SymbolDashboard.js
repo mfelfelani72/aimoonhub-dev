@@ -34,6 +34,7 @@ import { COIN_LLM_RESPONSE } from "../../app/constant/EndPoints";
 import WordCloud from "react-d3-cloud";
 import ToolTip from "../core/components/ToolTip.jsx";
 
+
 const lodash = require("lodash");
 
 const PAGE_NUMBER = 1;
@@ -686,6 +687,7 @@ function SymbolDashboard() {
 
             <div className="flex my-2">
               <div className="basis-1/2 self-center">
+                {/* ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd */}
                 <div className="text-center py-2">
                   <span>نمودار سنتیمنت</span>
                 </div>
