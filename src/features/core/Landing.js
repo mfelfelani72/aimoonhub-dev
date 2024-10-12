@@ -6,12 +6,12 @@ import AuthorAnalysis from "../author/AuthorAnalysis";
 import ProviderAnalysis from "../provider/ProviderAnalysis";
 import SymbolAnalysis from "../symbol/SymbolAnalysis";
 
-import Login from "../../features/auth/Login.js"
+import Login from "../../features/auth/Login.js";
 
 function Landing() {
   return (
     <>
-    {/* <Login /> */}
+      {/* <Login /> */}
       <LatestAimoonNew />
       <LatestNews />
       <SymbolAnalysis />

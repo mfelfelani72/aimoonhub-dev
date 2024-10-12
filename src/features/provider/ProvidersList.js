@@ -29,7 +29,7 @@ function ProvidersList() {
       getData(PROVIDERS, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataProvidersList done.");
-          // console.log(response.data.data);https://cryptonews.com/news/altcoin-news/
+          // console.log(response.data.data.provider_list)
           setProvidersList(response.data.data.provider_list);
         }
       });
@@ -39,7 +39,12 @@ function ProvidersList() {
   };
 
   useEffect(() => {
-    if (providersList.length == 0) getProvidersList();
+    // if (providersList.length == 0) {
+    if (providersList.length == 0) {
+      
+      getProvidersList()
+    };
+  
   }, [providersList]);
 
   const navigate = useNavigate();
@@ -61,9 +66,9 @@ function ProvidersList() {
 
       {/* header */}
       <div className="container p-2 mx-auto">
-        <div className="grid grid-cols-1 gap-2 ">
+      <div className="grid grid-cols-1 gap-2 ">
           {/* card */}
-          {providersList.map((row, index) => (
+          {providersList.length !== 0 && providersList?.map((row, index) => (
             <div key={index} className="border-2 rounded-xl p-2 pt-3">
               <div className="h-[6rem]">
                 <div className="flex flex-row">
@@ -94,7 +99,7 @@ function ProvidersList() {
                   </div>
                   <div className="basis-3/5 text-center self-center">
                     <div className="text-[0.8rem]">
-                      <span className="font-bold">+{row?.newsCount.toLocaleString()}</span> news
+                      <span className="font-bold">+{parseInt(row?.newsCount).toLocaleString()}</span> news
                     </div>
                     <div className="mt-5">
                       <Button
@@ -109,7 +114,7 @@ function ProvidersList() {
               </div>
 
               <div className="flex flex-row justify-center mt-1">
-                {row?.symbols.length
+                {row?.symbols
                   ? row?.symbols.map((element, index) =>
                       index <= 4 ? (
                         <div key={index}>

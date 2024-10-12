@@ -106,7 +106,7 @@ function ProviderAnalysis() {
               Provider distribution chart in categories
             </div>
           </div>
-          <div className="basis-1/2">
+          {/* <div className="basis-1/2">
             <div className="flex flex-col content-center justify-center">
               <div className="basis-1/2">
                 <div className="flex flex-row">
@@ -156,7 +156,7 @@ function ProviderAnalysis() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

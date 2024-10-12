@@ -109,7 +109,7 @@ const App = () => {
           splashScreen ? (
             // { first splashScreen app
 
-            <div className="h-screen w-screen flex items-center justify-center px-16 bg-B-V-bright dark:bg-DB-bright">
+            <div className="h-screen w-screen flex items-center justify-center px-16 bg-B-V-bright dark:bg-DB-bright ">
               <SplashScreen tasks={tasks} />
             </div>
           ) : (
@@ -119,7 +119,7 @@ const App = () => {
             <>
               <Header />
 
-              <div className="mt-12 bg-gray-100 pt-1 pb-1">
+              <div className="container mx-auto md:w-[30rem] mt-12 bg-gray-100 pt-1 pb-1">
                 <GuestRoutes />
               </div>
 
