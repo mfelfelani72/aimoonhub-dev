@@ -13,15 +13,24 @@ body {
 
 #root {
   @apply h-full;
-  @apply w-full;  
+  @apply w-full;
 }
 
 .testi {
-
   @apply h-full;
   @apply w-full;
-
 }
-  .swiper-pagination-bullet{
-    border-radius: 0% !important;
-  }
+.swiper-pagination-bullet {
+  border-radius: 0% !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1rem !important;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  margin: -1.2rem;
+  color: #e57c43 !important;
+}
