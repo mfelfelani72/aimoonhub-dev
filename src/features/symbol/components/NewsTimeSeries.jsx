@@ -17,9 +17,7 @@ function NewsTimeSeries(props) {
         <TEChart
           type={"line"}
           data={{
-            labels: props.data.timestamp.map((row) =>
-              dateHelper(row, "AD-date", "date", "chart")
-            ),
+            labels: props.data.timestamp.map((row) => dateHelper(row, "chart")),
             datasets: [
               {
                 label: "News count",

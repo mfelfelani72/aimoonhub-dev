@@ -471,7 +471,7 @@ function SymbolDashboard() {
               </div>
               <div className="py-2 px-3 text-justify text-[0.8rem] text-rose-600 ltr">
                 {" "}
-                {dateHelper(coinAnalyze?.response.timestamp)}
+                {dateHelper(coinAnalyze?.response.timestamp, "difference")}
               </div>
             </div>
 
@@ -692,7 +692,7 @@ function SymbolDashboard() {
 
             <div className="flex my-2">
               <div className="basis-1/2 self-center">
-                {/* ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd */}
+               
                 <div className="text-center py-2">
                   <span>نمودار سنتیمنت</span>
                 </div>

@@ -258,7 +258,7 @@ function DetailsBox(props) {
             </div>
             <div className="basis-1/3 ">
               <div className="pt-1 text-[0.7rem] text-slate-500 text-end">
-                {dateHelper(props.data?.pubDate)}
+                {dateHelper(props.data?.pubDate, "difference")}
               </div>
             </div>
           </div>

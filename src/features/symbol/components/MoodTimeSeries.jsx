@@ -18,7 +18,8 @@ function MoodTimeSeries(props) {
           type={"line"}
           data={{
             labels: props.data.timestamp.map((row) =>
-              dateHelper(row, "AD-date", "date", "chart")
+              // dateHelper(row, "AD-date", "date", "chart")
+              dateHelper(row, "chart")
             ),
             datasets: [
               {
