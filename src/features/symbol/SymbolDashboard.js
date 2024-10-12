@@ -32,6 +32,7 @@ import { COIN_ANALYZE } from "../../app/constant/EndPoints";
 import { COIN_LLM_RESPONSE } from "../../app/constant/EndPoints";
 
 import WordCloud from "react-d3-cloud";
+import ToolTip from "../core/components/ToolTip.jsx";
 
 const lodash = require("lodash");
 
@@ -270,11 +271,13 @@ function SymbolDashboard() {
 
           setLoading(false);
           setVisibleUpdateCoinAnalysis("");
-          
-          setStatusMessageUpdateCoinAnalysis(true)
-          setMessageUpdateCoinAnalysis("Coin Analysis Updated.")
+
+          setStatusMessageUpdateCoinAnalysis(true);
+          setMessageUpdateCoinAnalysis("Coin Analysis Updated.");
           clearInterval(intervalId);
-          document.getElementById("root").scrollIntoView({ behavior: "smooth" });
+          document
+            .getElementById("root")
+            .scrollIntoView({ behavior: "smooth" });
         }
       });
     } catch (error) {
@@ -285,11 +288,10 @@ function SymbolDashboard() {
   const stopLoopToGetCoinAnalysis = (intervalId) => {
     setLoading(false);
     setVisibleUpdateCoinAnalysis("");
-    setStatusMessageUpdateCoinAnalysis(true)
-    setMessageUpdateCoinAnalysis("fail to update analysis")
+    setStatusMessageUpdateCoinAnalysis(true);
+    setMessageUpdateCoinAnalysis("fail to update analysis");
     clearInterval(intervalId);
     document.getElementById("root").scrollIntoView({ behavior: "smooth" });
-
   };
 
   const drawWordCloud = () => {
@@ -412,6 +414,9 @@ function SymbolDashboard() {
                   <p>{coinAnalyze?.response.summaryFa}</p>
                 </div>
               </div>
+            </div>
+            <div className="text-center m-4">
+              <span>نمودار ابر کلمه</span>
             </div>
             <div className="my-3 mx-2 border border-lg">
               <WordCloud data={wordCloud} />
@@ -567,6 +572,9 @@ function SymbolDashboard() {
 
             <div className="flex my-2">
               <div className="basis-1/2 self-center">
+                <div className="text-center py-2">
+                  <span>نمودار سنتیمنت</span>
+                </div>
                 <div className="flex w-ful justify-center mx-2 border-2">
                   <div
                     style={{
@@ -576,7 +584,16 @@ function SymbolDashboard() {
                       }%`,
                     }}
                     className="bg-lime-300 h-6"
-                  ></div>
+                  >
+                    <ToolTip
+                      text={`Positive ${
+                        symbol?.latest_news_info.last_day_sentiment.positive *
+                        100
+                      }%`}
+                    >
+                      <span className="text-lime-300">p</span>
+                    </ToolTip>
+                  </div>
                   <div
                     style={{
                       width: `${
@@ -585,7 +602,17 @@ function SymbolDashboard() {
                       }%`,
                     }}
                     className="bg-rose-300"
-                  ></div>
+                  >
+                    <ToolTip
+                      text={`Negative ${
+                        symbol?.latest_news_info.last_day_sentiment.negative *
+                        100
+                      }%`}
+                    >
+                      <span className="text-rose-300">n</span>
+                    </ToolTip>
+                  </div>
+
                   <div
                     style={{
                       width: `${
@@ -594,7 +621,16 @@ function SymbolDashboard() {
                       }%`,
                     }}
                     className="bg-slate-300"
-                  ></div>
+                  >
+                    <ToolTip
+                      text={`Neutral ${
+                        symbol?.latest_news_info.last_day_sentiment.neutral *
+                        100
+                      }%`}
+                    >
+                      <span className="text-slate-300">n</span>
+                    </ToolTip>
+                  </div>
                 </div>
                 <div className={dayClassNameNewScore}>
                   {daySignScore}
@@ -650,6 +686,9 @@ function SymbolDashboard() {
 
             <div className="flex my-2">
               <div className="basis-1/2 self-center">
+                <div className="text-center py-2">
+                  <span>نمودار سنتیمنت</span>
+                </div>
                 <div className="flex w-ful justify-center mx-2 border-2">
                   <div
                     style={{
@@ -659,7 +698,17 @@ function SymbolDashboard() {
                       }%`,
                     }}
                     className="bg-lime-300 h-6"
-                  ></div>
+                  >
+                    {" "}
+                    <ToolTip
+                      text={`Positive ${
+                        symbol?.latest_news_info.last_Week_sentiment.positive *
+                        100
+                      }%`}
+                    >
+                      <span className="text-lime-300">p</span>
+                    </ToolTip>
+                  </div>
                   <div
                     style={{
                       width: `${
@@ -668,7 +717,16 @@ function SymbolDashboard() {
                       }%`,
                     }}
                     className="bg-rose-300"
-                  ></div>
+                  >
+                    <ToolTip
+                      text={`Negative ${
+                        symbol?.latest_news_info.last_Week_sentiment.negative *
+                        100
+                      }%`}
+                    >
+                      <span className="text-rose-300">n</span>
+                    </ToolTip>
+                  </div>
                   <div
                     style={{
                       width: `${
@@ -677,7 +735,16 @@ function SymbolDashboard() {
                       }%`,
                     }}
                     className="bg-slate-300"
-                  ></div>
+                  >
+                    <ToolTip
+                      text={`Neutral ${
+                        symbol?.latest_news_info.last_Week_sentiment.neutral *
+                        100
+                      }%`}
+                    >
+                      <span className="text-slate-300">n</span>
+                    </ToolTip>
+                  </div>
                 </div>
                 <div className={weekClassNameNewScore}>
                   {weekSignScore}

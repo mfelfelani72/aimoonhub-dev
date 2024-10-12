@@ -10,7 +10,10 @@ function NewsTimeSeries(props) {
           <span className="text-pink-700">News Count Time Series</span>
         </div>
       </div>
-      <div className="flex mx-3 my-6">
+      <div className="text-center py-2">
+        <span>نمودار شمارش اخبار سری زمانی</span>
+      </div>
+      <div className="flex mx-3 mb-6">
         <TEChart
           type={"line"}
           data={{
