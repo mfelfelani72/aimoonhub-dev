@@ -34,7 +34,6 @@ import { COIN_LLM_RESPONSE } from "../../app/constant/EndPoints";
 import WordCloud from "react-d3-cloud";
 import ToolTip from "../core/components/ToolTip.jsx";
 
-
 const lodash = require("lodash");
 
 const PAGE_NUMBER = 1;
@@ -399,29 +398,35 @@ function SymbolDashboard() {
               </div>
             </div>
 
-            <div className="flex flex-row-reverse mt-4">
-              <div className="basis-1/4">
-                <div className="h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
-                  <AiOutlineEdit className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
-                </div>
-              </div>
-              <div className="basis-3/4 mx-2 pb-1 border rounded-md">
-                <div className="text-[0.9rem] text-slate-800 pt-1 px-2 text-right">
-                  <span className="font-bold">{symbol?.name}</span>
-                  <span className="pl-1">خلاصه خبرهای</span>
-                </div>
+            <div className="text-center m-4 rtl">
+              <span>نمودار ابر کلمات جفت ارز</span>
+              <span className="px-2 text-[0.8rem] font-bold">
+                {symbol?.name}
+              </span>
+            </div>
 
-                <div className="text-[0.7rem] text-slate-800 pt-1 px-2 text-justify rtl">
-                  <p>{coinAnalyze?.response.summaryFa}</p>
+            <div className="relative my-3 mx-2">
+              <WordCloud data={wordCloud} />
+
+              <div className="absolute bottom-0 pt-2 flex flex-row-reverse bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[10rem] border-t-2">
+                <div className="basis-1/6 self-start">
+                  <div className=" h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
+                    <AiOutlineEdit className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
+                  </div>
+                </div>
+                <div className="basis-5/6">
+                  <div className="text-[0.9rem] text-slate-800 pt-1 px-2 text-right">
+                    <span className="font-bold">{symbol?.name}</span>
+                    <span className="pl-1">خلاصه خبرهای</span>
+                  </div>
+
+                  <div className="text-[0.7rem] text-slate-800 pt-1 px-2 text-justify rtl">
+                    <p>{coinAnalyze?.response.summaryFa}</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="text-center m-4">
-              <span>نمودار ابر کلمه</span>
-            </div>
-            <div className="my-3 mx-2 border border-lg">
-              <WordCloud data={wordCloud} />
-            </div>
+
             <div className="relative my-3">
               <img
                 src={DEFAULT_COIN_FUNDAMENTAL_IMAGE}
