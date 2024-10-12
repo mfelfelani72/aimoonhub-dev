@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Tooltip } from "flowbite-react";
+
 import ChartDoughnut from "../../core/components/ChartDoughnut.jsx";
 import { dateHelper } from "../../../../utils/helpers/dateHelper.js";
 import { cn } from "../../../../utils/lib/cn.js";
@@ -11,6 +13,7 @@ import { DEFAULT_COIN_IMAGE } from "../../../app/constant/Defaults.js";
 
 import { goToAuthorDashboard } from "../../../../utils/lib/author/goToAuthorDashboard.js";
 import { goToProviderDashboard } from "../../../../utils/lib/provider/goToProviderDashboard.js";
+import ToolTip from "../../core/components/ToolTip.jsx";
 
 function DetailsBox(props) {
   const navigate = useNavigate();
@@ -84,28 +87,42 @@ function DetailsBox(props) {
                       {props?.data.author}
                     </a>
                   </span>
-                  <span className="px-1 text-[0.7rem] font-bold">
-                    {props.data?.author_info["last_week_count"].toLocaleString() +
-                      " / " +
-                      props.data?.author_info["AvgNewsPERweek"].toLocaleString()}
-                  </span>
+                  <ToolTip text={"نسبت تعداد خبر در هفته به میانگین هفته"}>
+                    {" "}
+                    <span className="px-1 text-[0.7rem] font-bold">
+                      {props.data?.author_info[
+                        "last_week_count"
+                      ].toLocaleString() +
+                        " / " +
+                        props.data?.author_info[
+                          "AvgNewsPERweek"
+                        ].toLocaleString()}
+                    </span>
+                  </ToolTip>
+
                   <div className="flex flex-col my-1 mx-2">
-                    <div
-                      style={{
-                        width: `${
-                          (props.data?.author_info["last_week_count"].toLocaleString() /
-                            props.data?.author_info["AvgNewsPERweek"].toLocaleString()) *
-                          100
-                        }%`,
-                      }}
-                      className="bg-teal-200 h-[0.5rem]"
-                    ></div>
-                    <div
-                      className={cn(
-                        "bg-teal-500 h-[0.5rem]",
-                        props.lineChartWidth
-                      )}
-                    ></div>
+                    <ToolTip text={"نمودار نسبت تعداد خبر در هفته به میانگین هفته"}>
+                      <div
+                        style={{
+                          width: `${
+                            (props.data?.author_info[
+                              "last_week_count"
+                            ].toLocaleString() /
+                              props.data?.author_info[
+                                "AvgNewsPERweek"
+                              ].toLocaleString()) *
+                            100
+                          }%`,
+                        }}
+                        className="bg-teal-200 h-[0.5rem]"
+                      ></div>
+                      <div
+                        className={cn(
+                          "bg-teal-500 h-[0.5rem]",
+                          props.lineChartWidth
+                        )}
+                      ></div>
+                    </ToolTip>
                   </div>
                 </div>
 
@@ -139,28 +156,32 @@ function DetailsBox(props) {
                       {props.data?.provider}
                     </a>
                   </span>
-                  <span className="px-1 text-[0.7rem] font-bold">
-                    {props.data?.provider_info["last_week_count"] +
-                      " / " +
-                      props.data?.provider_info["AvgNewsPERweek"]}
-                  </span>
+                  <ToolTip text={"نسبت تعداد خبر در هفته به میانگین هفته"}>
+                    <span className="px-1 text-[0.7rem] font-bold">
+                      {props.data?.provider_info["last_week_count"] +
+                        " / " +
+                        props.data?.provider_info["AvgNewsPERweek"]}
+                    </span>
+                  </ToolTip>
                   <div className="flex flex-col my-1 mx-2">
-                    <div
-                      style={{
-                        width: `${
-                          (props.data?.provider_info["last_week_count"] /
-                            props.data?.provider_info["AvgNewsPERweek"]) *
-                          100
-                        }%`,
-                      }}
-                      className="bg-fuchsia-200 h-[0.5rem]"
-                    ></div>
-                    <div
-                      className={cn(
-                        "bg-fuchsia-500 h-[0.5rem]",
-                        props.lineChartWidth
-                      )}
-                    ></div>
+                    <ToolTip text={"نمودار نسبت تعداد خبر در هفته به میانگین هفته"}>
+                      <div
+                        style={{
+                          width: `${
+                            (props.data?.provider_info["last_week_count"] /
+                              props.data?.provider_info["AvgNewsPERweek"]) *
+                            100
+                          }%`,
+                        }}
+                        className="bg-fuchsia-200 h-[0.5rem]"
+                      ></div>
+                      <div
+                        className={cn(
+                          "bg-fuchsia-500 h-[0.5rem]",
+                          props.lineChartWidth
+                        )}
+                      ></div>
+                    </ToolTip>
                   </div>
                 </div>
               </div>
