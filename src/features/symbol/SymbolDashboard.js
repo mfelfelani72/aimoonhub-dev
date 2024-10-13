@@ -45,11 +45,6 @@ function SymbolDashboard() {
 
   const [loadPage, setLoadPage] = useState(true);
 
-  if (symbol.name !== location.state.symbol.name) {
-    setSymbol(location.state.symbol);
-    setLoadPage(true);
-  }
-
   const [newsData, setNewsData] = useState([]);
   const [coinAnalyze, setCoinAnalyze] = useState();
 
@@ -81,6 +76,12 @@ function SymbolDashboard() {
   const [weekSignScore, setWeekSignScore] = useState();
   const [weekStatusScore, setWeekStatusScore] = useState();
   const [weekClassNameNewScore, setWeekClassNameNewScore] = useState();
+
+  if (symbol.name !== location.state.symbol.name) {
+    setSymbol(location.state.symbol);
+    setLoadPage(true);
+    setNewsData([]);
+  }
 
   const setDayDetailsProgressBar = () => {
     if (symbol?.latest_news_info) {
@@ -184,6 +185,7 @@ function SymbolDashboard() {
           console.log("Fetch data  offlinecoins done.");
           // console.log(response.data.data)
           setCoinAnalyze(response.data.data);
+          
         }
       });
     } catch (error) {
@@ -206,6 +208,7 @@ function SymbolDashboard() {
         if (response.data.return && response.data.data.result) {
           console.log("Fetch data coins done.");
           // console.log(response.data.data.result)
+
           setNewsData((prev) => {
             return [...prev, ...response.data.data.result];
           });
@@ -301,22 +304,9 @@ function SymbolDashboard() {
     document.getElementById("root").scrollIntoView({ behavior: "smooth" });
   };
 
-  const drawWordCloud = () => {
-    const words = [];
-    coinAnalyze.newsTiltes.map((row) => words.push({ word: row.split(" ") }));
-    const words2 = [];
-    words.map((element) => words2.push(...element.word));
-    const data = words2.map((row) => ({
-      text: row,
-      value: Math.floor(Math.random() * 5000),
-    }));
-    // console.log(data)
 
-    setWordCloud(data);
-  };
   useEffect(() => {
     if (loadPage) {
-      console.log("d");
       if (newsData.length == 0 || loadPage) {
         getNews();
       }
@@ -324,16 +314,13 @@ function SymbolDashboard() {
       if (!coinAnalyze || loadPage) {
         getOfflineCoinAnalyze();
       }
-      if (coinAnalyze) {
-        drawWordCloud();
-      }
 
       setDayDetailsProgressBar();
       setWeekDetailsProgressBar();
-
-      setLoadPage(false);
     }
-  }, [newsData, loadPage]);
+
+    setLoadPage(false);
+  }, [newsData]);
   return (
     <div className="relative bg-white m-4 rounded-[1rem] pb-2">
       {/* header */}
@@ -360,7 +347,8 @@ function SymbolDashboard() {
         <Info symbol={symbol} />
 
         {/* fundamental */}
-        {coinAnalyze?.response && (
+
+        {/* {coinAnalyze?.response && (
           <>
             <div className="flex mt-2">
               <div className="bg-amber-200 border-y-2 border-amber-400 w-full mt-1 py-1 text-center">
@@ -378,7 +366,7 @@ function SymbolDashboard() {
             </div>
 
             <div className="relative my-3 mx-2">
-              <WordCloud data={wordCloud} />
+              <WordCloud data={coinAnalyze?.word_frequencies} />
 
               <div className="absolute bottom-0 pt-2 flex flex-row-reverse bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[10rem] border-t-2">
                 <div className="basis-1/6 self-start">
@@ -477,39 +465,39 @@ function SymbolDashboard() {
               </div>
             )}
           </>
-        )}
+        )} */}
 
         {/* fundamental */}
 
-        <Based symbol={symbol} />
+        {/* <Based symbol={symbol} /> */}
 
-        <TodaySentiment
+        {/* <TodaySentiment
           symbol={symbol}
           dayClassNameNewScore={dayClassNameNewScore}
           daySignScore={daySignScore}
           dayPercentNewScore={dayPercentNewScore}
           dayStatusScore={dayStatusScore}
-        />
+        /> */}
 
-        <WeekSentiment
+        {/* <WeekSentiment
           symbol={symbol}
           weekClassNameNewScore={weekClassNameNewScore}
           weekSignScore={weekSignScore}
           weekPercentNewScore={weekPercentNewScore}
           weekStatusScore={weekStatusScore}
-        />
+        /> */}
 
-        {symbol?.daily_timeseries && (
+        {/* {symbol?.daily_timeseries && (
           <>
             <MoodTimeSeries data={symbol?.daily_timeseries} />
 
             <NewsTimeSeries data={symbol?.daily_timeseries} />
           </>
-        )}
+        )} */}
 
         {/* latest news */}
 
-        {newsData.length !== 0 && (
+        {/* {newsData.length !== 0 && (
           <>
             <div className="flex">
               <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
@@ -536,7 +524,7 @@ function SymbolDashboard() {
               {loading2 && <Loader2 />}
             </div>
           </>
-        )}
+        )} */}
 
         {/* latest news */}
       </div>
