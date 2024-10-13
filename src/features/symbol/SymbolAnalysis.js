@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
 import { getData } from "../../../utils/helpers/getData.js";
 import { SYMBOLS } from "../../app/constant/EndPoints.js";
 
-import { DEFAULT_COIN_IMAGE } from "../../app/constant/Defaults.js";
+import CoinSlider from "./components/CoinSlider.jsx";
 
 function SymbolAnalysis() {
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
+
+  const nav = [{ title: "home", address: "/" }, { title: "end" }];
 
   const [symbols, setSymbols] = useState([]);
 
@@ -43,49 +47,10 @@ function SymbolAnalysis() {
       {/* title */}
 
       <div className="container mx-auto">
-        {/* symbols images */}
-        <div className="self-center">
-          <div className="text-[0.8rem] font-bold pb-1 px-2">Renowned Coin</div>
-          <div className="flex flex-col items-center">
-            <div className="relative h-10 w-[17rem] px-auto">
-              <div className="text-center">
-                {symbols.map((row, index) => (
-                  <div
-                    style={{
-                      left: `${index * 2 + 3}rem`,
-                    }}
-                    className="absolute top-0"
-                    key={index}
-                  >
-                    <img
-                      className="h-12 w-12 rounded-full"
-                      alt={row?.name}
-                      src={
-                        row?.local_image
-                          ? row?.local_image
-                          : row?.logo
-                          ? row?.logo
-                          : DEFAULT_COIN_IMAGE
-                      }
-                      onError={(e) => {
-                        e.target.src = DEFAULT_COIN_IMAGE;
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mt-5 mx-2">
-              <NavLink
-                to="/symbols-list"
-                className="mb-0 inline-flex items-center px-3 py-2 font-medium text-center text-white rounded-lg bg-color-theme hover:bg-color-theme-light text-[0.75rem] h-7 cursor-pointer"
-              >
-                Coins List
-              </NavLink>
-            </div>
-          </div>
+        <div className="text-[0.8rem] font-bold pb-1 px-2">Renowned Coin</div>
+        <div className="w-full px-4">
+          <CoinSlider symbolsList={symbols} navigate={navigate} nav={nav} />
         </div>
-        {/* symbols images */}
       </div>
     </div>
   );
