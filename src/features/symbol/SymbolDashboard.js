@@ -127,35 +127,35 @@ function SymbolDashboard() {
     if (symbol?.latest_news_info) {
       setWeekPercentNewScore(
         Math.max(
-          symbol?.latest_news_info.last_Week_sentiment.negative,
-          symbol?.latest_news_info.last_Week_sentiment.neutral,
-          symbol?.latest_news_info.last_Week_sentiment.positive
+          symbol?.latest_news_info.last_week_sentiment.negative,
+          symbol?.latest_news_info.last_week_sentiment.neutral,
+          symbol?.latest_news_info.last_week_sentiment.positive
         )
       );
       if (
-        symbol?.latest_news_info.last_Week_sentiment.negative == 0 &&
-        symbol?.latest_news_info.last_Week_sentiment.neutral == 0 &&
-        symbol?.latest_news_info.last_Week_sentiment.positive == 0
+        symbol?.latest_news_info.last_week_sentiment.negative == 0 &&
+        symbol?.latest_news_info.last_week_sentiment.neutral == 0 &&
+        symbol?.latest_news_info.last_week_sentiment.positive == 0
       ) {
         setWeekClassNameNewScore("text-center font-bold ");
         setWeekStatusScore("");
         setWeekSignScore("");
       } else if (
         Math.max(
-          symbol?.latest_news_info.last_Week_sentiment.negative,
-          symbol?.latest_news_info.last_Week_sentiment.neutral,
-          symbol?.latest_news_info.last_Week_sentiment.positive
-        ) === symbol?.latest_news_info.last_Week_sentiment.negative
+          symbol?.latest_news_info.last_week_sentiment.negative,
+          symbol?.latest_news_info.last_week_sentiment.neutral,
+          symbol?.latest_news_info.last_week_sentiment.positive
+        ) === symbol?.latest_news_info.last_week_sentiment.negative
       ) {
         setWeekClassNameNewScore("text-center font-bold text-rose-300");
         setWeekStatusScore("Negative");
         setWeekSignScore("-");
       } else if (
         Math.max(
-          symbol?.latest_news_info.last_Week_sentiment.negative,
-          symbol?.latest_news_info.last_Week_sentiment.neutral,
-          symbol?.latest_news_info.last_Week_sentiment.positive
-        ) === symbol?.latest_news_info.last_Week_sentiment.neutral
+          symbol?.latest_news_info.last_week_sentiment.negative,
+          symbol?.latest_news_info.last_week_sentiment.neutral,
+          symbol?.latest_news_info.last_week_sentiment.positive
+        ) === symbol?.latest_news_info.last_week_sentiment.neutral
       ) {
         setWeekClassNameNewScore("text-center font-bold text-slate-300");
         setWeekStatusScore("Neutral");

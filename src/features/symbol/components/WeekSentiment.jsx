@@ -26,7 +26,7 @@ function WeekSentiment(props) {
                 <span>نمودار سنتیمنت</span>
               </div>
               <ChartRowSentiment
-                sentiment={props?.symbol.latest_news_info.last_Week_sentiment}
+                sentiment={props?.symbol.latest_news_info.last_week_sentiment}
                 classNameNewScore={props?.weekClassNameNewScore}
                 signScore={props?.weekSignScore}
                 percentNewScore={props?.weekPercentNewScore}
