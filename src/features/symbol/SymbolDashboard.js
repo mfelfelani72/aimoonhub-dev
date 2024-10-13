@@ -77,12 +77,6 @@ function SymbolDashboard() {
   const [weekStatusScore, setWeekStatusScore] = useState();
   const [weekClassNameNewScore, setWeekClassNameNewScore] = useState();
 
-  if (symbol.name !== location.state.symbol.name) {
-    setSymbol(location.state.symbol);
-    setLoadPage(true);
-    setNewsData([]);
-  }
-
   const setDayDetailsProgressBar = () => {
     if (symbol?.latest_news_info) {
       setDayPercentNewScore(
@@ -185,7 +179,6 @@ function SymbolDashboard() {
           console.log("Fetch data  offlinecoins done.");
           // console.log(response.data.data)
           setCoinAnalyze(response.data.data);
-          
         }
       });
     } catch (error) {
@@ -270,24 +263,25 @@ function SymbolDashboard() {
     try {
       // getData(COIN_LLM_RESPONSE, { task_id: "67064f24505340f037e1f65d" }).then(
       getData(COIN_LLM_RESPONSE, { task_id: task_id }).then((res) => {
-        console.log(res.data.data[0].status);
+        if (res.data.data) {
+          console.log(res.data.data[0].status);
 
-        if (res.data.data[0].status == "completed") {
-          console.log("update coin analysis : " + res.data.data[0].status);
-          // console.log(res.data.data);
+          if (res.data.data[0].status == "completed") {
+            console.log("update coin analysis : " + res.data.data[0].status);
+            // console.log(res.data.data);
 
-          setCoinAnalyze(res.data.data[0].result);
-          drawWordCloud();
+            setCoinAnalyze(res.data.data[0].result);
 
-          setLoading(false);
-          setVisibleUpdateCoinAnalysis("");
+            setLoading(false);
+            setVisibleUpdateCoinAnalysis("");
 
-          setStatusMessageUpdateCoinAnalysis(true);
-          setMessageUpdateCoinAnalysis("Coin Analysis Updated.");
-          clearInterval(intervalId);
-          document
-            .getElementById("root")
-            .scrollIntoView({ behavior: "smooth" });
+            setStatusMessageUpdateCoinAnalysis(true);
+            setMessageUpdateCoinAnalysis("Coin Analysis Updated.");
+            clearInterval(intervalId);
+            document
+              .getElementById("root")
+              .scrollIntoView({ behavior: "smooth" });
+          }
         }
       });
     } catch (error) {
@@ -305,6 +299,13 @@ function SymbolDashboard() {
   };
 
 
+  if (symbol.name !== location.state.symbol.name) {
+    setSymbol(location.state.symbol);
+    setLoadPage(true);
+    setNewsData([]);
+    getNews();
+  }
+
   useEffect(() => {
     if (loadPage) {
       if (newsData.length == 0 || loadPage) {
@@ -320,7 +321,7 @@ function SymbolDashboard() {
     }
 
     setLoadPage(false);
-  }, [newsData]);
+  }, []);
   return (
     <div className="relative bg-white m-4 rounded-[1rem] pb-2">
       {/* header */}
@@ -348,7 +349,7 @@ function SymbolDashboard() {
 
         {/* fundamental */}
 
-        {/* {coinAnalyze?.response && (
+        {coinAnalyze?.response && (
           <>
             <div className="flex mt-2">
               <div className="bg-amber-200 border-y-2 border-amber-400 w-full mt-1 py-1 text-center">
@@ -358,17 +359,39 @@ function SymbolDashboard() {
               </div>
             </div>
 
-            <div className="text-center m-4 rtl">
-              <span>نمودار ابر کلمات جفت ارز</span>
-              <span className="px-2 text-[0.8rem] font-bold">
-                {symbol?.name}
-              </span>
-            </div>
+            {coinAnalyze?.word_frequencies &&
+            coinAnalyze?.word_frequencies.length !==0 ? (
+              <>
+                <div className="text-center m-4 rtl">
+                  <span>نمودار ابر کلمات جفت ارز</span>
+                  <span className="px-2 text-[0.8rem] font-bold">
+                    {symbol?.name}
+                  </span>
+                </div>
+                <div className="relative my-3 mx-2">
+                  <WordCloud data={coinAnalyze?.word_frequencies} />
 
-            <div className="relative my-3 mx-2">
-              <WordCloud data={coinAnalyze?.word_frequencies} />
+                  <div className="absolute bottom-0 pt-2 flex flex-row-reverse bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg  border-t-2">
+                    <div className="basis-1/6 self-start">
+                      <div className=" h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
+                        <AiOutlineEdit className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
+                      </div>
+                    </div>
+                    <div className="basis-5/6">
+                      <div className="text-[0.9rem] text-slate-800 pt-1 px-2 text-right">
+                        <span className="font-bold">{symbol?.name}</span>
+                        <span className="pl-1">خلاصه خبرهای</span>
+                      </div>
 
-              <div className="absolute bottom-0 pt-2 flex flex-row-reverse bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg h-[10rem] border-t-2">
+                      <div className="text-[0.7rem] text-slate-800 pt-1 px-2 text-justify rtl">
+                        <p>{coinAnalyze?.response.summaryFa}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="bottom-0 pt-2 flex flex-row-reverse bg-white bg-opacity-50 backdrop-filter backdrop-blur-lg  border-t-2">
                 <div className="basis-1/6 self-start">
                   <div className=" h-[3rem] w-[3rem] mx-auto rounded-[25%] border-2 border-color-theme">
                     <AiOutlineEdit className="h-[2rem] w-[2rem] m-auto mt-1 text-color-theme" />
@@ -385,7 +408,7 @@ function SymbolDashboard() {
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
             <div className="relative my-3">
               <img
@@ -465,39 +488,39 @@ function SymbolDashboard() {
               </div>
             )}
           </>
-        )} */}
+        )}
 
         {/* fundamental */}
 
-        {/* <Based symbol={symbol} /> */}
+        <Based symbol={symbol} />
 
-        {/* <TodaySentiment
+        <TodaySentiment
           symbol={symbol}
           dayClassNameNewScore={dayClassNameNewScore}
           daySignScore={daySignScore}
           dayPercentNewScore={dayPercentNewScore}
           dayStatusScore={dayStatusScore}
-        /> */}
+        />
 
-        {/* <WeekSentiment
+        <WeekSentiment
           symbol={symbol}
           weekClassNameNewScore={weekClassNameNewScore}
           weekSignScore={weekSignScore}
           weekPercentNewScore={weekPercentNewScore}
           weekStatusScore={weekStatusScore}
-        /> */}
+        />
 
-        {/* {symbol?.daily_timeseries && (
+        {symbol?.daily_timeseries && (
           <>
             <MoodTimeSeries data={symbol?.daily_timeseries} />
 
             <NewsTimeSeries data={symbol?.daily_timeseries} />
           </>
-        )} */}
+        )}
 
         {/* latest news */}
 
-        {/* {newsData.length !== 0 && (
+        {newsData.length !== 0 && (
           <>
             <div className="flex">
               <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
@@ -524,7 +547,7 @@ function SymbolDashboard() {
               {loading2 && <Loader2 />}
             </div>
           </>
-        )} */}
+        )}
 
         {/* latest news */}
       </div>
