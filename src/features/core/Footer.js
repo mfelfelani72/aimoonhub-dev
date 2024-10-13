@@ -6,8 +6,10 @@ import { useTranslation } from "react-i18next";
 import { getData } from "../../../utils/helpers/getData.js";
 
 import { SYMBOLS } from "../../app/constant/EndPoints.js";
+import { AUTHORS } from "../../app/constant/EndPoints.js";
 
 import CoinSlider from "../symbol/components/CoinSlider.jsx";
+import AuthorSlider from "../author/components/AuthorSlider.jsx";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -16,6 +18,7 @@ export function Footer() {
   const nav = [{ title: "home", address: "/" }, { title: "end" }];
 
   const [symbolsList, setSymbolsList] = useState([]);
+  const [authorsList, setAuthorsList] = useState([]);
 
   const getSymbolsList = async () => {
     const parameter = {
@@ -35,15 +38,41 @@ export function Footer() {
     }
   };
 
+  const getAuthorsList = async () => {
+    const parameter = {
+      category: "cryptocurrencies",
+      priority: 1,
+    };
+
+    try {
+      getData(AUTHORS, parameter).then((response) => {
+        if (response.data.data) {
+          console.log("Fetch dataAuthorsList done.");
+          console.log(response.data.data);
+          setAuthorsList(response.data.data.author_list);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+
     if (symbolsList.length == 0) getSymbolsList();
-  }, [symbolsList]);
+    if (authorsList.length == 0) getAuthorsList();
+
+  },[authorsList]);
 
   return (
     <>
       <footer className="relative border-t border-color-theme-light dark:border-D-color-theme-light bg-B-bright dark:bg-DT-dim z-10">
         <div className="flex flex-col m-3 p-2 border border-slate-300 rounded-xl">
           <CoinSlider symbolsList={symbolsList} navigate={navigate} nav={nav} />
+        </div>
+
+        <div className="flex flex-col m-3 p-2 border border-slate-300 rounded-xl">
+          <AuthorSlider authorsList={authorsList} navigate={navigate} nav={nav} />
         </div>
 
         <div className="h-16 py-2">
