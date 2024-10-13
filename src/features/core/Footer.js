@@ -48,7 +48,7 @@ export function Footer() {
       getData(AUTHORS, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataAuthorsList done.");
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setAuthorsList(response.data.data.author_list);
         }
       });

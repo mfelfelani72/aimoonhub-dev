@@ -26,7 +26,7 @@ function AuthorSlider(props) {
               <>
                 <div className="flex justify-center">
                   <img
-                    className="h-8 w-8 rounded-full"
+                    className="h-12 w-12 rounded-full"
                     alt={row?.name}
                     src={
                       row?.local_image
@@ -40,7 +40,7 @@ function AuthorSlider(props) {
                     }}
                   />
                 </div>
-                <div className="pt-1 text-center text-[0.7rem] font-bold">
+                <div className="pt-1 text-center text-[0.8rem] font-bold">
                   <a
                     className="cursor-pointer hover:text-color-theme"
                     onClick={(event) =>

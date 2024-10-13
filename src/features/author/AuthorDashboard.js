@@ -21,8 +21,11 @@ const PAGE_NUMBER = 1;
 
 function AuthorDashboard() {
   const location = useLocation();
-  const [author] = useState(location.state.author);
+  const [author, setAuthor] = useState(location.state.author);
   const [nav] = useState(location.state.nav);
+
+  const [loadPage, setLoadPage] = useState(true);
+  const [loadedAllData, setLoadedAllData] = useState(false);
 
   // for day
 
@@ -45,11 +48,10 @@ function AuthorDashboard() {
   const [newsPageLimit, setNewsPageLimit] = useState(5);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 
-  const [newsData, setNewsData] = useState([]);
+  const [newsData, setNewsData] = useState(["free"]);
   const [loading, setLoading] = useState();
 
   const setDayDetailsProgressBar = () => {
-    
     setDayPercentNewScore(
       Math.max(
         author?.last_day_sentiment.negative,
@@ -156,6 +158,7 @@ function AuthorDashboard() {
 
           setNewsPage((prev) => prev + 1);
           setLoading(false);
+          setLoadedAllData(true);
         }
       });
     } catch (error) {
@@ -173,14 +176,27 @@ function AuthorDashboard() {
     getNews();
   }, 100);
 
-  useEffect(() => {
-    if (newsData.length == 0) {
-      getNews();
-    }
+  if (author.name !== location.state.author.name) {
+    setAuthor(location.state.author);
+    setLoadPage(true);
+    setNewsData([]);
+    getNews();
+    setLoadedAllData(false);
+  }
 
-    setDayDetailsProgressBar();
-    setWeekDetailsProgressBar();
-  }, [newsData]);
+  useEffect(() => {
+    if (loadPage) {
+      if (newsData[0] === "free") {
+        getNews();
+        newsData.shift();
+      }
+
+      setDayDetailsProgressBar();
+      setWeekDetailsProgressBar();
+    }
+    setLoadPage(false);
+    
+  });
   return (
     <div className="bg-white m-4 rounded-[1rem]">
       {/* header */}
@@ -295,7 +311,7 @@ function AuthorDashboard() {
 
         {/* statistics */}
 
-        {dayPercentNewScore !== 0 ? (
+        {dayPercentNewScore !== 0 && (
           <>
             <div className="flex">
               <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
@@ -343,11 +359,9 @@ function AuthorDashboard() {
               </div>
             </div>
           </>
-        ) : (
-          ""
         )}
 
-        {weekPercentNewScore !== 0 ? (
+        {weekPercentNewScore !== 0 && (
           <>
             <div className="flex">
               <div className="bg-violet-100 border-y-2 border-violet-200 w-full mt-1 py-1 text-center">
@@ -399,11 +413,9 @@ function AuthorDashboard() {
               </div>
             </div>
           </>
-        ) : (
-          ""
         )}
 
-        {author?.symbols.length && author?.symbols.length !== 0 ? (
+        {loadedAllData && author?.symbols.length && author?.symbols.length !== 0 ? (
           <>
             <div className="flex">
               <div className="bg-blue-100 border-y-2 border-blue-200 w-full mt-1 py-1 text-center">
@@ -432,7 +444,7 @@ function AuthorDashboard() {
         ) : (
           ""
         )}
-        {newsData.length !== 0 ? (
+        {newsData.length !== 0 && (
           <>
             <div className="flex">
               <div className="bg-orange-100 border-y-2 border-orange-200 w-full mt-1 py-1 text-center">
@@ -459,9 +471,7 @@ function AuthorDashboard() {
               {loading && <Loader />}
             </div>
           </>
-        ) : (
-          ""
-        )}
+        ) }
       </div>
     </div>
   );
