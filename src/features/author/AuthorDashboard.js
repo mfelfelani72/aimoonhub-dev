@@ -14,7 +14,7 @@ import { getData } from "../../../utils/helpers/getData";
 import { LATEST_NEWS_AUTHOR } from "../../app/constant/EndPoints";
 
 import { DEFAULT_AVATAR_IMAGE } from "../../app/constant/Defaults.js";
-import ToolTip from "../core/components/ToolTip.jsx";
+import ChartRowSentiment from "../core/components/ChartRowSentiment.jsx";
 
 const lodash = require("lodash");
 const PAGE_NUMBER = 1;
@@ -49,37 +49,38 @@ function AuthorDashboard() {
   const [loading, setLoading] = useState();
 
   const setDayDetailsProgressBar = () => {
+    
     setDayPercentNewScore(
       Math.max(
-        author?.lastDay_sentiment.negative,
-        author?.lastDay_sentiment.neutral,
-        author?.lastDay_sentiment.positive
+        author?.last_day_sentiment.negative,
+        author?.last_day_sentiment.neutral,
+        author?.last_day_sentiment.positive
       )
     );
     if (
-      author?.lastDay_sentiment.negative == 0 &&
-      author?.lastDay_sentiment.neutral == 0 &&
-      author?.lastDay_sentiment.positive == 0
+      author?.last_day_sentiment.negative == 0 &&
+      author?.last_day_sentiment.neutral == 0 &&
+      author?.last_day_sentiment.positive == 0
     ) {
       setDayClassNameNewScore("text-center font-bold ");
       setDayStatusScore("");
       setDaySignScore("");
     } else if (
       Math.max(
-        author?.lastDay_sentiment.negative,
-        author?.lastDay_sentiment.neutral,
-        author?.lastDay_sentiment.positive
-      ) === author?.lastDay_sentiment.negative
+        author?.last_day_sentiment.negative,
+        author?.last_day_sentiment.neutral,
+        author?.last_day_sentiment.positive
+      ) === author?.last_day_sentiment.negative
     ) {
       setDayClassNameNewScore("text-center font-bold text-rose-300");
       setDayStatusScore("Negative");
       setDaySignScore("-");
     } else if (
       Math.max(
-        author?.lastDay_sentiment.negative,
-        author?.lastDay_sentiment.neutral,
-        author?.lastDay_sentiment.positive
-      ) === author?.lastDay_sentiment.neutral
+        author?.last_day_sentiment.negative,
+        author?.last_day_sentiment.neutral,
+        author?.last_day_sentiment.positive
+      ) === author?.last_day_sentiment.neutral
     ) {
       setDayClassNameNewScore("text-center font-bold text-slate-300");
       setDayStatusScore("Neutral");
@@ -94,35 +95,35 @@ function AuthorDashboard() {
   const setWeekDetailsProgressBar = () => {
     setWeekPercentNewScore(
       Math.max(
-        author?.lastWeek_sentiment.negative,
-        author?.lastWeek_sentiment.neutral,
-        author?.lastWeek_sentiment.positive
+        author?.last_week_sentiment.negative,
+        author?.last_week_sentiment.neutral,
+        author?.last_week_sentiment.positive
       )
     );
     if (
-      author?.lastWeek_sentiment.negative == 0 &&
-      author?.lastWeek_sentiment.neutral == 0 &&
-      author?.lastWeek_sentiment.positive == 0
+      author?.last_week_sentiment.negative == 0 &&
+      author?.last_week_sentiment.neutral == 0 &&
+      author?.last_week_sentiment.positive == 0
     ) {
       setWeekClassNameNewScore("text-center font-bold ");
       setWeekStatusScore("");
       setWeekSignScore("");
     } else if (
       Math.max(
-        author?.lastWeek_sentiment.negative,
-        author?.lastWeek_sentiment.neutral,
-        author?.lastWeek_sentiment.positive
-      ) === author?.lastWeek_sentiment.negative
+        author?.last_week_sentiment.negative,
+        author?.last_week_sentiment.neutral,
+        author?.last_week_sentiment.positive
+      ) === author?.last_week_sentiment.negative
     ) {
       setWeekClassNameNewScore("text-center font-bold text-rose-300");
       setWeekStatusScore("Negative");
       setWeekSignScore("-");
     } else if (
       Math.max(
-        author?.lastWeek_sentiment.negative,
-        author?.lastWeek_sentiment.neutral,
-        author?.lastWeek_sentiment.positive
-      ) === author?.lastWeek_sentiment.neutral
+        author?.last_week_sentiment.negative,
+        author?.last_week_sentiment.neutral,
+        author?.last_week_sentiment.positive
+      ) === author?.last_week_sentiment.neutral
     ) {
       setWeekClassNameNewScore("text-center font-bold text-slate-300");
       setWeekStatusScore("Neutral");
@@ -307,56 +308,12 @@ function AuthorDashboard() {
                 <div className="text-center py-2">
                   <span>نمودار سنتیمنت</span>
                 </div>
-                <div className="flex w-ful justify-center mx-2 border-2">
-                  <div
-                    style={{
-                      width: `${author?.lastDay_sentiment.positive * 100}%`,
-                    }}
-                    className="bg-lime-300 h-6"
-                  >
-                    <ToolTip
-                      text={`Positive ${
-                        author?.lastDay_sentiment.positive * 100
-                      }%`}
-                    >
-                      <span className="text-lime-300">p</span>
-                    </ToolTip>
-                  </div>
-                  <div
-                    style={{
-                      width: `${author?.lastDay_sentiment.negative * 100}%`,
-                    }}
-                    className="bg-rose-300"
-                  >
-                    {" "}
-                    <ToolTip
-                      text={`Negative ${
-                        author?.lastDay_sentiment.negative * 100
-                      }%`}
-                    >
-                      <span className="text-rose-300">n</span>
-                    </ToolTip>
-                  </div>
-                  <div
-                    style={{
-                      width: `${author?.lastDay_sentiment.neutral * 100}%`,
-                    }}
-                    className="bg-slate-300"
-                  >
-                    {" "}
-                    <ToolTip
-                      text={`Neutral ${
-                        author?.lastDay_sentiment.neutral * 100
-                      }%`}
-                    >
-                      <span className="text-slate-300">n</span>
-                    </ToolTip>
-                  </div>
-                </div>
-                <div className={dayClassNameNewScore}>
-                  {daySignScore}
-                  {Math.round(dayPercentNewScore * 100)}%
-                </div>
+                <ChartRowSentiment
+                  sentiment={author?.last_day_sentiment}
+                  classNameNewScore={dayClassNameNewScore}
+                  signScore={daySignScore}
+                  percentNewScore={dayPercentNewScore}
+                />
               </div>
               <div className="basis-1/2 p-2 justify-center text-center">
                 <div className="flex text-md justify-center">
@@ -405,54 +362,12 @@ function AuthorDashboard() {
                 <div className="text-center py-2">
                   <span>نمودار سنتیمنت</span>
                 </div>
-                <div className="flex w-ful justify-center mx-2 border-2">
-                  <div
-                    style={{
-                      width: `${author?.lastWeek_sentiment.positive * 100}%`,
-                    }}
-                    className="bg-lime-300 h-6"
-                  >
-                    <ToolTip
-                      text={`Positive ${
-                        author?.lastWeek_sentiment.positive * 100
-                      }%`}
-                    >
-                      <span className="text-lime-300">p</span>
-                    </ToolTip>
-                  </div>
-                  <div
-                    style={{
-                      width: `${author?.lastWeek_sentiment.negative * 100}%`,
-                    }}
-                    className="bg-rose-300"
-                  >
-                    <ToolTip
-                      text={`Negative ${
-                        author?.lastWeek_sentiment.negative * 100
-                      }%`}
-                    >
-                      <span className="text-rose-300">n</span>
-                    </ToolTip>
-                  </div>
-                  <div
-                    style={{
-                      width: `${author?.lastWeek_sentiment.neutral * 100}%`,
-                    }}
-                    className="bg-slate-300"
-                  >
-                    <ToolTip
-                      text={`Neutral ${
-                        author?.lastWeek_sentiment.neutral * 100
-                      }%`}
-                    >
-                      <span className="text-slate-300">n</span>
-                    </ToolTip>
-                  </div>
-                </div>
-                <div className={weekClassNameNewScore}>
-                  {weekSignScore}
-                  {Math.round(weekPercentNewScore * 100)}%
-                </div>
+                <ChartRowSentiment
+                  sentiment={author?.last_week_sentiment}
+                  classNameNewScore={weekClassNameNewScore}
+                  signScore={weekSignScore}
+                  percentNewScore={weekPercentNewScore}
+                />
               </div>
               <div className="basis-1/2 p-2 justify-center text-center">
                 <div className="flex text-md justify-center">

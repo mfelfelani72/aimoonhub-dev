@@ -6,6 +6,7 @@ import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
 
 import BarChart from "../core/components/BarChart.jsx";
+import ChartRowSentiment from "../core/components/ChartRowSentiment.jsx"
 import Button from "../core/components/Button.jsx";
 import CardRow from "./components/CardRow.jsx";
 import Loader from "../core/components/Loader.jsx";
@@ -18,7 +19,6 @@ import { LATEST_NEWS_PROVIDER } from "../../app/constant/EndPoints";
 
 import { DEFAULT_PROVIDER_IMAGE } from "./../../app/constant/Defaults.js";
 import { DEFAULT_AVATAR_IMAGE } from "./../../app/constant/Defaults.js";
-import ToolTip from "../core/components/ToolTip.jsx";
 
 const lodash = require("lodash");
 const PAGE_NUMBER = 1;
@@ -57,36 +57,36 @@ function ProviderDashboard() {
   const setDayDetailsProgressBar = () => {
     setDayPercentNewScore(
       Math.max(
-        provider?.lastDay_sentiment.negative,
-        provider?.lastDay_sentiment.neutral,
-        provider?.lastDay_sentiment.positive
+        provider?.last_day_sentiment.negative,
+        provider?.last_day_sentiment.neutral,
+        provider?.last_day_sentiment.positive
       )
     );
     console.log();
     if (
-      provider?.lastDay_sentiment.negative == 0 &&
-      provider?.lastDay_sentiment.neutral == 0 &&
-      provider?.lastDay_sentiment.positive == 0
+      provider?.last_day_sentiment.negative == 0 &&
+      provider?.last_day_sentiment.neutral == 0 &&
+      provider?.last_day_sentiment.positive == 0
     ) {
       setDayClassNameNewScore("text-center font-bold ");
       setDayStatusScore("");
       setDaySignScore("");
     } else if (
       Math.max(
-        provider?.lastDay_sentiment.negative,
-        provider?.lastDay_sentiment.neutral,
-        provider?.lastDay_sentiment.positive
-      ) === provider?.lastDay_sentiment.negative
+        provider?.last_day_sentiment.negative,
+        provider?.last_day_sentiment.neutral,
+        provider?.last_day_sentiment.positive
+      ) === provider?.last_day_sentiment.negative
     ) {
       setDayClassNameNewScore("text-center font-bold text-rose-300");
       setDayStatusScore("Negative");
       setDaySignScore("-");
     } else if (
       Math.max(
-        provider?.lastDay_sentiment.negative,
-        provider?.lastDay_sentiment.neutral,
-        provider?.lastDay_sentiment.positive
-      ) === provider?.lastDay_sentiment.neutral
+        provider?.last_day_sentiment.negative,
+        provider?.last_day_sentiment.neutral,
+        provider?.last_day_sentiment.positive
+      ) === provider?.last_day_sentiment.neutral
     ) {
       setDayClassNameNewScore("text-center font-bold text-slate-300");
       setDayStatusScore("Neutral");
@@ -101,35 +101,35 @@ function ProviderDashboard() {
   const setWeekDetailsProgressBar = () => {
     setWeekPercentNewScore(
       Math.max(
-        provider?.lastWeek_sentiment.negative,
-        provider?.lastWeek_sentiment.neutral,
-        provider?.lastWeek_sentiment.positive
+        provider?.last_week_sentiment.negative,
+        provider?.last_week_sentiment.neutral,
+        provider?.last_week_sentiment.positive
       )
     );
     if (
-      provider?.lastWeek_sentiment.negative == 0 &&
-      provider?.lastWeek_sentiment.neutral == 0 &&
-      provider?.lastWeek_sentiment.positive == 0
+      provider?.last_week_sentiment.negative == 0 &&
+      provider?.last_week_sentiment.neutral == 0 &&
+      provider?.last_week_sentiment.positive == 0
     ) {
       setWeekClassNameNewScore("text-center font-bold ");
       setWeekStatusScore("");
       setWeekSignScore("");
     } else if (
       Math.max(
-        provider?.lastWeek_sentiment.negative,
-        provider?.lastWeek_sentiment.neutral,
-        provider?.lastWeek_sentiment.positive
-      ) === provider?.lastWeek_sentiment.negative
+        provider?.last_week_sentiment.negative,
+        provider?.last_week_sentiment.neutral,
+        provider?.last_week_sentiment.positive
+      ) === provider?.last_week_sentiment.negative
     ) {
       setWeekClassNameNewScore("text-center font-bold text-rose-300");
       setWeekStatusScore("Negative");
       setWeekSignScore("-");
     } else if (
       Math.max(
-        provider?.lastWeek_sentiment.negative,
-        provider?.lastWeek_sentiment.neutral,
-        provider?.lastWeek_sentiment.positive
-      ) === provider?.lastWeek_sentiment.neutral
+        provider?.last_week_sentiment.negative,
+        provider?.last_week_sentiment.neutral,
+        provider?.last_week_sentiment.positive
+      ) === provider?.last_week_sentiment.neutral
     ) {
       setWeekClassNameNewScore("text-center font-bold text-slate-300");
       setWeekStatusScore("Neutral");
@@ -365,55 +365,12 @@ function ProviderDashboard() {
                 <div className="text-center py-2">
                   <span>نمودار سنتیمنت</span>
                 </div>
-                <div className="flex w-ful justify-center mx-2 border-2">
-                  <div
-                    style={{
-                      width: `${provider?.lastDay_sentiment.positive * 100}%`,
-                    }}
-                    className="bg-lime-300 h-6"
-                  >
-                    <ToolTip
-                      text={`Positive ${
-                        provider?.lastDay_sentiment.positive * 100
-                      }%`}
-                    >
-                      <span className="text-lime-300">p</span>
-                    </ToolTip>
-                  </div>
-                  <div
-                    style={{
-                      width: `${provider?.lastDay_sentiment.negative * 100}%`,
-                    }}
-                    className="bg-rose-300"
-                  >
-                    {" "}
-                    <ToolTip
-                      text={`Negative ${
-                        provider?.lastDay_sentiment.negative * 100
-                      }%`}
-                    >
-                      <span className="text-rose-300">n</span>
-                    </ToolTip>
-                  </div>
-                  <div
-                    style={{
-                      width: `${provider?.lastDay_sentiment.neutral * 100}%`,
-                    }}
-                    className="bg-slate-300"
-                  >
-                    <ToolTip
-                      text={`Neutral ${
-                        provider?.lastDay_sentiment.neutral * 100
-                      }%`}
-                    >
-                      <span className="text-slate-300">n</span>
-                    </ToolTip>
-                  </div>
-                </div>
-                <div className={dayClassNameNewScore}>
-                  {daySignScore}
-                  {Math.round(dayPercentNewScore * 100)}%
-                </div>
+                <ChartRowSentiment
+                  sentiment={provider?.last_day_sentiment}
+                  classNameNewScore={dayClassNameNewScore}
+                  signScore={daySignScore}
+                  percentNewScore={dayPercentNewScore}
+                />
               </div>
               <div className="basis-1/2 p-2 justify-center text-center">
                 <div className="flex text-md justify-center">
@@ -462,57 +419,12 @@ function ProviderDashboard() {
                 <div className="text-center py-2">
                   <span>نمودار سنتیمنت</span>
                 </div>
-                <div className="flex w-ful justify-center mx-2 border-2">
-                  <div
-                    style={{
-                      width: `${provider?.lastWeek_sentiment.positive * 100}%`,
-                    }}
-                    className="bg-lime-300 h-6"
-                  >
-                    {" "}
-                    <ToolTip
-                      text={`Positive ${
-                        provider?.lastWeek_sentiment.positive * 100
-                      }%`}
-                    >
-                      <span className="text-lime-300">p</span>
-                    </ToolTip>
-                  </div>
-                  <div
-                    style={{
-                      width: `${provider?.lastWeek_sentiment.negative * 100}%`,
-                    }}
-                    className="bg-rose-300"
-                  >
-                    {" "}
-                    <ToolTip
-                      text={`Negative ${
-                        provider?.lastWeek_sentiment.negative * 100
-                      }%`}
-                    >
-                      <span className="text-rose-300">n</span>
-                    </ToolTip>
-                  </div>
-                  <div
-                    style={{
-                      width: `${provider?.lastWeek_sentiment.neutral * 100}%`,
-                    }}
-                    className="bg-slate-300"
-                  >
-                    {" "}
-                    <ToolTip
-                      text={`Neutral ${
-                        provider?.lastWeek_sentiment.neutral * 100
-                      }%`}
-                    >
-                      <span className="text-slate-300">n</span>
-                    </ToolTip>
-                  </div>
-                </div>
-                <div className={weekClassNameNewScore}>
-                  {weekSignScore}
-                  {Math.round(weekPercentNewScore * 100)}%
-                </div>
+                <ChartRowSentiment
+                  sentiment={provider?.last_week_sentiment}
+                  classNameNewScore={weekClassNameNewScore}
+                  signScore={weekSignScore}
+                  percentNewScore={weekPercentNewScore}
+                />
               </div>
               <div className="basis-1/2 p-2 justify-center text-center">
                 <div className="flex text-md justify-center">

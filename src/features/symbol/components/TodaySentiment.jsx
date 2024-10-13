@@ -3,10 +3,9 @@ import React from "react";
 import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
 
-import ToolTip from "../../core/components/ToolTip.jsx";
+import ChartRowSentiment from "../../core/components/ChartRowSentiment.jsx";
 
 function TodaySentiment(props) {
-    
   return (
     <>
       {props?.dayPercentNewScore !== 0 && props?.symbol.latest_news_info ? (
@@ -25,61 +24,13 @@ function TodaySentiment(props) {
               <div className="text-center py-2">
                 <span>نمودار سنتیمنت</span>
               </div>
-              <div className="flex w-ful justify-center mx-2 border-2">
-                <div
-                  style={{
-                    width: `${
-                      props?.symbol.latest_news_info.last_day_sentiment.positive * 100
-                    }%`,
-                  }}
-                  className="bg-lime-300 h-6"
-                >
-                  <ToolTip
-                    text={`Positive ${
-                      props?.symbol.latest_news_info.last_day_sentiment.positive * 100
-                    }%`}
-                  >
-                    <span className="text-lime-300">p</span>
-                  </ToolTip>
-                </div>
-                <div
-                  style={{
-                    width: `${
-                      props?.symbol.latest_news_info.last_day_sentiment.negative * 100
-                    }%`,
-                  }}
-                  className="bg-rose-300"
-                >
-                  <ToolTip
-                    text={`Negative ${
-                      props?.symbol.latest_news_info.last_day_sentiment.negative * 100
-                    }%`}
-                  >
-                    <span className="text-rose-300">n</span>
-                  </ToolTip>
-                </div>
-
-                <div
-                  style={{
-                    width: `${
-                      props?.symbol.latest_news_info.last_day_sentiment.neutral * 100
-                    }%`,
-                  }}
-                  className="bg-slate-300"
-                >
-                  <ToolTip
-                    text={`Neutral ${
-                      props?.symbol.latest_news_info.last_day_sentiment.neutral * 100
-                    }%`}
-                  >
-                    <span className="text-slate-300">n</span>
-                  </ToolTip>
-                </div>
-              </div>
-              <div className={props?.dayClassNameNewScore}>
-                {props?.daySignScore}
-                {Math.round(props?.dayPercentNewScore * 100)}%
-              </div>
+            
+              <ChartRowSentiment
+                sentiment={props?.symbol.latest_news_info.last_day_sentiment}
+                classNameNewScore={props?.dayClassNameNewScore}
+                signScore={props?.daySignScore}
+                percentNewScore={props?.dayPercentNewScore}
+              />
             </div>
             <div className="basis-1/2 p-2 justify-center text-center">
               <div className="flex text-md justify-center">
@@ -104,7 +55,9 @@ function TodaySentiment(props) {
                 </span>
               </div>
               <div className="text-lg">
-                <span className={props?.dayClassNameNewScore}>{props?.dayStatusScore}</span>
+                <span className={props?.dayClassNameNewScore}>
+                  {props?.dayStatusScore}
+                </span>
               </div>
             </div>
           </div>
