@@ -87,24 +87,28 @@ const latestNews = () => {
   }, [newsData]);
 
   return (
-    <div className="flex flex-row bg-white m-4 rounded-[1rem]">
-      <div className="w-full">
-        <h2 className="p-2">{t("l_cryptocurrency_n")}</h2>
-        {newsData.map((row, index) => (
-          <CardRow row={row} key={index} nav={nav} />
-        ))}
-        <div className="ltr:text-right rtl:text-left">
-          <Button
-            onClick={() => handleGetNews()}
-            className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
-          >
-            {t("more_ln")}
-          </Button>
-        </div>
+    <>
+      {newsData && (
+        <div className="flex flex-row bg-white m-4 rounded-[1rem]">
+          <div className="w-full">
+            <h2 className="p-2">{t("l_cryptocurrency_n")}</h2>
+            {newsData.map((row, index) => (
+              <CardRow row={row} key={index} nav={nav} />
+            ))}
+            <div className="ltr:text-right rtl:text-left">
+              <Button
+                onClick={() => handleGetNews()}
+                className="m-3 bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme"
+              >
+                {t("more_ln")}
+              </Button>
+            </div>
 
-        {loading && <Loader />}
-      </div>
-    </div>
+            {loading && <Loader />}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

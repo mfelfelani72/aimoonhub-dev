@@ -14,7 +14,7 @@ function Landing() {
       {/* <Login /> */}
       {/* <LatestAimoonNew /> */}
       {/* <LatestNews /> */}
-      <SymbolAnalysis />
+      {/* <SymbolAnalysis /> */}
       {/* <AuthorAnalysis /> */}
       {/* <ProviderAnalysis /> */}
     </>

@@ -46,7 +46,7 @@ const LatestAimoonNew = () => {
 
     try {
       getData(LATEST_NEWS, parameter).then((response) => {
-        console.log(response.data.return);
+        // console.log(response.data.return);
         if (response.data.return && response.data.data.result) {
           console.log("Fetch dataLlm done.");
           // console.log(response.data.data.result);
