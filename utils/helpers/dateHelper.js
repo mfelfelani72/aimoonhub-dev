@@ -57,13 +57,20 @@ export function dateHelper(
     let stringTime = "";
 
     if (diffInDays !== 0 && diffInDays < 2) stringTime += diffInDays + " Day ";
-    else if (diffInDays !== 0 && diffInDays > 1) stringTime += diffInDays + " Days ";
-    if (diffInHours !== 0 && diffInHours < 2) stringTime += diffInHours + " Hour ";
-    else if (diffInHours !== 0 && diffInHours > 1) stringTime += diffInHours + " Hours ";
-    if (diffInMinutes !== 0 && diffInMinutes < 2) stringTime += diffInMinutes + " Minute ";
-    else if (diffInMinutes !== 0 && diffInMinutes > 1) stringTime += diffInMinutes + " Minutes ";
+    else if (diffInDays !== 0 && diffInDays > 1)
+      stringTime += diffInDays + " Days ";
+    if (diffInHours !== 0 && diffInHours < 2)
+      stringTime += diffInHours + " Hour ";
+    else if (diffInHours !== 0 && diffInHours > 1)
+      stringTime += diffInHours + " Hours ";
+    if (diffInMinutes !== 0 && diffInMinutes < 2)
+      stringTime += diffInMinutes + " Minute ";
+    else if (diffInMinutes !== 0 && diffInMinutes > 1)
+      stringTime += diffInMinutes + " Minutes ";
 
-
+    if (diffInDays == 0 && diffInHours == 0 && diffInMinutes == 0)
+      result = stringTime + "Exactly Now";
+    else
     result = stringTime + " ago";
   }
 

@@ -19,7 +19,7 @@ const CardRow = (props) => {
     <div className="flex flex-row p-2 border-b border-color-theme-light dark:border-D-color-theme-light">
       {/* image */}
       <div className="w-[8rem] h-[6rem]">
-        <a href={props.row.link} target="_blank">
+        <a href={`${props.row.link}`} target="_blank">
           <img
             className="w-full !h-full transition duration-300 ease-in-out hover:scale-110 rounded-2xl rounded-bl-none"
             alt={props?.row.title}
@@ -42,7 +42,7 @@ const CardRow = (props) => {
         {/* title */}
         <div className="rtl:ltr px-2 text-sm">
           <a
-            href={props.row.link}
+            href={`${props.row.link}`}
             target="_blank"
             className="text-color-theme dark:text-D-color-theme"
           >

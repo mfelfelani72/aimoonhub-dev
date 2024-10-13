@@ -28,7 +28,7 @@ import { COIN_ANALYZE } from "../../app/constant/EndPoints";
 import { COIN_LLM_RESPONSE } from "../../app/constant/EndPoints";
 
 import WordCloud from "react-d3-cloud";
-import ToolTip from "../core/components/ToolTip.jsx";
+
 import Info from "./components/Info.jsx";
 import Based from "./components/Based.jsx";
 import TodaySentiment from "./components/TodaySentiment.jsx";
@@ -45,7 +45,7 @@ function SymbolDashboard() {
 
   const [loadPage, setLoadPage] = useState(true);
 
-  const [newsData, setNewsData] = useState([]);
+  const [newsData, setNewsData] = useState(["free"]);
   const [coinAnalyze, setCoinAnalyze] = useState();
 
   const [loading, setLoading] = useState();
@@ -298,18 +298,20 @@ function SymbolDashboard() {
     document.getElementById("root").scrollIntoView({ behavior: "smooth" });
   };
 
-
   if (symbol.name !== location.state.symbol.name) {
     setSymbol(location.state.symbol);
     setLoadPage(true);
     setNewsData([]);
+    setCoinAnalyze()
     getNews();
   }
 
   useEffect(() => {
     if (loadPage) {
-      if (newsData.length == 0 || loadPage) {
+      // console.log(newsData)
+      if (newsData[0] === "free") {
         getNews();
+        newsData.shift();
       }
 
       if (!coinAnalyze || loadPage) {
@@ -321,7 +323,7 @@ function SymbolDashboard() {
     }
 
     setLoadPage(false);
-  }, []);
+  });
   return (
     <div className="relative bg-white m-4 rounded-[1rem] pb-2">
       {/* header */}
@@ -360,7 +362,7 @@ function SymbolDashboard() {
             </div>
 
             {coinAnalyze?.word_frequencies &&
-            coinAnalyze?.word_frequencies.length !==0 ? (
+            coinAnalyze?.word_frequencies.length !== 0 ? (
               <>
                 <div className="text-center m-4 rtl">
                   <span>نمودار ابر کلمات جفت ارز</span>
