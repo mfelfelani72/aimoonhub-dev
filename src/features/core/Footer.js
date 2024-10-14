@@ -91,22 +91,22 @@ export function Footer() {
         <div className="flex flex-col m-3 p-2 border border-slate-300 rounded-xl">
           <CoinSlider symbolsList={symbolsList} navigate={navigate} nav={nav} />
         </div>
-
+        {/* 
         <div className="flex flex-col m-3 p-2 border border-slate-300 rounded-xl">
           <AuthorSlider
             authorsList={authorsList}
             navigate={navigate}
             nav={nav}
           />
-        </div>
+        </div> */}
 
-        <div className="flex flex-col m-3 p-2 border border-slate-300 rounded-xl">
+        {/* <div className="flex flex-col m-3 p-2 border border-slate-300 rounded-xl">
           <ProviderSlider
             providersList={providersList}
             navigate={navigate}
             nav={nav}
           />
-        </div>
+        </div> */}
 
         <div className="h-16 py-2">
           <div className="text-sm/6  text-center flex-col ltr">

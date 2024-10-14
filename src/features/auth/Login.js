@@ -23,7 +23,7 @@ function Login() {
   };
 
   useEffect(() => {
-    serviceLogin();
+    // serviceLogin();
   }, []);
   return <div>Login</div>;
 }

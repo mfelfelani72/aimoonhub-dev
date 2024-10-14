@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -16,10 +16,11 @@ function CoinSlider(props) {
     <>
       <div className="flex flex-row">
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation, Autoplay]}
           spaceBetween={1}
           slidesPerView={4}
           navigation
+          autoplay={{ delay: 1000 }}
         >
           {props?.symbolsList.map((row, index) => (
             <SwiperSlide key={index}>

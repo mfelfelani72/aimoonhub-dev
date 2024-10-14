@@ -17,7 +17,7 @@ function SymbolAnalysis() {
 
   const [symbols, setSymbols] = useState([]);
 
-  const [priority, setPriority] = useState(1);
+  const [priority, setPriority] = useState(2);
 
   const getSymbols = async () => {
     const parameter = {
