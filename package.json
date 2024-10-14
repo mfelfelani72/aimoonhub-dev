@@ -12,6 +12,7 @@
   "author": "mohammad felfelani",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.9",
     "axios": "^1.7.4",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",

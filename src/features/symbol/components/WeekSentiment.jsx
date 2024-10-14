@@ -3,7 +3,6 @@ import React from "react";
 import { AiOutlineFrown } from "react-icons/ai";
 import { AiOutlineSmile } from "react-icons/ai";
 
-
 import ChartRowSentiment from "../../core/components/ChartRowSentiment.jsx";
 
 function WeekSentiment(props) {
@@ -11,11 +10,10 @@ function WeekSentiment(props) {
     <>
       {props?.weekPercentNewScore !== 0 && props?.symbol.latest_news_info ? (
         <>
-          <div className="flex mt-2">
-            <div className="bg-cyan-200 border-y-2 border-cyan-400 w-full mt-1 py-1 text-center">
-              <span className="text-cyan-700">
-                Today <span className="font-bold">{props?.symbol.name}</span>{" "}
-                Sentiment
+          <div className="flex">
+            <div className="bg-violet-100 border-y-2 border-violet-200 w-full mt-1 py-1 text-center">
+              <span className="text-violet-500">
+                This Week Provider Sentiment
               </span>
             </div>
           </div>

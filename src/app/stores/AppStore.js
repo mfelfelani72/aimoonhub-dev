@@ -18,7 +18,7 @@ function configureLang(id, dir) {
 const useAppStore = create((set) => ({
   //    splashScreen
 
-  splashScreen: true,
+  splashScreen: false,
   setSplashScreen: (splashScreen) => set({ splashScreen: splashScreen }),
 
   //    splashScreen

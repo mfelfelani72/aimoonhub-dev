@@ -117,7 +117,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [addVariablesForColors, require("daisyui")],
+  plugins: [addVariablesForColors, require("daisyui"),require("@tailwindcss/forms"),],
 }
 
 function addVariablesForColors({ addBase, theme }) {
@@ -129,4 +129,4 @@ function addVariablesForColors({ addBase, theme }) {
   addBase({
     ":root": newVars,
   });
-}
+} 
