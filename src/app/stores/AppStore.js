@@ -49,6 +49,13 @@ const useAppStore = create((set) => ({
   setUserLocation: (userLocation) => set({ userLocation: userLocation }),
 
   //    UserLocation
+
+  // user: [{username:sessionStorage.getItem("token")}],
+  user: {
+    username: sessionStorage.getItem("username"),
+    email: sessionStorage.getItem("email"),
+  },
+  setUser: (user) => set({ user: user }),
 }));
 
 export default useAppStore;

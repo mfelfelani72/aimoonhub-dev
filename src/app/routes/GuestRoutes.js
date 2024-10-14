@@ -24,7 +24,8 @@ const GuestRoutes = () => {
 
         <Routes>
 
-<           Route path="/login" element={<Suspense fallback={<div>Loading...</div>}><LazyLogin /> </Suspense>}></Route>
+
+            <Route path="/login" element={<Suspense fallback={<div>Loading...</div>}><LazyLogin /> </Suspense>}></Route>
 
             {/* <Route path="/" element={<Suspense fallback={<LandingSkeleton />}><LazyLanding /> </Suspense>}></Route> */}
             <Route path="/" element={<Suspense fallback={<div>Loading...</div>}><LazyLanding /> </Suspense>}></Route>

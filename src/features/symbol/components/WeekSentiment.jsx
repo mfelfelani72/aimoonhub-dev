@@ -13,7 +13,7 @@ function WeekSentiment(props) {
           <div className="flex">
             <div className="bg-violet-100 border-y-2 border-violet-200 w-full mt-1 py-1 text-center">
               <span className="text-violet-500">
-                This Week Provider Sentiment
+                This Week <span className="font-bold">{props?.symbol.name}</span>{" "} Sentiment
               </span>
             </div>
           </div>

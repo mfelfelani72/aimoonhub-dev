@@ -350,7 +350,7 @@ function ProviderDashboard() {
 
             <div className="flex mt-2">
               <div className="bg-indigo-200 border-y-2 border-indigo-400 w-full mt-1 py-1 text-center">
-                <span className="text-indigo-700">Provider Statistics</span>
+                <span className="text-indigo-700"><span className="font-bold">{provider?.name}</span>{" "} Statistics</span>
               </div>
             </div>
 
@@ -395,7 +395,7 @@ function ProviderDashboard() {
                 <div className="flex">
                   <div className="bg-violet-200 border-y-2 border-violet-400 w-full mt-1 py-1 text-center">
                     <span className="text-violet-700">
-                      Today Provider Sentiment
+                      Today <span className="font-bold">{provider?.name}</span>{" "} Sentiment
                     </span>
                   </div>
                 </div>
@@ -451,7 +451,7 @@ function ProviderDashboard() {
                 <div className="flex">
                   <div className="bg-violet-100 border-y-2 border-violet-200 w-full mt-1 py-1 text-center">
                     <span className="text-violet-500">
-                      This Week Provider Sentiment
+                      This Week <span className="font-bold">{provider?.name}</span>{" "} Sentiment
                     </span>
                   </div>
                 </div>
@@ -507,7 +507,7 @@ function ProviderDashboard() {
                 <div className="flex">
                   <div className="bg-blue-100 border-y-2 border-blue-200 w-full mt-1 py-1 text-center">
                     <span className="text-blue-500">
-                      Provider News Distribution Per Coins
+                    <span className="font-bold">{provider?.name}</span>{" "} News Distribution Per Coins
                     </span>
                   </div>
                 </div>
