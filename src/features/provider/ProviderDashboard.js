@@ -1,6 +1,6 @@
 // wrote by mohammad felfelani
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 // { out modules
 
@@ -44,6 +44,7 @@ function ProviderDashboard() {
   // for initial page
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [provider, setProvider] = useState(location.state.provider);
   const [nav] = useState(location.state.nav);
