@@ -1,0 +1,80 @@
+import React from "react";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+
+import { DEFAULT_PROVIDER_IMAGE } from "../../../app/constant/Defaults.js";
+
+import Button from "../../core/components/Button.jsx";
+
+import { goToProviderDashboard } from "../../../../utils/lib/provider/goToProviderDashboard.js";
+
+function ProviderSlider(props) {
+  return (
+    <>
+      <div className="flex flex-row">
+        <Swiper
+          modules={[Navigation]}
+          spaceBetween={1}
+          slidesPerView={4}
+          navigation
+        >
+          {props?.providersList.map((row, index) => (
+            <SwiperSlide key={index}>
+              <>
+                <div className="flex justify-center">
+                  <img
+                    className="h-12 w-12 rounded-full"
+                    alt={row?.name}
+                    src={
+                      row?.local_image
+                        ? row?.local_image
+                        : row?.picUrl
+                        ? row?.picUrl
+                        : DEFAULT_PROVIDER_IMAGE
+                    }
+                    onError={(e) => {
+                      e.target.src = DEFAULT_PROVIDER_IMAGE;
+                    }}
+                  />
+                </div>
+                <div className="pt-1 text-center text-[0.8rem] font-bold">
+                  <a
+                    className="cursor-pointer hover:text-color-theme"
+                    onClick={(event) =>
+                      goToProviderDashboard(
+                        props?.navigate,
+                        event,
+                        row?.name,
+                        props?.nav
+                      )
+                    }
+                  >
+                    {row?.name}
+                  </a>
+                </div>
+              </>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div className="mt-4">
+        <Button
+          className="bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme text-[0.8rem] px-3"
+          onClick={(event) => {
+            event.preventDefault();
+            props?.navigate("/providers-list", {
+              state: { nav: props?.nav },
+            });
+          }}
+        >
+          Providers List
+        </Button>
+      </div>
+    </>
+  );
+}
+
+export default ProviderSlider;

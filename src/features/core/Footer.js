@@ -7,9 +7,11 @@ import { getData } from "../../../utils/helpers/getData.js";
 
 import { SYMBOLS } from "../../app/constant/EndPoints.js";
 import { AUTHORS } from "../../app/constant/EndPoints.js";
+import { PROVIDERS } from "../../app/constant/EndPoints.js";
 
 import CoinSlider from "../symbol/components/CoinSlider.jsx";
 import AuthorSlider from "../author/components/AuthorSlider.jsx";
+import ProviderSlider from "../provider/components/ProviderSlider.jsx";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -19,6 +21,7 @@ export function Footer() {
 
   const [symbolsList, setSymbolsList] = useState([]);
   const [authorsList, setAuthorsList] = useState([]);
+  const [providersList, setProvidersList] = useState([]);
 
   const getSymbolsList = async () => {
     const parameter = {
@@ -57,12 +60,30 @@ export function Footer() {
     }
   };
 
-  useEffect(() => {
+  const getProvidersList = async () => {
+    const parameter = {
+      category: "cryptocurrencies",
+      priority: 2,
+    };
 
+    try {
+      getData(PROVIDERS, parameter).then((response) => {
+        if (response.data.data) {
+          console.log("Fetch dataProvidersList done.");
+          // console.log(response.data.data.provider_list)
+          setProvidersList(response.data.data.provider_list);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     if (symbolsList.length == 0) getSymbolsList();
     if (authorsList.length == 0) getAuthorsList();
-
-  },[authorsList]);
+    if (providersList.length == 0) getProvidersList();
+  }, [providersList]);
 
   return (
     <>
@@ -72,7 +93,19 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col m-3 p-2 border border-slate-300 rounded-xl">
-          <AuthorSlider authorsList={authorsList} navigate={navigate} nav={nav} />
+          <AuthorSlider
+            authorsList={authorsList}
+            navigate={navigate}
+            nav={nav}
+          />
+        </div>
+
+        <div className="flex flex-col m-3 p-2 border border-slate-300 rounded-xl">
+          <ProviderSlider
+            providersList={providersList}
+            navigate={navigate}
+            nav={nav}
+          />
         </div>
 
         <div className="h-16 py-2">
