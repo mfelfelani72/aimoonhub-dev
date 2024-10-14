@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -16,7 +16,6 @@ function SymbolAnalysis() {
   const nav = [{ title: "home", address: "/" }, { title: "end" }];
 
   const [symbols, setSymbols] = useState([]);
-
   const [priority, setPriority] = useState(2);
 
   const getSymbols = async () => {
@@ -24,8 +23,14 @@ function SymbolAnalysis() {
       priority: priority,
     };
 
+    let token = "";
+
+    if (sessionStorage.getItem("token"))
+      token = sessionStorage.getItem("token");
+
     try {
-      getData(SYMBOLS, parameter).then((response) => {
+      getData(SYMBOLS, parameter, token).then((response) => {
+        
         if (response.data.data) {
           console.log("Fetch dataSymbol done.");
           // console.log(response.data.data);
