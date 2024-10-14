@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { dateHelper } from "../../../../utils/helpers/dateHelper";
 
 import { DEFAULT_NEW_IMAGE } from "../../../app/constant/Defaults";
+import { DEFAULT_AVATAR_IMAGE } from "../../../app/constant/Defaults";
+import { DEFAULT_PROVIDER_IMAGE } from "../../../app/constant/Defaults";
 
 import { goToAuthorDashboard } from "../../../../utils/lib/author/goToAuthorDashboard.js";
 import { goToProviderDashboard } from "../../../../utils/lib/provider/goToProviderDashboard.js";
@@ -93,16 +95,16 @@ const CardRow = (props) => {
         <div className="flex px-2 leading-3">
           <span>
             <img
-              alt={props?.row.author}
+              alt={props?.row.provider}
               src={
                 props?.row.provider_info.local_image
                   ? props?.row.provider_info.local_image
                   : props?.row.provider_info.logoUrl
                   ? props?.row.provider_info.logoUrl
-                  : DEFAULT_AVATAR_IMAGE
+                  : DEFAULT_PROVIDER_IMAGE
               }
               onError={(e) => {
-                e.target.src = DEFAULT_AVATAR_IMAGE;
+                e.target.src = DEFAULT_PROVIDER_IMAGE;
               }}
               className="h-5 w-5 rounded-[30px]"
             />

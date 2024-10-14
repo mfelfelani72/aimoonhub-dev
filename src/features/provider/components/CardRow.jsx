@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { dateHelper } from "../../../../utils/helpers/dateHelper";
 
 import { DEFAULT_NEW_IMAGE } from "../../../app/constant/Defaults";
+import { DEFAULT_AVATAR_IMAGE } from "../../../app/constant/Defaults";
 
 import { goToAuthorDashboard } from "../../../../utils/lib/author/goToAuthorDashboard.js";
 
@@ -49,9 +50,25 @@ const CardRow = (props) => {
         {/* title */}
 
         {/* author */}
-        <div className="px-2 pt-4">
-          <span className="text-[0.7rem]">{t("author")}</span>
-          <span className="px-1 text-[0.7rem] font-bold">
+        <div className="flex px-2 pt-4">
+          <span>
+            <img
+              alt={props?.row.author}
+              src={
+                props?.row.author_info.local_image
+                  ? props?.row.author_info.local_image
+                  : props?.row.author_info.picUrl
+                  ? props?.row.author_info.picUrl
+                  : DEFAULT_AVATAR_IMAGE
+              }
+              onError={(e) => {
+                e.target.src = DEFAULT_AVATAR_IMAGE;
+              }}
+              className="h-5 w-5 rounded-[30px]"
+            />
+          </span>
+          <span className="px-1 text-[0.7rem] self-center">{t("author")}</span>
+          <span className="px-1 text-[0.7rem] font-bold self-center">
             <a
               className="cursor-pointer hover:text-color-theme"
               onClick={(event) =>
