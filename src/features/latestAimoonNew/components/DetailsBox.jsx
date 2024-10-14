@@ -60,10 +60,10 @@ function DetailsBox(props) {
                   <img
                     alt={props?.data.author}
                     src={
-                      props?.data.author.local_image
-                        ? props?.data.author.local_image
-                        : props?.data.author.image
-                        ? props?.data.author.image
+                      props?.data.author_info.local_image
+                        ? props?.data.author_info.local_image
+                        : props?.data.author_info.picUrl
+                        ? props?.data.author_info.picUrl
                         : DEFAULT_AVATAR_IMAGE
                     }
                     onError={(e) => {
@@ -132,10 +132,10 @@ function DetailsBox(props) {
                   <img
                     alt={props?.data.provider}
                     src={
-                      props?.data.provider.local_image
-                        ? props?.data.provider.local_image
-                        : props?.data.provider.image
-                        ? props?.data.provider.image
+                      props?.data.provider_info.local_image
+                        ? props?.data.provider_info.local_image
+                        : props?.data.provider_info.logoUrl
+                        ? props?.data.provider_info.logoUrl
                         : DEFAULT_PROVIDER_IMAGE
                     }
                     onError={(e) => {

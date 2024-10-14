@@ -52,10 +52,25 @@ const CardRow = (props) => {
         {/* title */}
 
         {/* author */}
-        <div className="px-2">
-          <span className="text-[0.7rem]">{t("author")}</span>
-          <span className="px-1 text-[0.7rem] font-bold">
-            {" "}
+        <div className="flex py-1 px-2">
+          <span>
+            <img
+              alt={props?.row.author}
+              src={
+                props?.row.author_info.local_image
+                  ? props?.row.author_info.local_image
+                  : props?.row.author_info.picUrl
+                  ? props?.row.author_info.picUrl
+                  : DEFAULT_AVATAR_IMAGE
+              }
+              onError={(e) => {
+                e.target.src = DEFAULT_AVATAR_IMAGE;
+              }}
+              className="h-5 w-5 rounded-[30px]"
+            />
+          </span>
+          <span className="px-1 text-[0.7rem] self-center">{t("author")}</span>
+          <span className="px-1 text-[0.7rem] font-bold self-center">
             <a
               className="cursor-pointer hover:text-color-theme"
               onClick={(event) =>
@@ -75,9 +90,25 @@ const CardRow = (props) => {
         {/* author */}
 
         {/* provider */}
-        <div className="px-2 leading-3">
-          <span className="text-[0.7rem]">{t("provider")}</span>
-          <span className="px-1 text-[0.7rem] font-bold">
+        <div className="flex px-2 leading-3">
+          <span>
+            <img
+              alt={props?.row.author}
+              src={
+                props?.row.provider_info.local_image
+                  ? props?.row.provider_info.local_image
+                  : props?.row.provider_info.logoUrl
+                  ? props?.row.provider_info.logoUrl
+                  : DEFAULT_AVATAR_IMAGE
+              }
+              onError={(e) => {
+                e.target.src = DEFAULT_AVATAR_IMAGE;
+              }}
+              className="h-5 w-5 rounded-[30px]"
+            />
+          </span>
+          <span className="px-1 text-[0.7rem] self-center">{t("provider")}</span>
+          <span className="px-1 text-[0.7rem] font-bold self-center">
             <a
               className="cursor-pointer hover:text-color-theme"
               onClick={(event) =>
