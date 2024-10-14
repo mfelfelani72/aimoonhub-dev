@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { NavLink, useNavigate } from "react-router-dom";
+
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { IoMenu, IoMoon, IoSunny } from "react-icons/io5";
 import useAppStore from "../../app/stores/AppStore.js";
@@ -18,8 +20,11 @@ function handleSwitchTheme() {
 export function Header(...props) {
   const navigate = useNavigate();
 
+  const [statusMenu, setStatusMenu] = useState("hidden");
+
   const serviceLogOut = () => {
     sessionStorage.clear();
+    setStatusMenu("hidden");
     navigate("/");
   };
   const { t } = useTranslation();
@@ -88,14 +93,28 @@ export function Header(...props) {
                 {/* {console.log(user.username)} */}
                 {sessionStorage.getItem("token") ? (
                   <>
-                    <div className="px-3">{user.username}</div>
-                    <div
-                      className="cursor-pointer hover:text-color-theme"
-                      onClick={() => {
-                        serviceLogOut();
-                      }}
-                    >
-                      Log Out
+                    <div className="relative text-left cursor-pointer" onClick={()=>{statusMenu == "hidden" ? setStatusMenu("") : setStatusMenu("hidden")}}>
+                      <div className="flex w-full justify-center gap-x-1.5">
+                        welcome {user.username}
+                        <ChevronDownIcon
+                          aria-hidden="true"
+                          className="-mr-1 h-5 w-5 text-gray-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div className={"absolute top-8 right-2 z-10 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in " + statusMenu}>
+                      <div className="py-1">
+                    
+                        <div
+                          className="block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:text-color-theme"
+                          onClick={() => {
+                            serviceLogOut();
+                          }}
+                        >
+                          Log Out
+                        </div>
+                      </div>
                     </div>
                   </>
                 ) : (
