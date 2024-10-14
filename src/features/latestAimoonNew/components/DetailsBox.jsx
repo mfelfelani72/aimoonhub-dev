@@ -87,7 +87,7 @@ function DetailsBox(props) {
                       {props?.data.author}
                     </a>
                   </span>
-                  <ToolTip text={"نسبت تعداد خبر در هفته به میانگین هفته"}>
+                  <ToolTip className="tooltip" text={"نسبت تعداد خبر در هفته به میانگین هفته"}>
                     {" "}
                     <span className="px-1 text-[0.7rem] font-bold">
                       {props.data?.author_info[
@@ -101,7 +101,7 @@ function DetailsBox(props) {
                   </ToolTip>
 
                   <div className="flex flex-col my-1 mx-2">
-                    <ToolTip
+                    <ToolTip className="tooltip"
                       text={"نمودار نسبت تعداد خبر در هفته به میانگین هفته"}
                     >
                       <div
@@ -158,7 +158,7 @@ function DetailsBox(props) {
                       {props.data?.provider}
                     </a>
                   </span>
-                  <ToolTip text={"نسبت تعداد خبر در هفته به میانگین هفته"}>
+                  <ToolTip className="tooltip" text={"نسبت تعداد خبر در هفته به میانگین هفته"}>
                     <span className="px-1 text-[0.7rem] font-bold">
                       {props.data?.provider_info["last_week_count"] +
                         " / " +
@@ -166,7 +166,7 @@ function DetailsBox(props) {
                     </span>
                   </ToolTip>
                   <div className="flex flex-col my-1 mx-2">
-                    <ToolTip
+                    <ToolTip className="tooltip"
                       text={"نمودار نسبت تعداد خبر در هفته به میانگین هفته"}
                     >
                       <div
@@ -204,7 +204,7 @@ function DetailsBox(props) {
                     ]}
                   />
                 </div>
-                <ToolTip text={"دونات چارت ... "}>
+                <ToolTip className="tooltip" text={"دونات چارت ... "}>
                   <div className={classNameNewScore}>
                     {percentNewScore * 100}%
                   </div>

@@ -83,7 +83,7 @@ function Login() {
                 </div> */}
             </div>
             <div className="mt-2">
-              <ToolTip text="password is required">
+              <ToolTip text="password is required" className={"rounded shadow-lg p-1 bg-gray-100 text-red-500 -mt-20 text-[0.8rem]"}>
                 <input
                   onChange={(ev) => setPassword(ev.target.value)}
                   type="password"

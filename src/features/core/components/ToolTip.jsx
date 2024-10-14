@@ -7,7 +7,7 @@ function ToolTip({ text, children, className }) {
     <div className="has-tooltip">
       <span
         className={cn(
-          "tooltip rounded shadow-lg p-1 bg-gray-100 text-red-500 -mt-8 text-[0.8rem]",
+          "rounded shadow-lg p-1 bg-gray-100 text-red-500 -mt-8 text-[0.8rem]",
           className
         )}
       >
