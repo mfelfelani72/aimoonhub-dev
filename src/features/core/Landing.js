@@ -12,11 +12,11 @@ function Landing() {
   return (
     <>
       {/* <Login /> */}
-      {/* <LatestAimoonNew /> */}
-      {/* <LatestNews /> */}
-      {/* <SymbolAnalysis /> */}
+      <LatestAimoonNew />
+      <LatestNews />
+      <SymbolAnalysis />
       <AuthorAnalysis />
-      {/* <ProviderAnalysis /> */}
+      <ProviderAnalysis />
     </>
   );
 }

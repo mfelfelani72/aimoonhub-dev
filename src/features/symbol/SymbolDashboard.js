@@ -271,18 +271,17 @@ function SymbolDashboard() {
   const [newsData, setNewsData] = useState(["free"]);
 
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
-  const [newsSymbols, setNewsSymbols] = useState(symbol?.name);
   const [newsFrom, setNewsFrom] = useState("1716373411");
   // const [newsTo, setNewsTo] = useState("1725633001");
-  const [newsPageLimit, setNewsPageLimit] = useState(10);
+  const [newsPageLimit, setNewsPageLimit] = useState(5);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 
   const [loading2, setLoading2] = useState();
 
-  const getNews = async () => {
+  const getNews = async (name, newsPage = PAGE_NUMBER) => {
     const parameter = {
       category: newsCategory,
-      symbols: newsSymbols,
+      symbols: name,
       startDate: newsFrom,
       // "endDate": newsTo,
       page: newsPage,
@@ -299,7 +298,7 @@ function SymbolDashboard() {
           setNewsData((prev) => {
             return [...prev, ...response.data.data.result];
           });
-
+          // console.log(newsPage);
           setNewsPage((prev) => prev + 1);
           setLoading2(false);
           setLoadedAllData(true);
@@ -317,7 +316,7 @@ function SymbolDashboard() {
   };
 
   const lodashGetNews = lodash.debounce(function () {
-    getNews();
+    getNews(location.state.symbol.name, newsPage);
   }, 100);
 
   //  For initial data when this page is loaded from the footer
@@ -326,8 +325,9 @@ function SymbolDashboard() {
     setSymbol(location.state.symbol);
     setLoadPage(true);
     setNewsData([]);
+    setNewsPage(PAGE_NUMBER);
     setCoinAnalyze();
-    getNews();
+    getNews(location.state.symbol.name, 1);
     setLoadedAllData(false);
   }
 
@@ -335,7 +335,7 @@ function SymbolDashboard() {
     if (loadPage) {
       // console.log(newsData)
       if (newsData[0] === "free") {
-        getNews();
+        getNews(location.state.symbol.name);
         newsData.shift();
       }
 

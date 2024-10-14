@@ -157,16 +157,15 @@ function ProviderDashboard() {
   const [symbols, setSymbols] = useState([]);
   const [loading, setLoading] = useState();
 
-  const [providerName, setProviderName] = useState(provider?.name);
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsFrom, setNewsFrom] = useState("1716373411");
   const [newsLlmOnly, setNewsLlmOnly] = useState(false);
   const [newsPageLimit, setNewsPageLimit] = useState(5);
   const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 
-  const getNews = async () => {
+  const getNews = async (name, newsPage = PAGE_NUMBER) => {
     const parameter = {
-      provider: providerName,
+      provider: name,
       category: newsCategory,
       startDate: newsFrom,
       llmOnly: newsLlmOnly,
@@ -182,7 +181,7 @@ function ProviderDashboard() {
           setNewsData((prev) => {
             return [...prev, ...response.data.data.result];
           });
-
+          // console.log(newsPage);
           setNewsPage((prev) => prev + 1);
           setLoading(false);
           setLoadedAllData(true);
@@ -195,7 +194,7 @@ function ProviderDashboard() {
 
   const getSymbols = async () => {
     const parameter = {
-      name: providerName,
+      name: location.state.provider.name,
     };
 
     try {
@@ -218,22 +217,24 @@ function ProviderDashboard() {
   };
 
   const lodashGetNews = lodash.debounce(function () {
-    getNews();
+    getNews(location.state.provider.name, newsPage);
   }, 100);
+
+  //  For initial data when this page is loaded from the footer
 
   if (provider.name !== location.state.provider.name) {
     setProvider(location.state.provider);
     setLoadPage(true);
     setNewsData([]);
-    setNewsPage(1);
-    getNews();
+    setNewsPage(PAGE_NUMBER);
+    getNews(location.state.provider.name, 1);
     setLoadedAllData(false);
   }
 
   useEffect(() => {
     if (loadPage) {
       if (newsData.length == 0) {
-        getNews();
+        getNews(location.state.provider.name);
       }
 
       if (symbols.length == 0) {
@@ -244,7 +245,7 @@ function ProviderDashboard() {
       setWeekDetailsProgressBar();
     }
     setLoadPage(false);
-  },[symbols]);
+  }, [symbols]);
   return (
     <>
       {loadedAllData && (

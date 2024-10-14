@@ -155,7 +155,7 @@ function AuthorDashboard() {
   const [newsFrom, setNewsFrom] = useState("1716373411");
   const [newsLlmOnly, setNewsLlmOnly] = useState(false);
   const [newsPageLimit, setNewsPageLimit] = useState(5);
-  const [newsPage, setNewsPage] = useState();
+  const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
 
   const getNews = async (name, newsPage = PAGE_NUMBER) => {
     const parameter = {
@@ -175,7 +175,7 @@ function AuthorDashboard() {
           setNewsData((prev) => {
             return [...prev, ...response.data.data.result];
           });
-          console.log(newsPage);
+          // console.log(newsPage);
           setNewsPage((prev) => prev + 1);
           setLoading(false);
           setLoadedAllData(true);
@@ -193,7 +193,7 @@ function AuthorDashboard() {
   };
 
   const lodashGetNews = lodash.debounce(function () {
-    getNews(location.state.author.name,newsPage);
+    getNews(location.state.author.name, newsPage);
   }, 100);
 
   //  For initial data when this page is loaded from the footer
@@ -202,8 +202,8 @@ function AuthorDashboard() {
     setAuthor(location.state.author);
     setLoadPage(true);
     setNewsData([]);
-    console.log(location.state.author.name);
-    getNews(location.state.author.name,1);
+    setNewsPage(PAGE_NUMBER);
+    getNews(location.state.author.name, 1);
     setLoadedAllData(false);
   }
 
