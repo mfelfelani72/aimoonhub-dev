@@ -151,16 +151,15 @@ function AuthorDashboard() {
   const [newsData, setNewsData] = useState(["free"]);
   const [loading, setLoading] = useState();
 
-  const [newsAuthor, setNewsAuthor] = useState(author?.name);
   const [newsCategory, setNewsCategory] = useState("cryptocurrencies");
   const [newsFrom, setNewsFrom] = useState("1716373411");
   const [newsLlmOnly, setNewsLlmOnly] = useState(false);
   const [newsPageLimit, setNewsPageLimit] = useState(5);
-  const [newsPage, setNewsPage] = useState(PAGE_NUMBER);
+  const [newsPage, setNewsPage] = useState();
 
-  const getNews = async () => {
+  const getNews = async (name, newsPage = PAGE_NUMBER) => {
     const parameter = {
-      author: newsAuthor,
+      author: name,
       category: newsCategory,
       startDate: newsFrom,
       llmOnly: newsLlmOnly,
@@ -176,7 +175,7 @@ function AuthorDashboard() {
           setNewsData((prev) => {
             return [...prev, ...response.data.data.result];
           });
-
+          console.log(newsPage);
           setNewsPage((prev) => prev + 1);
           setLoading(false);
           setLoadedAllData(true);
@@ -194,23 +193,24 @@ function AuthorDashboard() {
   };
 
   const lodashGetNews = lodash.debounce(function () {
-    getNews();
+    getNews(location.state.author.name,newsPage);
   }, 100);
 
-    //  For initial data when this page is loaded from the footer
+  //  For initial data when this page is loaded from the footer
 
   if (author.name !== location.state.author.name) {
     setAuthor(location.state.author);
     setLoadPage(true);
     setNewsData([]);
-    getNews();
+    console.log(location.state.author.name);
+    getNews(location.state.author.name,1);
     setLoadedAllData(false);
   }
 
   useEffect(() => {
     if (loadPage) {
       if (newsData[0] === "free") {
-        getNews();
+        getNews(location.state.author.name);
         newsData.shift();
       }
 
@@ -218,7 +218,7 @@ function AuthorDashboard() {
       setWeekDetailsProgressBar();
     }
     setLoadPage(false);
-  });
+  }, []);
   return (
     <>
       {loadedAllData && (
