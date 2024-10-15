@@ -75,8 +75,13 @@ function SymbolDashboard() {
       symbol: symbol?.name,
     };
 
+    let token = "";
+
+    if (sessionStorage.getItem("token"))
+      token = sessionStorage.getItem("token");
+
     try {
-      getData(OFFLINE_COIN_ANALYZE, parameter).then((response) => {
+      getData(OFFLINE_COIN_ANALYZE, parameter, token).then((response) => {
         if (response.data.return && response.data.data) {
           console.log("Fetch data  offlinecoins done.");
           // console.log(response.data.data)
@@ -101,8 +106,13 @@ function SymbolDashboard() {
       candleCount: 10,
     };
 
+    let token = "";
+
+    if (sessionStorage.getItem("token"))
+      token = sessionStorage.getItem("token");
+
     try {
-      getData(COIN_ANALYZE, parameter).then((response) => {
+      getData(COIN_ANALYZE, parameter, token).then((response) => {
         if (response.data.return && response.data.data) {
           updateCoinAnalysis(response.data.data);
         }
@@ -114,7 +124,9 @@ function SymbolDashboard() {
 
   const updateCoinAnalysis = (task_id) => {
     let intervalId = setInterval(() => {
-      loopToGetCoinAnalysis(task_id, intervalId);
+      console.log("ds");
+      intervalId = loopToGetCoinAnalysis(task_id, intervalId);
+      console.log(intervalId)
     }, 5000);
 
     setTimeout(function () {
@@ -123,9 +135,15 @@ function SymbolDashboard() {
   };
 
   const loopToGetCoinAnalysis = (task_id, intervalId) => {
+    let token = "";
+
+    if (sessionStorage.getItem("token"))
+      token = sessionStorage.getItem("token");
+
     try {
       // getData(COIN_LLM_RESPONSE, { task_id: "67064f24505340f037e1f65d" }).then(
-      getData(COIN_LLM_RESPONSE, { task_id: task_id }).then((res) => {
+      getData(COIN_LLM_RESPONSE, { task_id: "67064f24505340f037e1f65d" }, token).then((res) => {
+        console.log(res);
         if (res.data.data) {
           console.log(res.data.data[0].status);
 
@@ -144,21 +162,28 @@ function SymbolDashboard() {
             document
               .getElementById("root")
               .scrollIntoView({ behavior: "smooth" });
+
+            return 0;
+            console.log("mohammad")
           }
         }
       });
     } catch (error) {
       console.log(error);
     }
+    return intervalId;
   };
 
   const stopLoopToGetCoinAnalysis = (intervalId) => {
-    setLoading(false);
-    setVisibleUpdateCoinAnalysis("");
-    setStatusMessageUpdateCoinAnalysis(true);
-    setMessageUpdateCoinAnalysis("fail to update analysis");
-    clearInterval(intervalId);
-    document.getElementById("root").scrollIntoView({ behavior: "smooth" });
+    console.log(intervalId);
+    if (intervalId !== 0) {
+      setLoading(false);
+      setVisibleUpdateCoinAnalysis("");
+      setStatusMessageUpdateCoinAnalysis(true);
+      setMessageUpdateCoinAnalysis("fail to update analysis");
+      clearInterval(intervalId);
+      document.getElementById("root").scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   // for day
