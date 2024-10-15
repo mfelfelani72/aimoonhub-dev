@@ -19,18 +19,27 @@ function Login() {
   const [passwordError, setPasswordError] = useState();
   const [statusPasswordError, setStatusPasswordError] = useState("hidden");
 
+  const [loginError, setLoginError] = useState("");
+
+  function isValidEmail(email) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  }
+
   const serviceLogin = () => {
     if (email == "") {
       setEmailError("ایمیل ضروری می باشد");
       setStatusEmailError("");
+    } else if (!isValidEmail(email)) {
+      setEmailError("لطفا ایمیل معتبر وارد کنید");
+      setStatusEmailError("");
     }
-
     if (password == "") {
       setPasswordError("رمز عبور ضروری می باشد");
       setStatusPasswordError("");
     }
 
-    if (email !== "" && password !== "") {
+    if (email !== "" && isValidEmail(email) && password !== "") {
       const parameter = {
         email: email,
         password: password,
@@ -40,6 +49,7 @@ function Login() {
 
       try {
         axios.post(`User/ServiceLogin/`, parameter).then((response) => {
+          // console.log(response);
           if (response.data.return == true) {
             // console.log(response.data);
             sessionStorage.setItem("token", response.data.user_token);
@@ -55,6 +65,8 @@ function Login() {
                 location_footer_coin: "reload",
               },
             });
+          } else {
+            setLoginError(response.data.error);
           }
         });
       } catch (error) {
@@ -81,6 +93,9 @@ function Login() {
     <>
       {!sessionStorage.getItem("token") && (
         <div className="flex flex-col h-screen justify-center px-6 lg:px-8">
+          <div className="text-center text-rose-600 text-xl font-bold py-10">
+            <span>{loginError}</span>
+          </div>
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img className="mx-auto h-16 w-auto" src={logo} alt="aimoon" />
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
