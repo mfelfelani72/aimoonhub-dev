@@ -31,7 +31,9 @@ function CoinModal({ showModal, setShowModal }) {
       <ModalDialogs
         showModal={showModal}
         setShowModal={setShowModal}
-        text={"اولی"}
+        title={"هشدار"}
+        text={"برای مشاهده‌ی این بخش باید لاگین شوید"}
+        type="info"
       />
     </>
   );
