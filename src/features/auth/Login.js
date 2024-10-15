@@ -59,11 +59,7 @@ function Login() {
             });
             sessionStorage.setItem("username", response.data.username);
             sessionStorage.setItem("email", response.data.email);
-            navigate("/", {
-              state: {
-                landing_symbol_analysis: "unlock",
-              },
-            });
+            navigate("/");
           } else {
             setLoginError(response.data.error);
           }
@@ -76,11 +72,7 @@ function Login() {
 
   useEffect(() => {
     if (sessionStorage.getItem("token"))
-      navigate("/", {
-        state: {
-          landing_symbol_analysis: "unlock",
-        },
-      });
+      navigate("/");
   });
 
   const { setUser } = useAppStore((state) => ({
