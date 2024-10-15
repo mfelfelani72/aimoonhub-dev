@@ -51,7 +51,8 @@ function Login() {
             sessionStorage.setItem("email", response.data.email);
             navigate("/", {
               state: {
-                status: "reload",
+                location_root_coin: "reload",
+                location_footer_coin: "reload",
               },
             });
           }
@@ -66,7 +67,8 @@ function Login() {
     if (sessionStorage.getItem("token"))
       navigate("/", {
         state: {
-          status: "reload",
+          location_root_coin: "reload",
+          location_footer_coin: "reload",
         },
       });
   });

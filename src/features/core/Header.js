@@ -25,7 +25,12 @@ export function Header(...props) {
   const serviceLogOut = () => {
     sessionStorage.clear();
     setStatusMenu("hidden");
-    navigate("/");
+    navigate("/", {
+      state: {
+        location_root_coin: "clear",
+        location_footer_coin: "clear",
+      },
+    });
   };
   const { t } = useTranslation();
 

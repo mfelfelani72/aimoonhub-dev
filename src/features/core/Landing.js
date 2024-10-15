@@ -15,7 +15,7 @@ function Landing() {
       <SymbolAnalysis  />
       <AuthorAnalysis />
       <ProviderAnalysis />
-      <Footer />
+      
     </>
   );
 }

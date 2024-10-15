@@ -14,6 +14,7 @@ import "../../styles/app/app.css";
 
 import GuestRoutes from "../../routes/GuestRoutes";
 import { Header } from "../../../features/core/Header";
+import { Footer } from "../../../features/core/Footer";
 import Page404 from "../../../features/core/components/Page404.jsx";
 import SplashScreen from "../../../features/core/SplashScreen.js";
 
@@ -115,6 +116,7 @@ const App = () => {
               <div className="md:container md:mx-auto md:w-[30rem] bg-gray-100 mt-12 pt-1 pb-1">
                 <Header />
                 <GuestRoutes />
+                <Footer />
               </div>
             </>
           )

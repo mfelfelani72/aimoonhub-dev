@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -12,6 +12,9 @@ function SymbolAnalysis() {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  let state = location.state;
 
   const nav = [{ title: "home", address: "/" }, { title: "end" }];
 
@@ -30,7 +33,6 @@ function SymbolAnalysis() {
 
     try {
       getData(SYMBOLS, parameter, token).then((response) => {
-        
         if (response.data.data) {
           console.log("Fetch dataSymbol done.");
           // console.log(response.data.data);
@@ -41,6 +43,15 @@ function SymbolAnalysis() {
       console.log(error);
     }
   };
+  if (state) {
+    if (
+      state.location_root_coin !== null &&
+      state.location_root_coin === "clear"
+    ) {
+      setSymbols([]);
+      state.location_root_coin = null;
+    }
+  }
 
   useEffect(() => {
     if (symbols.length == 0) getSymbols();

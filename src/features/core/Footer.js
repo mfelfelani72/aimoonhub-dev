@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { getData } from "../../../utils/helpers/getData.js";
@@ -12,10 +12,15 @@ import { PROVIDERS } from "../../app/constant/EndPoints.js";
 import CoinSlider from "../symbol/components/CoinSlider.jsx";
 import AuthorSlider from "../author/components/AuthorSlider.jsx";
 import ProviderSlider from "../provider/components/ProviderSlider.jsx";
+import SymbolsList from "../symbol/SymbolsList.js";
 
 export function Footer() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+  let state = location.state;
 
   const nav = [{ title: "home", address: "/" }, { title: "end" }];
 
@@ -81,6 +86,17 @@ export function Footer() {
       console.log(error);
     }
   };
+
+  if (state !== null && state.location_footer_coin === "reload") {
+    getSymbolsList();
+    state.location_footer_coin = null;
+  } else if (state) {
+    if (state.location_footer_coin !== null && state.location_footer_coin === "clear") {
+
+      setSymbolsList([]);
+      state.location_footer_coin = null;
+    }
+  }
 
   useEffect(() => {
     if (symbolsList.length == 0) getSymbolsList();
