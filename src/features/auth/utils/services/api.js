@@ -10,6 +10,6 @@ export default axios.create({
     "Content-Type": "application/json; charset=utf-8",
   },
 
-  withCredentials: true,
-  withXSRFToken: true,
+  withCredentials: false,
+  withXSRFToken: false,
 });
