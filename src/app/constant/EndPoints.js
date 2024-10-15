@@ -9,6 +9,7 @@ export const PROVIDER_INFO = `Provider/getProviderInfo/`;
 export const PROVIDER_AUTHORS = `Provider/getProviderAuthors/`;
 export const LATEST_NEWS_PROVIDER = `News/GetPaginatedData_provider/`;
 
+export const SYMBOLS_NAMES = `Symbols/getSupported_symbol_names/`
 export const SYMBOLS = `Symbols/getSymbols/`; // user credit
 export const SYMBOL_INFO = `Symbols/ex_getSymbolInfo/`; // user credit
 export const OFFLINE_COIN_ANALYZE = `LLM/offlineCoinAnalyze/`; // user credit

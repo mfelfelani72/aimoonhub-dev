@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
 import { getData } from "../../../utils/helpers/getData.js";
-import { SYMBOLS } from "../../app/constant/EndPoints.js";
+import { SYMBOLS_NAMES } from "../../app/constant/EndPoints.js";
 
 import CoinSlider from "./components/CoinSlider.jsx";
 
@@ -12,9 +12,6 @@ function SymbolAnalysis() {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  let state = location.state;
 
   const nav = [{ title: "home", address: "/" }, { title: "end" }];
 
@@ -26,13 +23,8 @@ function SymbolAnalysis() {
       priority: priority,
     };
 
-    let token = "";
-
-    if (sessionStorage.getItem("token"))
-      token = sessionStorage.getItem("token");
-
     try {
-      getData(SYMBOLS, parameter, token).then((response) => {
+      getData(SYMBOLS_NAMES, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataSymbol done.");
           // console.log(response.data.data);
@@ -43,15 +35,6 @@ function SymbolAnalysis() {
       console.log(error);
     }
   };
-  if (state) {
-    if (
-      state.location_root_coin !== null &&
-      state.location_root_coin === "clear"
-    ) {
-      setSymbols([]);
-      state.location_root_coin = null;
-    }
-  }
 
   useEffect(() => {
     if (symbols.length == 0) getSymbols();

@@ -1,4 +1,7 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
+
+import { FaLock } from "react-icons/fa";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -12,6 +15,18 @@ import Button from "../../core/components/Button.jsx";
 import { goToSymbolDashboard } from "../../../../utils/lib/symbol/goToSymbolDashboard.js";
 
 function CoinSlider(props) {
+  const location = useLocation();
+  let state = location.state;
+
+  let status = "lock";
+  let btnClass = "bg-color-theme-light hover:bg-color-theme-light";
+  
+
+  if (state !== null && state.landing_symbol_analysis === "unlock"){
+    status = "unlock";
+    btnClass = "bg-color-theme hover:bg-color-theme";
+  }
+
   return (
     <>
       <div className="flex flex-row">
@@ -61,9 +76,9 @@ function CoinSlider(props) {
           ))}
         </Swiper>
       </div>
-      <div className="mt-4">
+      <div className="self-center mt-4">
         <Button
-          className="bg-color-theme hover:bg-color-theme dark:bg-D-color-theme dark:hover:bg-D-color-theme text-[0.8rem] px-3"
+          className={"text-[0.8rem] px-3 " + btnClass}
           onClick={(event) => {
             event.preventDefault();
             props?.navigate("/symbols-list", {
@@ -71,7 +86,13 @@ function CoinSlider(props) {
             });
           }}
         >
-          Coins List
+          <span className="pt-1">Coins List </span>{" "}
+          {status === "lock" && (
+            <span className="pl-2 text-md text-white">
+              {" "}
+              <FaLock />{" "}
+            </span>
+          )}
         </Button>
       </div>
     </>

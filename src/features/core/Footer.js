@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { getData } from "../../../utils/helpers/getData.js";
 
-import { SYMBOLS } from "../../app/constant/EndPoints.js";
+import { SYMBOLS_NAMES } from "../../app/constant/EndPoints.js";
 import { AUTHORS } from "../../app/constant/EndPoints.js";
 import { PROVIDERS } from "../../app/constant/EndPoints.js";
 
@@ -32,12 +32,9 @@ export function Footer() {
     const parameter = {
       priority: 2,
     };
-    let token = "";
-    if (sessionStorage.getItem("token"))
-      token = sessionStorage.getItem("token");
 
     try {
-      getData(SYMBOLS, parameter, token).then((response) => {
+      getData(SYMBOLS_NAMES, parameter).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataSymbolsList done.");
           //   console.log(response.data.data);
@@ -87,22 +84,22 @@ export function Footer() {
     }
   };
 
-  if (state !== null && state.location_footer_coin === "reload") {
-    getSymbolsList();
-    state.location_footer_coin = null;
-  } else if (state) {
-    if (state.location_footer_coin !== null && state.location_footer_coin === "clear") {
+  // if (state !== null && state.location_footer_coin === "reload") {
+   
+  //   state.location_footer_coin = null;
+  // } else if (state) {
+  //   if (state.location_footer_coin !== null && state.location_footer_coin === "clear") {
 
-      setSymbolsList([]);
-      state.location_footer_coin = null;
-    }
-  }
+    
+  //     state.location_footer_coin = null;
+  //   }
+  // }
 
   useEffect(() => {
     if (symbolsList.length == 0) getSymbolsList();
-    if (authorsList.length == 0) getAuthorsList();
-    if (providersList.length == 0) getProvidersList();
-  }, [providersList]);
+    // if (authorsList.length == 0) getAuthorsList();
+    // if (providersList.length == 0) getProvidersList();
+  }, [symbolsList]);
 
   return (
     <>

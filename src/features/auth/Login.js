@@ -61,8 +61,7 @@ function Login() {
             sessionStorage.setItem("email", response.data.email);
             navigate("/", {
               state: {
-                location_root_coin: "reload",
-                location_footer_coin: "reload",
+                landing_symbol_analysis: "unlock",
               },
             });
           } else {
@@ -79,8 +78,7 @@ function Login() {
     if (sessionStorage.getItem("token"))
       navigate("/", {
         state: {
-          location_root_coin: "reload",
-          location_footer_coin: "reload",
+          landing_symbol_analysis: "unlock",
         },
       });
   });
