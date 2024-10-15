@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import useAppStore from "../../app/stores/AppStore"
+
 import logo from "/assets/images/logo.png";
 import Button from "../core/components/Button.jsx";
 import ToolTip from "../core/components/ToolTip.jsx";
 
-import useAppStore from "../../app/stores/AppStore.js";
 import axios from "./utils/services/api";
 function Login() {
+
+  const { setAllowed } = useAppStore((state) => ({
+    setAllowed: state.setAllowed,
+  }));
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -59,6 +64,7 @@ function Login() {
             });
             sessionStorage.setItem("username", response.data.username);
             sessionStorage.setItem("email", response.data.email);
+            setAllowed(true);
             navigate("/");
           } else {
             setLoginError(response.data.error);
@@ -69,11 +75,6 @@ function Login() {
       }
     }
   };
-
-  useEffect(() => {
-    if (sessionStorage.getItem("token"))
-      navigate("/");
-  });
 
   const { setUser } = useAppStore((state) => ({
     setUser: state.setUser,

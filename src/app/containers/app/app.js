@@ -13,12 +13,13 @@ import useGeoLocation from "../../../../utils/lib/useGeoLocation.js";
 import "../../styles/app/app.css";
 
 import GuestRoutes from "../../routes/GuestRoutes";
+import RegisterRoutes from "../../routes/RegisterRoutes.js";
 import { Header } from "../../../features/core/Header";
 import { Footer } from "../../../features/core/Footer";
 import Page404 from "../../../features/core/components/Page404.jsx";
 import SplashScreen from "../../../features/core/SplashScreen.js";
 
-import { GUESTS_ROUTES } from "../../constant/Routes.js";
+import { GUESTS_ROUTES, REGISTER_ROUTES } from "../../constant/Routes.js";
 
 // This will be our Task
 class Task {
@@ -36,12 +37,13 @@ const App = () => {
   // initial country
 
   // { load Global States from zustand
-  const { splashScreen, setProgressBar } = useAppStore((state) => ({
+  const { splashScreen, setProgressBar, allowed } = useAppStore((state) => ({
     progressBar: state.progressBar,
     setProgressBar: state.setProgressBar,
     splashScreen: state.splashScreen,
     setUserLocation: state.setUserLocation,
     userLocation: state.userLocation,
+    allowed: state.allowed,
   }));
   // load Global States from zustand }
 
@@ -98,7 +100,7 @@ const App = () => {
 
   // { guest routes
 
-  if (GUESTS_ROUTES.includes(pathname)) {
+  if (GUESTS_ROUTES.includes(pathname) && !allowed) {
     return (
       <div className="font-main">
         {
@@ -128,6 +130,37 @@ const App = () => {
   }
 
   // guest routes }
+
+  // { Register Routes
+  else if (REGISTER_ROUTES.includes(pathname) && allowed) {
+    return (
+      <div className="font-main">
+        {
+          splashScreen ? (
+            // { first splashScreen app
+
+            <div className="h-screen w-screen flex items-center justify-center px-16 bg-B-V-bright dark:bg-DB-bright ">
+              <SplashScreen tasks={tasks} />
+            </div>
+          ) : (
+            // first splashScreen app }
+            // { load app for guest users
+
+            <>
+              <div className="md:container md:mx-auto md:w-[30rem] bg-gray-100 mt-12 pt-1 pb-1">
+                <Header />
+                <RegisterRoutes />
+                <Footer />
+              </div>
+            </>
+          )
+
+          // load app for guest users }
+        }
+      </div>
+    );
+  }
+  //  Register Routes }
 
   // { admin routes
 

@@ -14,14 +14,15 @@ const LazyAuthorDashboard = lazy(() => import("../../features/author/AuthorDashb
 const LazyProvidersList = lazy(() => import("../../features/provider/ProvidersList.js"))
 const LazyProviderDashboard = lazy(() => import("../../features/provider/ProviderDashboard.js"))
 
+const LazySymbolsList = lazy(() => import("../../features/symbol/SymbolsList.js"))
+const LazySymbolDashboard = lazy(() => import("../../features/symbol/SymbolDashboard.js"))
+
+
 const GuestRoutes = () => {
 
     return (
 
         <Routes>
-
-
-            <Route path="/login" element={<Suspense fallback={<div>Loading...</div>}><LazyLogin /> </Suspense>}></Route>
 
             {/* <Route path="/" element={<Suspense fallback={<LandingSkeleton />}><LazyLanding /> </Suspense>}></Route> */}
             <Route path="/" element={<Suspense fallback={<div>Loading...</div>}><LazyLanding /> </Suspense>}></Route>
@@ -33,6 +34,8 @@ const GuestRoutes = () => {
             <Route path="/providers-list" element={<Suspense fallback={<div>Loading...</div>}><LazyProvidersList /> </Suspense>}></Route>
             <Route path="/provider-dashboard" element={<Suspense fallback={<div>Loading...</div>}><LazyProviderDashboard /> </Suspense>}></Route>
 
+            <Route path="/symbols-list" element={<Suspense fallback={<div>Loading...</div>}><LazySymbolsList /> </Suspense>}></Route>
+            <Route path="/symbol-dashboard" element={<Suspense fallback={<div>Loading...</div>}><LazySymbolDashboard /> </Suspense>}></Route>
         </Routes>
 
     )

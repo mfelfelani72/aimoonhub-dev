@@ -57,6 +57,11 @@ const useAppStore = create((set) => ({
   },
   setUser: (user) => set({ user: user }),
 
+
+   allowed: sessionStorage.getItem("token"),
+   setAllowed: (allowed) => set({ allowed: allowed }),
+
+
 }));
 
 export default useAppStore;

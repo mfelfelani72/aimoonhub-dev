@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import useAppStore from "../../../app/stores/AppStore.js"
+
 import { FaLock } from "react-icons/fa";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -40,6 +42,11 @@ function CoinModal({ showModal, setShowModal }) {
 }
 
 function CoinSlider(props) {
+
+  const { allowed } = useAppStore((state) => ({
+    allowed: state.allowed,
+
+  }));
   const [showModal, setShowModal] = useState(false);
 
   const location = useLocation();
@@ -49,7 +56,7 @@ function CoinSlider(props) {
   let btnClass = "bg-color-theme-light hover:bg-color-theme-light";
 
   // if (state !== null && state.landing_symbol_analysis === "unlock") {
-  if (sessionStorage.getItem("token")) {
+  if (allowed) {
     status = "unlock";
     btnClass = "bg-color-theme hover:bg-color-theme";
   }

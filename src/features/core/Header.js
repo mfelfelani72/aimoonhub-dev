@@ -25,6 +25,7 @@ export function Header(...props) {
   const serviceLogOut = () => {
     sessionStorage.clear();
     setStatusMenu("hidden");
+    setAllowed(false);
     navigate("/");
   };
   const { t } = useTranslation();
@@ -35,6 +36,7 @@ export function Header(...props) {
     setLanguageApp,
     userLocation,
     user,
+    setAllowed,
   } = useAppStore((state) => ({
     statusSidebar: state.statusSidebar,
     setStatusSidebar: state.setStatusSidebar,
@@ -42,6 +44,7 @@ export function Header(...props) {
     setLanguageApp: state.setLanguageApp,
     userLocation: state.userLocation,
     user: state.user,
+    setAllowed: state.setAllowed,
   }));
 
   return (
