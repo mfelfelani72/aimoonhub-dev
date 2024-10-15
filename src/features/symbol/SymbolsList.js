@@ -21,9 +21,13 @@ function SymbolsList() {
     const parameter = {
       priority: priority,
     };
+    let token = "";
+
+    if(sessionStorage.getItem("token"))
+      token = sessionStorage.getItem("token");
 
     try {
-      getData(SYMBOLS, parameter).then((response) => {
+      getData(SYMBOLS, parameter,token).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataSymbolsList done.");
           // console.log(response.data.data);
