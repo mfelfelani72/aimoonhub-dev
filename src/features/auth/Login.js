@@ -49,7 +49,11 @@ function Login() {
             });
             sessionStorage.setItem("username", response.data.username);
             sessionStorage.setItem("email", response.data.email);
-            navigate("/");
+            navigate("/", {
+              state: {
+                status: "reload",
+              },
+            });
           }
         });
       } catch (error) {
@@ -59,7 +63,12 @@ function Login() {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("token")) navigate("/");
+    if (sessionStorage.getItem("token"))
+      navigate("/", {
+        state: {
+          status: "reload",
+        },
+      });
   });
 
   const { setUser } = useAppStore((state) => ({
