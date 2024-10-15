@@ -9,7 +9,7 @@ const Page404 = () => {
 
   return (
 
-    <main className="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8 bg-slate-50 dark:bg-DB-dim">
+    <main className="h-screen grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8 bg-slate-50 dark:bg-DB-dim">
       <div className="text-center">
         <p className="text-[5rem] font-semibold text-color-theme dark:text-D-color-theme">404</p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-T-bright dark:text-DT-bright sm:text-5xl">{t('pnf')}</h1>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+
 import { useLocation } from "react-router-dom";
 
 import useAppStore from "../../stores/AppStore.js";
@@ -12,22 +12,8 @@ import useGeoLocation from "../../../../utils/lib/useGeoLocation.js";
 
 import "../../styles/app/app.css";
 
-import GuestRoutes from "../../routes/GuestRoutes";
-import RegisterRoutes from "../../routes/RegisterRoutes.js";
-import { Header } from "../../../features/core/Header";
-import { Footer } from "../../../features/core/Footer";
-import Page404 from "../../../features/core/components/Page404.jsx";
-import SplashScreen from "../../../features/core/SplashScreen.js";
-
 import { GUESTS_ROUTES, REGISTER_ROUTES } from "../../constant/Routes.js";
-
-// This will be our Task
-class Task {
-  constructor({ action }) {
-    // This will be a closure function that will be executed
-    this.action = action;
-  }
-}
+import Middleware from "./Middleware.jsx";
 
 const App = () => {
   // initial country
@@ -37,26 +23,16 @@ const App = () => {
   // initial country
 
   // { load Global States from zustand
-  const { splashScreen, setProgressBar, allowed } = useAppStore((state) => ({
+  const {setProgressBar, allowed } = useAppStore((state) => ({
     progressBar: state.progressBar,
     setProgressBar: state.setProgressBar,
-    splashScreen: state.splashScreen,
     setUserLocation: state.setUserLocation,
     userLocation: state.userLocation,
     allowed: state.allowed,
   }));
   // load Global States from zustand }
 
-  // { task for splashScreen
-  const tasks = [
-    new Task({
-      action: () => new Promise((resolve) => setTimeout(resolve, 2000)),
-    }),
-    new Task({
-      action: () => new Promise((resolve) => setTimeout(resolve, 3000)),
-    }),
-  ];
-  // task for splashScreen }
+
 
   useEffect(() => {
     // { initial language
@@ -89,98 +65,31 @@ const App = () => {
     // initial theme mode }
   }, []);
 
-  // { define public or private routes (guest or admin)
+ 
+  // { Middleware
 
   const location = useLocation();
   const { pathname } = location;
 
-  // const AdminRoutes = ["/dashboard"];
-
-  // define public or private routes }
-
-  // { guest routes
-
   if (GUESTS_ROUTES.includes(pathname) && !allowed) {
     return (
-      <div className="font-main">
-        {
-          splashScreen ? (
-            // { first splashScreen app
-
-            <div className="h-screen w-screen flex items-center justify-center px-16 bg-B-V-bright dark:bg-DB-bright ">
-              <SplashScreen tasks={tasks} />
-            </div>
-          ) : (
-            // first splashScreen app }
-            // { load app for guest users
-
-            <>
-              <div className="md:container md:mx-auto md:w-[30rem] bg-gray-100 mt-12 pt-1 pb-1">
-                <Header />
-                <GuestRoutes />
-                <Footer />
-              </div>
-            </>
-          )
-
-          // load app for guest users }
-        }
-      </div>
+     <Middleware level={"guest"}/>
     );
   }
 
-  // guest routes }
-
-  // { Register Routes
+  
   else if (REGISTER_ROUTES.includes(pathname) && allowed) {
     return (
-      <div className="font-main">
-        {
-          splashScreen ? (
-            // { first splashScreen app
-
-            <div className="h-screen w-screen flex items-center justify-center px-16 bg-B-V-bright dark:bg-DB-bright ">
-              <SplashScreen tasks={tasks} />
-            </div>
-          ) : (
-            // first splashScreen app }
-            // { load app for guest users
-
-            <>
-              <div className="md:container md:mx-auto md:w-[30rem] bg-gray-100 mt-12 pt-1 pb-1">
-                <Header />
-                <RegisterRoutes />
-                <Footer />
-              </div>
-            </>
-          )
-
-          // load app for guest users }
-        }
-      </div>
+      <Middleware level={"register"} />
     );
   }
-  //  Register Routes }
-
-  // { admin routes
-
-  // else if (adminRoutes.includes(pathname)) {
-
-  //     return (
-  //         <AdminRoutes />
-  //     );
-  // }
-
-  // admin routes }
-
-  // { page 404
+  
   else
     return (
-      <Routes>
-        <Route path="*" element={<Page404 />}></Route>
-      </Routes>
+      <Middleware level={"404"} />
     );
-  // page 404 }
+ 
+  //  Middleware }
 };
 
 export default App;
