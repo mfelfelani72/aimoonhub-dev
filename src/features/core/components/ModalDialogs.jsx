@@ -12,6 +12,7 @@ import Button from "./Button.jsx";
 function ModalDialogs({ showModal, setShowModal, title, text, type }) {
   // const [open, setOpen] = useState(true);
   return (
+  
     <Dialog
       open={showModal}
       onClose={setShowModal}

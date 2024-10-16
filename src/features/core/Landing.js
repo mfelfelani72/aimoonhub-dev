@@ -10,11 +10,11 @@ import {Footer} from "../core/Footer"
 function Landing() {
   return (
     <>
-      <LatestAimoonNew />
-      <LatestNews />
+      {/* <LatestAimoonNew /> */}
+      {/* <LatestNews /> */}
       <SymbolAnalysis  />
-      <AuthorAnalysis />
-      <ProviderAnalysis />
+      {/* <AuthorAnalysis /> */}
+      {/* <ProviderAnalysis /> */}
       
     </>
   );

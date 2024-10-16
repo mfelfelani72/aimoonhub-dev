@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import useAppStore from "../../../app/stores/AppStore.js"
+import useAppStore from "../../../app/stores/AppStore.js";
 
 import { FaLock } from "react-icons/fa";
 
@@ -17,9 +17,23 @@ import Button from "../../core/components/Button.jsx";
 import { goToSymbolDashboard } from "../../../../utils/lib/symbol/goToSymbolDashboard.js";
 import ModalDialogs from "../../core/components/ModalDialogs.jsx";
 
-function handleClick(event, status, setShowModal, props) {
-  if (status === "lock") setShowModal(true);
-  else {
+function handleClickDashboard(
+  event,
+  status,
+  setModalDashboard,
+  props
+) {
+  if (status === "lock") {
+    setModalDashboard(true);
+  } else {
+    goToSymbolDashboard(props?.navigate, event, row?.name, props?.nav);
+  }
+}
+
+function handleClick(event, status, setModalCoin, props) {
+  if (status === "lock") {
+    setModalCoin(true);
+  } else {
     event.preventDefault();
     props?.navigate("/symbols-list", {
       state: { nav: props?.nav },
@@ -27,12 +41,12 @@ function handleClick(event, status, setShowModal, props) {
   }
 }
 
-function CoinModal({ showModal, setShowModal }) {
+function CoinModal({ modalCoin, setModalCoin }) {
   return (
     <>
       <ModalDialogs
-        showModal={showModal}
-        setShowModal={setShowModal}
+        showModal={modalCoin}
+        setShowModal={setModalCoin}
         title={"هشدار"}
         text={"برای مشاهده‌ی این بخش باید لاگین شوید"}
         type="info"
@@ -40,14 +54,30 @@ function CoinModal({ showModal, setShowModal }) {
     </>
   );
 }
+function CoinDashboardModal({ modalDashboard, setModalDashboard }) {
+  return (
+    <>
+      <ModalDialogs
+        showModal={modalDashboard}
+        setShowModal={setModalDashboard}
+        title={"yyyyyyyyyyyyyyyyyyyyyyyهشدار"}
+        text={"برای مشاهده‌ی این بخش باید لاگین شوید"}
+        type="info-login"
+      />
+    </>
+  );
+}
 
 function CoinSlider(props) {
-
   const { allowed } = useAppStore((state) => ({
     allowed: state.allowed,
-
   }));
-  const [showModal, setShowModal] = useState(false);
+  
+  const [modalCoin, setModalCoin] = useState(false);
+  const [modalDashboard, setModalDashboard] = useState(false);
+
+  // console.log(modalCoin)
+  // console.log(setModalCoin)
 
   const location = useLocation();
   let state = location.state;
@@ -63,8 +93,11 @@ function CoinSlider(props) {
 
   return (
     <>
-      {showModal && (
-        <CoinModal showModal={showModal} setShowModal={setShowModal} />
+      {modalDashboard && (
+        <CoinDashboardModal modalDashboard={modalDashboard} setModalDashboard={setModalDashboard} />
+      )}
+      {modalCoin && (
+        <CoinModal modalCoin={modalCoin} setModalCoin={setModalCoin} />
       )}
 
       <div className="flex flex-row">
@@ -98,12 +131,7 @@ function CoinSlider(props) {
                   <a
                     className="cursor-pointer hover:text-color-theme"
                     onClick={(event) =>
-                      goToSymbolDashboard(
-                        props?.navigate,
-                        event,
-                        row?.name,
-                        props?.nav
-                      )
+                      handleClickDashboard(event, status, setModalDashboard, props)
                     }
                   >
                     {row?.name}
@@ -118,7 +146,7 @@ function CoinSlider(props) {
         <Button
           className={"text-[0.8rem] px-3 " + btnClass}
           onClick={(event) => {
-            handleClick(event, status, setShowModal, props);
+            handleClick(event, status, setModalCoin, props);
           }}
         >
           <span className="pt-1">Coins List </span>{" "}

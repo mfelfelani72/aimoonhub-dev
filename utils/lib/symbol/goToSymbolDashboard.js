@@ -10,8 +10,11 @@ export function goToSymbolDashboard(navigate, event, name, nav) {
     name: name,
   };
 
+  let token = "";
+  if (sessionStorage.getItem("token")) token = sessionStorage.getItem("token");
+
   try {
-    getData(SYMBOL_INFO, parameter).then((response) => {
+    getData(SYMBOL_INFO, parameter, token).then((response) => {
       if (response.data.data) {
         console.log("Fetch dataAuthor done.");
         // console.log(response.data.data[0]);
