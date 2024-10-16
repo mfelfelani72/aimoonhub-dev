@@ -1,9 +1,8 @@
-export function setUserApp(path, data, setUser, setAllowed, navigate) {
+export function setUserApp(data, setUser, setAllowed, navigate) {
  
-  if (path === "login") 
+
     sessionStorage.setItem("token", data.user_token);
-  else
-   sessionStorage.setItem("token", data.token);
+
 
   setUser({
     username: data.username,

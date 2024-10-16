@@ -82,8 +82,7 @@ function Register() {
                   // console.log(res);
 
                   setUserApp(
-                    "register",
-                    res.data,
+                   res.data,
                     setUser,
                     setAllowed,
                     navigate
@@ -96,7 +95,7 @@ function Register() {
 
             //  for get token and login }
           } else {
-            setRegisterError(response.data.message);
+            setRegisterError(response.data.error);
           }
         });
       } catch (error) {

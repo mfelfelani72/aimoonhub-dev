@@ -15,7 +15,12 @@ function SymbolsList() {
     { title: "end" },
   ];
   const [symbolsList, setSymbolsList] = useState([]);
+  const [symbolsListTemp, setSymbolsListTemp] = useState([]);
   const [priority, setPriority] = useState(0);
+
+  const searchSymbols = (value) => {
+    setSymbolsList(symbolsListTemp.filter(item => item.name.replace("-USDT","").toLowerCase().includes(value.toLowerCase())));
+  };
 
   const getSymbolsList = async () => {
     const parameter = {
@@ -32,6 +37,7 @@ function SymbolsList() {
           console.log("Fetch dataSymbolsList done.");
           // console.log(response.data.data);
           setSymbolsList(response.data.data);
+          setSymbolsListTemp(response.data.data);
         }
       });
     } catch (error) {
@@ -58,6 +64,32 @@ function SymbolsList() {
       </div>
 
       {/* header */}
+
+      <div className="flex p-2 mt-2 mx-2">
+        <div className="basis-2/5">
+          <Button className={"bg-color-theme hover:bg-color-theme"}>
+            {" "}
+            معرفی سرویس{" "}
+          </Button>
+        </div>
+        <div className="basis-3/5">
+          <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
+            <input
+              id="search"
+              name="search"
+              type="text"
+              onChange={(e) => searchSymbols(e.target.value)}
+              className="w-full border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+            />
+            <span className="flex select-none items-center pr-3 text-gray-500 sm:text-sm">
+              search
+            </span>
+
+            {/* </div> */}
+          </div>
+        </div>
+      </div>
+
       <div className="container p-2 mx-auto">
         <div className="grid grid-cols-3 gap-2 ">
           {/* card */}

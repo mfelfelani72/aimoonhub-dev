@@ -60,7 +60,7 @@ function Login() {
           if (response.data.return == true) {
             // console.log(response.data);
 
-            setUserApp("login", response.data, setUser, setAllowed, navigate);
+            setUserApp(response.data, setUser, setAllowed, navigate);
           } else {
             setLoginError(response.data.error);
           }
