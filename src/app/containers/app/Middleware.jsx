@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import useAppStore from "../../stores/AppStore.js";
 import SplashScreen from "../../../features/core/SplashScreen.js";
@@ -23,7 +23,21 @@ function setRoutes(level) {
   else if (level === "404") return <Page404 />;
 }
 
-function Middleware({ level }) {
+function decideForShowFooter(pathname) {
+  console.log(pathname);
+
+  const without_footer = ["/login", "/register"];
+
+  if (!without_footer.includes(pathname)) {
+    return <Footer />;
+  }
+}
+
+function Middleware({ level, pathname }) {
+  let classNameString =
+    "md:container md:mx-auto md:w-[30rem] bg-gray-100 mt-12 pt-1";
+  if (pathname === "/login" || pathname === "/register")
+    classNameString = "md:container md:mx-auto md:w-[30rem] bg-gray-100";
   // { task for splashScreen
   const tasks = [
     new Task({
@@ -46,10 +60,10 @@ function Middleware({ level }) {
         </div>
       ) : (
         <>
-          <div className="md:container md:mx-auto md:w-[30rem] bg-gray-100 mt-12 pt-1 pb-1">
+          <div className={classNameString}>
             <Header />
             {setRoutes(level)}
-            <Footer />
+            {decideForShowFooter(pathname)}
           </div>
         </>
       )}

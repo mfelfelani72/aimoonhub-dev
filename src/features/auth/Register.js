@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import useAppStore from "../../app/stores/AppStore"
+import useAppStore from "../../app/stores/AppStore";
 
 import logo from "/assets/images/logo.png";
 import Button from "../core/components/Button.jsx";
 import ToolTip from "../core/components/ToolTip.jsx";
 
 import axios from "./utils/services/api";
-function Login() {
-
+function Register() {
   const { setAllowed } = useAppStore((state) => ({
     setAllowed: state.setAllowed,
   }));
@@ -17,12 +16,16 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
 
   const [emailError, setEmailError] = useState();
   const [statusEmailError, setStatusEmailError] = useState("hidden");
 
   const [passwordError, setPasswordError] = useState();
   const [statusPasswordError, setStatusPasswordError] = useState("hidden");
+
+  const [rePasswordError, setRePasswordError] = useState();
+  const [statusRePasswordError, setStatusRePasswordError] = useState("hidden");
 
   const [loginError, setLoginError] = useState("");
 
@@ -31,7 +34,7 @@ function Login() {
     return regex.test(email);
   }
 
-  const serviceLogin = () => {
+  const serviceRegister = () => {
     if (email == "") {
       setEmailError("ایمیل ضروری می باشد");
       setStatusEmailError("");
@@ -44,28 +47,39 @@ function Login() {
       setStatusPasswordError("");
     }
 
-    if (email !== "" && isValidEmail(email) && password !== "") {
+    if (rePassword == "") {
+      setRePasswordError("تکرار رمز عبور ضروری می باشد");
+      setStatusRePasswordError("");
+    }
+
+    if(password !== rePassword && rePassword !==""){
+      setRePasswordError("رمز عبور های وارد شده یکسان نمی باشند");
+      setStatusRePasswordError("");
+    }
+
+    if (email !== "" && isValidEmail(email) && password !== "" && password === rePassword) {
       const parameter = {
         email: email,
         password: password,
-        // email: "test@gmail.com",
-        // password: "test@1",
       };
 
       try {
-        axios.post(`User/ServiceLogin/`, parameter).then((response) => {
+        axios.post(`User/ServiceRegister/`, parameter).then((response) => {
           // console.log(response);
           if (response.data.return == true) {
+            console.log(response.data.user.email)
+
+          
             // console.log(response.data);
-            sessionStorage.setItem("token", response.data.user_token);
-            setUser({
-              username: response.data.username,
-              email: response.data.email,
-            });
-            sessionStorage.setItem("username", response.data.username);
-            sessionStorage.setItem("email", response.data.email);
-            setAllowed(true);
-            navigate("/");
+            // sessionStorage.setItem("token", response.data.user_token);
+            // setUser({
+            //   username: response.data.username,
+            //   email: response.data.email,
+            // });
+            // sessionStorage.setItem("username", response.data.username);
+            // sessionStorage.setItem("email", response.data.email);
+            // setAllowed(true);
+            // navigate("/");
           } else {
             setLoginError(response.data.error);
           }
@@ -90,7 +104,7 @@ function Login() {
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img className="mx-auto h-16 w-auto" src={logo} alt="aimoon" />
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
+              Sign up your account
             </h2>
           </div>
 
@@ -163,13 +177,43 @@ function Login() {
               </div>
 
               <div>
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Confirm Password
+                  </label>
+                
+                </div>
+                <div className="mt-2">
+                  <ToolTip
+                    text={rePasswordError}
+                    className={
+                      "rounded shadow-lg p-2 border-2 bg-gray-100 text-rose-600 -mt-10 text-[0.8rem] " +
+                      statusRePasswordError
+                    }
+                  >
+                    <input
+                      onChange={(ev) => setRePassword(ev.target.value)}
+                      onFocus={() => {
+                        setStatusRePasswordError("hidden");
+                      }}
+                      type="password"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-color-theme sm:text-sm sm:leading-6"
+                    />
+                  </ToolTip>
+                </div>
+              </div>
+
+              <div>
                 <Button
                   onClick={() => {
-                    serviceLogin();
+                    serviceRegister();
                   }}
                   className="flex w-full justify-center rounded-md bg-color-theme px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-color-theme focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-color-theme"
                 >
-                  Sign in
+                  Sign Up
                 </Button>
               </div>
             </form>
@@ -190,4 +234,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

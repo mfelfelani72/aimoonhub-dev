@@ -73,14 +73,14 @@ const App = () => {
 
   if (GUESTS_ROUTES.includes(pathname) && !allowed) {
     return (
-     <Middleware level={"guest"}/>
+     <Middleware level={"guest"} pathname={pathname}/>
     );
   }
 
   
   else if (REGISTER_ROUTES.includes(pathname) && allowed) {
     return (
-      <Middleware level={"register"} />
+      <Middleware level={"register"} pathname={pathname} />
     );
   }
   
