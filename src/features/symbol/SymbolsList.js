@@ -73,7 +73,7 @@ function SymbolsList() {
           </Button>
         </div>
         <div className="basis-3/5">
-          <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
+          <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-color-theme">
             <input
               id="search"
               name="search"
