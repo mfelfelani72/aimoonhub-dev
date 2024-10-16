@@ -74,7 +74,6 @@ function SymbolsList() {
                 <div className="h-[6rem] cursor-pointer">
                   <div className="">
                     <img
-                      // className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme hover:motion-safe:animate-spin"
                       className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme transition duration-500 hover:rotate-360"
                       alt={row?.name}
                       src={
