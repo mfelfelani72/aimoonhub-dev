@@ -63,13 +63,13 @@ export function Header(...props) {
             {/* menu icon */}
 
             {/* header title */}
-            <h2 className="basis-1/3 text-DT-bright font-semibold text-xl">
+            <h2 className="basis-1/5 text-DT-bright font-semibold text-lg">
               {" "}
               AimoonHUB
             </h2>
             {/* header title */}
 
-            <div className="basis-2/3 flex flex-row-reverse  text-sm leading-6 font-semibold text-DT-bright ">
+            <div className="basis-4/5 flex flex-row-reverse  text-sm leading-6 font-semibold text-DT-bright ">
               {/* language */}
               {/* <div className="hover:text-color-theme dark:hover:text-D-color-theme mx-4 my-auto">
                                 <Languages />
@@ -97,8 +97,8 @@ export function Header(...props) {
                 {sessionStorage.getItem("token") ? (
                   <>
                     <div className="relative text-left cursor-pointer" onClick={()=>{statusMenu == "hidden" ? setStatusMenu("") : setStatusMenu("hidden")}}>
-                      <div className="flex w-full justify-center gap-x-1.5">
-                        welcome {user.username}
+                      <div className="flex w-full justify-center gap-x-1.5 text-[0.77rem] md:text-sm">
+                        Welcome {user.username}
                         <ChevronDownIcon
                           aria-hidden="true"
                           className="-mr-1 h-5 w-5 text-gray-400"

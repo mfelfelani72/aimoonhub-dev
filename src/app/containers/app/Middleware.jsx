@@ -24,7 +24,6 @@ function setRoutes(level) {
 }
 
 function decideForShowFooter(pathname) {
-  console.log(pathname);
 
   const without_footer = ["/login", "/register"];
 

@@ -8,6 +8,7 @@ import Button from "../core/components/Button.jsx";
 import ToolTip from "../core/components/ToolTip.jsx";
 
 import axios from "./utils/services/api";
+import { setUserApp } from "./utils/lib/setUserApp.js";
 function Register() {
   const { setAllowed } = useAppStore((state) => ({
     setAllowed: state.setAllowed,
@@ -27,7 +28,7 @@ function Register() {
   const [rePasswordError, setRePasswordError] = useState();
   const [statusRePasswordError, setStatusRePasswordError] = useState("hidden");
 
-  const [loginError, setLoginError] = useState("");
+  const [registerError, setRegisterError] = useState("");
 
   function isValidEmail(email) {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -52,12 +53,17 @@ function Register() {
       setStatusRePasswordError("");
     }
 
-    if(password !== rePassword && rePassword !==""){
+    if (password !== rePassword && rePassword !== "") {
       setRePasswordError("رمز عبور های وارد شده یکسان نمی باشند");
       setStatusRePasswordError("");
     }
 
-    if (email !== "" && isValidEmail(email) && password !== "" && password === rePassword) {
+    if (
+      email !== "" &&
+      isValidEmail(email) &&
+      password !== "" &&
+      password === rePassword
+    ) {
       const parameter = {
         email: email,
         password: password,
@@ -65,28 +71,60 @@ function Register() {
 
       try {
         axios.post(`User/ServiceRegister/`, parameter).then((response) => {
-          // console.log(response);
           if (response.data.return == true) {
-            console.log(response.data.user.email)
+            console.log(response);
+            // { for get token and login
 
-          
-            // console.log(response.data);
-            // sessionStorage.setItem("token", response.data.user_token);
-            // setUser({
-            //   username: response.data.username,
-            //   email: response.data.email,
-            // });
-            // sessionStorage.setItem("username", response.data.username);
-            // sessionStorage.setItem("email", response.data.email);
-            // setAllowed(true);
-            // navigate("/");
+            try {
+              axios.post(`User/GetUserToken/`, parameter).then((res) => {
+                if (res.data.return == true) {
+                  // console.log(res);
+
+                  setUserApp(res.data, setUser, setAllowed, navigate);
+                }
+              });
+            } catch (error) {
+              console.log(error);
+            }
+
+            //  for get token and login }
           } else {
-            setLoginError(response.data.error);
+            setRegisterError(response.data.message);
           }
         });
       } catch (error) {
         console.log(error);
       }
+
+      // try {
+      //   axios.post(`User/ServiceRegister/`, parameter).then((response) => {
+      //     // console.log(response);
+      //     if (response.data.return == true) {
+      //       console.log("dsf")
+
+      //       // { for get token and login
+
+      //       // try {
+      //       //   axios.post(`User/GetUserToken/`, parameter).then((res) => {
+      //       //     if (res.data.return == true) {
+      //       //       // console.log(res);
+
+      //       //       setUserApp(res.data, setUser, setAllowed, navigate);
+      //       //     }
+      //       //   });
+      //       // } catch (error) {
+      //       //   console.log(error);
+      //       // }
+
+      //       //  for get token and login }
+
+      //     } else {
+      //       registerError(response.data.error);
+      //     }
+      //   });
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
   };
 
@@ -99,7 +137,7 @@ function Register() {
       {!sessionStorage.getItem("token") && (
         <div className="h-screen flex flex-col justify-center px-6 lg:px-8">
           <div className="text-center text-rose-600 text-xl font-bold py-10">
-            <span>{loginError}</span>
+            <span>{registerError}</span>
           </div>
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img className="mx-auto h-16 w-auto" src={logo} alt="aimoon" />
@@ -184,7 +222,6 @@ function Register() {
                   >
                     Confirm Password
                   </label>
-                
                 </div>
                 <div className="mt-2">
                   <ToolTip

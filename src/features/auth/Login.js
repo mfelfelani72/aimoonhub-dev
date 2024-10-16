@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import useAppStore from "../../app/stores/AppStore"
+import useAppStore from "../../app/stores/AppStore";
 
 import logo from "/assets/images/logo.png";
 import Button from "../core/components/Button.jsx";
 import ToolTip from "../core/components/ToolTip.jsx";
 
 import axios from "./utils/services/api";
+import { setUserApp } from "./utils/lib/setUserApp.js";
 function Login() {
-
-  const { setAllowed } = useAppStore((state) => ({
+  const { setUser, setAllowed } = useAppStore((state) => ({
     setAllowed: state.setAllowed,
+    setUser: state.setUser,
   }));
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -57,15 +59,9 @@ function Login() {
           // console.log(response);
           if (response.data.return == true) {
             // console.log(response.data);
-            sessionStorage.setItem("token", response.data.user_token);
-            setUser({
-              username: response.data.username,
-              email: response.data.email,
-            });
-            sessionStorage.setItem("username", response.data.username);
-            sessionStorage.setItem("email", response.data.email);
-            setAllowed(true);
-            navigate("/");
+
+            setUserApp(response.data, setUser, setAllowed, navigate);
+           
           } else {
             setLoginError(response.data.error);
           }
@@ -75,10 +71,6 @@ function Login() {
       }
     }
   };
-
-  const { setUser } = useAppStore((state) => ({
-    setUser: state.setUser,
-  }));
 
   return (
     <>
