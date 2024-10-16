@@ -23,11 +23,11 @@ function SymbolsList() {
     };
     let token = "";
 
-    if(sessionStorage.getItem("token"))
+    if (sessionStorage.getItem("token"))
       token = sessionStorage.getItem("token");
 
     try {
-      getData(SYMBOLS, parameter,token).then((response) => {
+      getData(SYMBOLS, parameter, token).then((response) => {
         if (response.data.data) {
           console.log("Fetch dataSymbolsList done.");
           // console.log(response.data.data);
@@ -59,38 +59,41 @@ function SymbolsList() {
 
       {/* header */}
       <div className="container p-2 mx-auto">
-        <div className="grid grid-cols-1 gap-2 ">
+        <div className="grid grid-cols-3 gap-2 ">
           {/* card */}
           {symbolsList?.map((row, index) => (
-            <div key={index} className="border-2 rounded-xl p-2 pt-3">
-              <div className="h-[6rem]">
-                <div className="flex flex-row">
-                  <div className="basis-2/5">
-                    <div className="">
-                      <a href={row?.url} target="_blank">
-                        <img
-                          className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme"
-                          alt={row?.name}
-                          src={
-                            row?.local_image
-                              ? row?.local_image
-                              : row?.logo
-                              ? row?.logo
-                              : DEFAULT_COIN_IMAGE
-                          }
-                          onError={(e) => {
-                            e.target.src = DEFAULT_COIN_IMAGE;
-                          }}
-                        />
-                      </a>
-                    </div>
-                    <div className="text-[0.8rem] text-slate-800 pt-1 text-center">
-                      <a href={row?.url} target="_blank">
-                        {row?.name}
-                      </a>
-                    </div>
+            <div key={index} className=" rounded-xl p-2 pt-3">
+              <a
+                onClick={(event) => {
+                  event.preventDefault();
+                  navigate("/symbol-dashboard", {
+                    state: { symbol: row, nav: nav },
+                  });
+                }}
+              >
+                <div className="h-[6rem] cursor-pointer">
+                  <div className="">
+                    <img
+                      // className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme hover:motion-safe:animate-spin"
+                      className="h-[4rem] w-[4rem] rounded-full mx-auto border-2 border-color-theme transition duration-500 hover:rotate-360"
+                      alt={row?.name}
+                      src={
+                        row?.local_image
+                          ? row?.local_image
+                          : row?.logo
+                          ? row?.logo
+                          : DEFAULT_COIN_IMAGE
+                      }
+                      onError={(e) => {
+                        e.target.src = DEFAULT_COIN_IMAGE;
+                      }}
+                    />
                   </div>
-                  <div className="basis-3/5 text-center self-center">
+                  <div className="text-[0.8rem] text-slate-800 pt-1 text-center hover:text-color-theme">
+                    {row?.name.replace(row?.name.slice(-5), "")}
+                  </div>
+
+                  {/* <div className="basis-3/5 text-center self-center">
                     <div className="text-[0.8rem]">
                       <span className="font-bold"></span>
                     </div>
@@ -107,9 +110,9 @@ function SymbolsList() {
                         Dashboard
                       </Button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
-              </div>
+              </a>
             </div>
           ))}
 

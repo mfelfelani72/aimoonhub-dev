@@ -110,6 +110,9 @@ module.exports = {
       backgroundImage: {
         'navy-to-black': 'linear-gradient(to bottom, #032B44, #000000)',
       },
+      rotate: {
+        '360': '360deg',
+      }
 
     },
 
