@@ -70,6 +70,8 @@ function SymbolDashboard() {
   const [messageUpdateCoinAnalysis, setMessageUpdateCoinAnalysis] = useState();
   const [loading, setLoading] = useState();
 
+  let status = false;
+
   const getOfflineCoinAnalyze = async () => {
     const parameter = {
       symbol: symbol?.name,
@@ -124,9 +126,7 @@ function SymbolDashboard() {
 
   const updateCoinAnalysis = (task_id) => {
     let intervalId = setInterval(() => {
-      console.log("ds");
-      intervalId = loopToGetCoinAnalysis(task_id, intervalId);
-      console.log(intervalId)
+      loopToGetCoinAnalysis(task_id, intervalId);
     }, 5000);
 
     setTimeout(function () {
@@ -142,10 +142,10 @@ function SymbolDashboard() {
 
     try {
       // getData(COIN_LLM_RESPONSE, { task_id: "67064f24505340f037e1f65d" }).then(
-      getData(COIN_LLM_RESPONSE, { task_id: "67064f24505340f037e1f65d" }, token).then((res) => {
-        console.log(res);
+      getData(COIN_LLM_RESPONSE, { task_id: task_id }, token).then((res) => {
+        
         if (res.data.data) {
-          console.log(res.data.data[0].status);
+          // console.log(res.data.data[0].status);
 
           if (res.data.data[0].status == "completed") {
             console.log("update coin analysis : " + res.data.data[0].status);
@@ -159,29 +159,27 @@ function SymbolDashboard() {
             setStatusMessageUpdateCoinAnalysis(true);
             setMessageUpdateCoinAnalysis("Coin Analysis Updated.");
             clearInterval(intervalId);
+            status = true;
             document
               .getElementById("root")
               .scrollIntoView({ behavior: "smooth" });
-
-            return 0;
-            console.log("mohammad")
           }
         }
       });
     } catch (error) {
       console.log(error);
     }
-    return intervalId;
   };
 
   const stopLoopToGetCoinAnalysis = (intervalId) => {
-    console.log(intervalId);
-    if (intervalId !== 0) {
-      setLoading(false);
-      setVisibleUpdateCoinAnalysis("");
+  
+    setLoading(false);
+    clearInterval(intervalId);
+    setVisibleUpdateCoinAnalysis("");
+
+    if (status == false) {
       setStatusMessageUpdateCoinAnalysis(true);
       setMessageUpdateCoinAnalysis("fail to update analysis");
-      clearInterval(intervalId);
       document.getElementById("root").scrollIntoView({ behavior: "smooth" });
     }
   };
