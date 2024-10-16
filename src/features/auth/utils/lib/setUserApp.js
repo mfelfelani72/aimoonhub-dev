@@ -1,6 +1,11 @@
-export function setUserApp(data, setUser, setAllowed, navigate) {
+export function setUserApp(path, data, setUser, setAllowed, navigate) {
  
-  sessionStorage.setItem("token", data.user_token);
+  if (path === "login") 
+    sessionStorage.setItem("token", data.user_token);
+  else
+   sessionStorage.setItem("token", data.token);
+
+   
   setUser({
     username: data.username,
     email: data.email,
@@ -9,5 +14,4 @@ export function setUserApp(data, setUser, setAllowed, navigate) {
   sessionStorage.setItem("email", data.email);
   setAllowed(true);
   navigate("/");
-  
 }

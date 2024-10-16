@@ -10,8 +10,9 @@ import ToolTip from "../core/components/ToolTip.jsx";
 import axios from "./utils/services/api";
 import { setUserApp } from "./utils/lib/setUserApp.js";
 function Register() {
-  const { setAllowed } = useAppStore((state) => ({
+  const { setUser, setAllowed } = useAppStore((state) => ({
     setAllowed: state.setAllowed,
+    setUser: state.setUser,
   }));
   const navigate = useNavigate();
 
@@ -78,9 +79,15 @@ function Register() {
             try {
               axios.post(`User/GetUserToken/`, parameter).then((res) => {
                 if (res.data.return == true) {
-                  // console.log(res);
+                  console.log(res);
 
-                  setUserApp(res.data, setUser, setAllowed, navigate);
+                  setUserApp(
+                    "register",
+                    res.data,
+                    setUser,
+                    setAllowed,
+                    navigate
+                  );
                 }
               });
             } catch (error) {
@@ -95,42 +102,8 @@ function Register() {
       } catch (error) {
         console.log(error);
       }
-
-      // try {
-      //   axios.post(`User/ServiceRegister/`, parameter).then((response) => {
-      //     // console.log(response);
-      //     if (response.data.return == true) {
-      //       console.log("dsf")
-
-      //       // { for get token and login
-
-      //       // try {
-      //       //   axios.post(`User/GetUserToken/`, parameter).then((res) => {
-      //       //     if (res.data.return == true) {
-      //       //       // console.log(res);
-
-      //       //       setUserApp(res.data, setUser, setAllowed, navigate);
-      //       //     }
-      //       //   });
-      //       // } catch (error) {
-      //       //   console.log(error);
-      //       // }
-
-      //       //  for get token and login }
-
-      //     } else {
-      //       registerError(response.data.error);
-      //     }
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
     }
   };
-
-  const { setUser } = useAppStore((state) => ({
-    setUser: state.setUser,
-  }));
 
   return (
     <>
