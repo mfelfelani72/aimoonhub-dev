@@ -21,6 +21,7 @@ function handleClickDashboard(
   event,
   status,
   setModalDashboard,
+  row,
   props
 ) {
   if (status === "lock") {
@@ -60,7 +61,7 @@ function CoinDashboardModal({ modalDashboard, setModalDashboard }) {
       <ModalDialogs
         showModal={modalDashboard}
         setShowModal={setModalDashboard}
-        title={"yyyyyyyyyyyyyyyyyyyyyyyهشدار"}
+        title={"هشدار"}
         text={"برای مشاهده‌ی این بخش باید لاگین شوید"}
         type="info-login"
       />
@@ -75,9 +76,6 @@ function CoinSlider(props) {
   
   const [modalCoin, setModalCoin] = useState(false);
   const [modalDashboard, setModalDashboard] = useState(false);
-
-  // console.log(modalCoin)
-  // console.log(setModalCoin)
 
   const location = useLocation();
   let state = location.state;
@@ -131,7 +129,7 @@ function CoinSlider(props) {
                   <a
                     className="cursor-pointer hover:text-color-theme"
                     onClick={(event) =>
-                      handleClickDashboard(event, status, setModalDashboard, props)
+                      handleClickDashboard(event, status, setModalDashboard, row, props)
                     }
                   >
                     {row?.name}
