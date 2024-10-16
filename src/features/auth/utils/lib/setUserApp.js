@@ -5,7 +5,6 @@ export function setUserApp(path, data, setUser, setAllowed, navigate) {
   else
    sessionStorage.setItem("token", data.token);
 
-   
   setUser({
     username: data.username,
     email: data.email,

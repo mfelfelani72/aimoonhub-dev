@@ -79,7 +79,7 @@ function Register() {
             try {
               axios.post(`User/GetUserToken/`, parameter).then((res) => {
                 if (res.data.return == true) {
-                  console.log(res);
+                  // console.log(res);
 
                   setUserApp(
                     "register",
